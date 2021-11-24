@@ -1,0 +1,110 @@
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	font-size: 14pt;
+}
+
+body {
+	background: #dedede;
+	font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+main {
+	max-width: 75%;
+	margin: auto;
+}
+
+header {
+	border-bottom: 2px solid #afafaf;
+}
+
+title {
+	font-size: 2.5rem;
+} 
+
+h1{
+	color:darkgreen;
+}
+
+h2{
+	color:red;
+	font-size: 1rem;
+}
+
+h1 {
+	font-size: 2rem;
+}
+
+label {
+	font-weight: bold;
+}
+
+.new-post-form {
+	max-width: 300px;
+}
+
+.new-post-form .full-width-input {
+	display: block;
+	min-height: 4rem;
+	margin: 10px 0;
+	width: 40rem;
+}
+ 
+.form-center {
+	display:inline-block;
+	align-self: start;
+}
+
+.form-group {
+    display: inline-block
+}
+
+.not-palindrome {
+	color: #FF0000;
+}
+
+.is-palindrome {
+	color: #0000FF;
+}
+
+.button-format {
+	border: none;
+	border-radius: 3em;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	display: inline-block;
+	font-size: 1em;
+	padding: 1em 2em;
+	width: auto;
+  }
+
+.cta-button {
+	background-color: #000;
+	color: #fff !important;
+  }
+
+.error {
+    color: red;
+	font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.li-text {
+	font-size: 1.5rem;
+}
+
+.footer-design {
+	color: #fff !important;
+	bottom : 2px;  
+    height : 70px;  
+    margin-top : 40px;  
+    text-align:end; 
+    position:fixed;
+    width:80%;
+}
+
+.label-text {
+	font-size:x-large;
+}
