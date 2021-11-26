@@ -1,12 +1,13 @@
 {
-  "name": "cs-546-lab-10",
+  "name": "cs546ws_group6_finalproject",
   "version": "1.0.0",
-  "description": "My lab 10 module",
+  "description": "cs546ws_group6_finalproject",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "seed": "node ./tasks/seed.js"
   },
-  "author": "Priyanka Chaurasia 10478921",
+  "author": "Priyanka Chaurasia, Anjali Paliwal, Sanjay Athrey",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -16,6 +17,6 @@
     "express-handlebars": "^5.3.5",
     "express-session": "^1.17.2",
     "handlebars": "^4.7.7",
-    "mongodb": "^4.1.4"
+    "mongodb": "^3.6.2"
   }
 }

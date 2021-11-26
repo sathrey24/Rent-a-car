@@ -23,7 +23,7 @@ app.use(
 );
 
 app.use(async (req, res, next) => {
-  let auth = req.session.username ? "(Authenticated User)" : "(Non-Authenticated User)"
+  let auth = req.session.user ? "(Authenticated User)" : "(Non-Authenticated User)"
   console.log(new Date().toUTCString() + ": " + req.method + " " + " " + req.originalUrl + " " + auth);
   next();
 });

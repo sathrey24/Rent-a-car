@@ -14,14 +14,18 @@ router.get('/register', (req, res) => {
   res.render('user/register');
 });
 
+router.get('/userDashboard', (req, res) => {
+  res.render('user/userDashboard');
+});
+
 router.post('/login', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   try {
     const result = await data.checkUser(username,password);
     if(result.authenticated){
-      req.session.username = username;
-      res.render('user/userDashboard', { user: req.session.username });
+      req.session.user = username;
+      res.redirect('/userDashboard')
     }
   } catch (e) {
     res.status(400).render('user/login', {
@@ -44,8 +48,8 @@ router.post('/register', async (req, res) => {
   try {
     const result = await data.createUser(firstName,lastName,address,email,phoneNum,licenseNum,username, password);
     if(result.userInserted){
-      req.session.username = username;
-      res.render('user/login', { user: req.session.username });
+      req.session.user = username;
+      res.redirect('/login');
     }
   } catch (e) {
     res.status(400).render('user/register', {
