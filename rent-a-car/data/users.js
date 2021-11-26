@@ -9,7 +9,7 @@ module.exports = {
         throw 'All fields need to have valid values';
         const usersCollection = await users();
         const res = await usersCollection.findOne({ username: username.toLowerCase() });
-        if (res != null) throw "User with this username already exist";
+        if (res != null) throw "User with this username already exists";
         const hashPasswd = await bcrypt.hash(password, saltRounds);
         let newUser = {
             firstName:firstName,
