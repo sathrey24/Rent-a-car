@@ -3,43 +3,43 @@
         </header>
         <form action="/register" method="post" id="register-form">
             <div >
-                <label>First Name : 
-                    <input type="text" name="firstName" id="firstName"/>
+                <label for="firstName">First Name : 
+                    <input type="text" value = "{{firstName}}" name="firstName" id="firstName"/>
                 </label>
             </div>
             <div >
-                <label>Last Name : 
-                    <input type="text" name="lastName" id="lastName"/>
+                <label for="lastName">Last Name : 
+                    <input type="text" value = "{{lastName}}" name="lastName" id="lastName"/>
                 </label>
             </div>
             <div >
-                <label>Address : 
-                    <input type="text" name="address" id="address"/>
+                <label for="address">Address : 
+                    <input type="text"  value = "{{address}}" name="address" id="address"/>
                 </label>
             </div>
             <div >
-                <label>Email : 
-                    <input type="email" name="email" id="email"/>
+                <label for="email">Email : 
+                    <input type="email"  value = "{{email}}" name="email" id="email"/>
                 </label>
             </div>
             <div >
-                <label>Phone Number : 
-                    <input type="text" name="phoneNum" id="phoneNum"/>
+                <label for="phoneNum">Phone Number : 
+                    <input type="text"  value = "{{phoneNum}}" name="phoneNum" id="phoneNum"/>
                 </label>
             </div>
             <div >
-                <label>License Number : 
-                    <input type="text" name="licenseNum" id="licenseNum"/>
+                <label for="licenseNum">License Number : 
+                    <input type="text"  value = "{{licenseNum}}" name="licenseNum" id="licenseNum"/>
                 </label>
             </div>
             <div >
-                <label>Username : 
-                    <input type="text" name="username" id="username"/>
+                <label for="username">Username : 
+                    <input type="text"  value = "{{username}}" name="username" id="username"/>
                 </label>
             </div>
             <div >
-                <label>Password : 
-                    <input type="password" name="password" id="password"/>
+                <label for="password">Password : 
+                    <input type="password"  value = "{{password}}" name="password" id="password"/>
                 </label>
             </div>
 
@@ -47,13 +47,13 @@
                 <input type="submit" value="Register" />
             </div>
         </form>
-
-        {{!-- <div>
+{{!-- 
+        <div>
         <footer class="footer-design">
            <a href="/login">Already have an account? Click here to log-in</a>
         </footer>
-        </div>
+        </div> --}}
 
         {{#if hasErrors}}
-        <h2>{{error}}</h2>
-        {{/if}} --}}
+        <h2>{{{error}}}</h2>
+        {{/if}}

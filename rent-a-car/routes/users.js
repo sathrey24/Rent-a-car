@@ -19,6 +19,22 @@ router.get('/userDashboard', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    res.status(400).render('user/login', {hasErrors: true, error:"<p>Username and password cannot be empty.</p>"})
+    return;
+  }
+  if (!req.body.username.trim() || !req.body.password.trim()){
+    res.status(400).render('user/login', {hasErrors: true, error:"<p>Username and password cannot be empty.</p>"})
+    return;
+  }
+  if (req.body.username.indexOf(' ') >= 0){
+    res.status(400).render('user/login', {hasErrors: true, error:"<p>Username cannot contain spaces.</p>"})
+    return;
+  }
+  if (req.body.password.indexOf(' ') >= 0){
+    res.status(400).render('user/login', {hasErrors: true, error:"<p>Password cannot contain spaces.</p>"})
+    return;
+  }
   let username = req.body.username;
   let password = req.body.password;
   try {
@@ -46,15 +62,45 @@ router.post('/register', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   try {
-    const result = await data.createUser(firstName,lastName,address,email,phoneNum,licenseNum,username, password);
-    if(result.userInserted){
-      req.session.user = username;
-      res.redirect('/login');
+    if (!firstName || !lastName || !address || !email || !phoneNum || !licenseNum || !username || !password) {
+      throw "All fields have to be non-empty"
     }
-  } catch (e) {
-    res.status(400).render('user/register', {
+    if (!username.trim() || !password.trim()){
+      throw "Username and password cannot be empty"
+    }
+    if (username.indexOf(' ') >= 0){
+      throw "username cannot contain spaces"
+    }
+    if (password.indexOf(' ') >= 0){
+      throw "password cannot contain spaces"
+    }
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+      throw "Email must be valid"
+    }
+    let phoneRegex = /^\d{3}-\d{3}-\d{4}$/
+    if (!phoneRegex.test(phoneNum)){ 
+      throw "phone number must be of format XXX-XXX-XXXX"
+    }
+    if (!/^[A-Za-z]{1}[0-9]{14}$/.test(licenseNum)){
+      throw "license must be valid NJ license number"
+    }
+    const result = await data.createUser(firstName,lastName,address,email,phoneNum,licenseNum,username, password);
+      if(result.userInserted){
+        res.redirect('/login');
+      } 
+  }
+   catch (e) {
+    res.status(403).render('user/register', {
       error: "Error : " + e,
-      hasErrors : true
+      hasErrors : true,
+      firstName: firstName,
+      lastName: lastName,
+      address: address, 
+      email: email,
+      phoneNum: phoneNum,
+      licenseNum: licenseNum,
+      username: username,
+      password: password
     });
     return;
   }

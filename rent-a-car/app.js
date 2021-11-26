@@ -28,14 +28,13 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// app.use('/private', (req, res, next) => {
-//   console.log(req.session.id);
-//   if (!req.session.username && req.method === 'GET') {
-//     return res.status(403).render('user/error');
-//   } else {
-//     next();
-//   }
-// });
+app.use('/userDashboard', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "<p>You must be logged in to view your dashboard </p>"})
+  } else {
+    next();
+  }
+});
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
