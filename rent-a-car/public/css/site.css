@@ -1,110 +1,53 @@
-* {
-	box-sizing: border-box;
+:root{
+	--primary: #86C232;
+	--secondary: #222629;
+	--altprimary: #61892F;
+	--altsecondary: #474B4F;
+	--extra: #6B6E70;
+}
+html, body, p, h1, h2, h3{
+	padding: 0px;
+	border: 0px;
+	margin: 0px
 }
 
-html,
-body {
-	font-size: 14pt;
+.wrapper{
+	padding: 0px;
+	border: 0px;
+	margin: 0px;
+	width: 100%;
+	background: var(--secondary);
 }
 
-body {
-	background: #dedede;
-	font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+.header{
+	margin: 0px 40px;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--primary);
+	border-bottom: 2px solid var(--extra);
 }
 
-main {
-	max-width: 75%;
-	margin: auto;
-}
-
-header {
-	border-bottom: 2px solid #afafaf;
-}
-
-title {
-	font-size: 2.5rem;
-} 
-
-h1{
-	color:darkgreen;
-}
-
-h2{
-	color:red;
-	font-size: 1rem;
-}
-
-h1 {
-	font-size: 2rem;
-}
-
-label {
-	font-weight: bold;
-}
-
-.new-post-form {
-	max-width: 300px;
-}
-
-.new-post-form .full-width-input {
-	display: block;
-	min-height: 4rem;
-	margin: 10px 0;
-	width: 40rem;
-}
- 
-.form-center {
-	display:inline-block;
-	align-self: start;
-}
-
-.form-group {
-    display: inline-block
-}
-
-.not-palindrome {
-	color: #FF0000;
-}
-
-.is-palindrome {
-	color: #0000FF;
-}
-
-.button-format {
+.btn{
+	border-radius: 50px;
+	padding: 10px;
 	border: none;
-	border-radius: 3em;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-	display: inline-block;
-	font-size: 1em;
-	padding: 1em 2em;
-	width: auto;
-  }
-
-.cta-button {
-	background-color: #000;
-	color: #fff !important;
-  }
-
-.error {
-    color: red;
-	font-size: 1rem;
-    margin-bottom: 20px;
+	width: 170px;
 }
 
-.li-text {
-	font-size: 1.5rem;
+.btn:hover{
+	cursor: pointer;
+	box-shadow: 2px 2px var(--extra);
 }
 
-.footer-design {
-	color: #fff !important;
-	bottom : 2px;  
-    height : 70px;  
-    margin-top : 40px;  
-    text-align:end; 
-    position:fixed;
-    width:80%;
+.btn-light-outline{
+	border: 0.5px solid var(--extra);
+	background: white;
 }
 
-.label-text {
-	font-size:x-large;
+.btn-dark{
+	background: var(--primary);
+	border: 0.5px solid var(--extra);
+	color: white;
 }
