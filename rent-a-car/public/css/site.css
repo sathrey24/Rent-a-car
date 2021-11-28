@@ -1,9 +1,9 @@
 :root{
-	--primary: #86C232;
-	--secondary: #222629;
-	--altprimary: #61892F;
-	--altsecondary: #474B4F;
-	--extra: #6B6E70;
+	--primary: #4484CE;
+	--secondary: #F19F4D;
+	--altprimary: #F9CF00;
+	--altsecondary: #D9D9D9;
+	--extra: #222629;
 }
 html, body, p, h1, h2, h3{
 	padding: 0px;
@@ -16,7 +16,6 @@ html, body, p, h1, h2, h3{
 	border: 0px;
 	margin: 0px;
 	width: 100%;
-	background: var(--secondary);
 }
 
 .header{
@@ -26,28 +25,97 @@ html, body, p, h1, h2, h3{
 	justify-content: space-between;
 	align-items: center;
 	color: var(--primary);
-	border-bottom: 2px solid var(--extra);
+	border-bottom: 0.2px solid dimgray;
 }
 
 .btn{
-	border-radius: 50px;
 	padding: 10px;
 	border: none;
 	width: 170px;
+	border: 0.2px solid dimgray;
 }
 
 .btn:hover{
 	cursor: pointer;
-	box-shadow: 2px 2px var(--extra);
+	color:  black;
+	background-color: var(--altsecondary);
 }
 
 .btn-light-outline{
-	border: 0.5px solid var(--extra);
 	background: white;
 }
 
 .btn-dark{
 	background: var(--primary);
-	border: 0.5px solid var(--extra);
 	color: white;
+}
+
+.txt{
+	border: 0.2px solid dimgray;
+	width: 350px;
+	height: 30px;
+	margin: 0px 0px 10px 0px;
+	font-size: 20px;
+}
+
+#login-form h1{
+	margin: 20px 0px;
+}
+
+.hero{
+	margin: 0px 40px;
+	background-color: var(--extra);
+	color: #fff;
+	text-align: center;
+	height: 500px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.about{
+	margin: 0px 40px;
+	background-color: var(--secondary);
+	color: #fff;
+	text-align: center;
+	height: 500px;
+}
+
+.services{
+	margin: 0px 40px;
+	background-color: var(--altsecondary);
+	color: #fff;
+	text-align: center;
+	height: 500px;
+}
+
+.footer{
+	margin: 0px 40px;
+	background-color: var(--extra);
+	color: #fff;
+	text-align: center;
+	height: 150px;
+}
+
+.left-section{
+	width: 70%;
+	height: 100vh;
+	background-color: var(--altsecondary);
+	float: left;
+}
+
+.right-section{
+	width: 30%;
+	height: 100vh;
+	display: flex;
+	float: left;
+	align-items: center;
+	justify-content: center;
+}
+
+@media screen and (max-width: 425px){
+	.header{
+		display: block;
+		text-align: center;
+	}
 }
