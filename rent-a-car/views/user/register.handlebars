@@ -1,52 +1,54 @@
-        <header>
-            <h1>User Sign-up</h1>
-        </header>
+        <div class="left-section regl"></div>
+        <div class="right-section regr">
+
         <form action="/register" method="post" id="register-form">
+            <h1> Sign-Up</h1>
             <div >
-                <label for="firstName">First Name : 
-                    <input type="text" value = "{{firstName}}" name="firstName" id="firstName"/>
+                <label for="firstName">First Name : <br/>
+                    <input type="text" value = "{{firstName}}" name="firstName" id="firstName" class="txt"/>
                 </label>
             </div>
             <div >
-                <label for="lastName">Last Name : 
-                    <input type="text" value = "{{lastName}}" name="lastName" id="lastName"/>
+                <label for="lastName">Last Name : <br/>
+                    <input class="txt" type="text" value = "{{lastName}}" name="lastName" id="lastName"/>
                 </label>
             </div>
             <div >
-                <label for="address">Address : 
-                    <input type="text"  value = "{{address}}" name="address" id="address"/>
+                <label for="address">Address : <br/>
+                    <input type="text" class="txt" value = "{{address}}" name="address" id="address"/>
                 </label>
             </div>
             <div >
-                <label for="email">Email : 
-                    <input type="email"  value = "{{email}}" name="email" id="email"/>
+                <label for="email">Email : <br/>
+                    <input type="email" class="txt" value = "{{email}}" name="email" id="email"/>
                 </label>
             </div>
             <div >
-                <label for="phoneNum">Phone Number : 
-                    <input type="text"  value = "{{phoneNum}}" name="phoneNum" id="phoneNum"/>
+                <label for="phoneNum">Phone Number : <br/> 
+                    <input type="text" class="txt" value = "{{phoneNum}}" name="phoneNum" id="phoneNum"/>
                 </label>
             </div>
             <div >
-                <label for="licenseNum">License Number : 
-                    <input type="text"  value = "{{licenseNum}}" name="licenseNum" id="licenseNum"/>
+                <label for="licenseNum">License Number : <br/>
+                    <input type="text" class="txt" value = "{{licenseNum}}" name="licenseNum" id="licenseNum"/>
                 </label>
             </div>
             <div >
-                <label for="username">Username : 
-                    <input type="text"  value = "{{username}}" name="username" id="username"/>
+                <label for="username">Username : <br/>
+                    <input type="text" class="txt" value = "{{username}}" name="username" id="username"/>
                 </label>
             </div>
             <div >
-                <label for="password">Password : 
-                    <input type="password"  value = "{{password}}" name="password" id="password"/>
+                <label for="password">Password : <br/>
+                    <input type="password" class="txt" value = "{{password}}" name="password" id="password"/>
                 </label>
             </div>
 
             <div >
-                <input type="submit" value="Register" />
+                <input type="submit" value="Register" class="btn btn-dark"/>
             </div>
         </form>
+        </div>
 {{!-- 
         <div>
         <footer class="footer-design">
