@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const cars = mongoCollections.cars;
+let { ObjectId } = require('mongodb');
 
 module.exports = {
     async createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
@@ -25,5 +26,24 @@ module.exports = {
             return {carInserted: true}
         }
 
+    },
+    async getAvailableCars(){
+        const carCollection = await cars()
+        const carList = await carCollection.find({}).toArray();
+        let availableCars = []
+        for (i = 0; i < carList.length; i++){
+          if (carList[i]['rented'] === false){
+            availableCars.push(carList[i])
+          }
+        }
+        return availableCars
+      },
+    
+    async getCar(id){
+      const carCollection = await cars()
+      let parsedId = ObjectId(id)
+      const car = await carCollection.findOne({_id: parsedId})
+      if (car === null) {throw "no car with that id"}
+      return car
     }
 };
