@@ -4,8 +4,13 @@
                 <h1>Rent-a Car</h1>
             </span>
             <span class="btn-grp">
-                <button onclick="window.location='/login'" class="btn btn-light-outline">Login</button>
-                <button onclick="window.location='/register'" class="btn btn-dark">Register</button>
+                 {{#unless user}}
+                    <button onclick="window.location='/login'" class="btn btn-light-outline">Login</button>
+                    <button onclick="window.location='/register'" class="btn btn-dark">Register</button>
+                {{/unless}}
+                {{#if user}}
+                    <button onclick="window.location='/logout'" class="btn btn-light-outline">Logout</button>
+                {{/if}}
             </span>
         </div>
         <div class="hero">

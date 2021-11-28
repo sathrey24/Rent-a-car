@@ -1,21 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const data = require('../data/users');
+const data = require('../data/');
 
 router.get('/', (req, res) => {
-      res.render('user/landingpage');
+      res.render('user/landingpage', {user: req.session.user});
 });
 
 router.get('/login', (req, res) => {
   res.render('user/login');
 });
 
+router.get('/logout', (req,res) => {
+  req.session.destroy();
+  res.clearCookie("AuthCookie")
+  res.render('user/logout', {link: "http://localhost:3000"})
+})
+
 router.get('/register', (req, res) => {
   res.render('user/register');
 });
 
-router.get('/userDashboard', (req, res) => {
-  res.render('user/userDashboard');
+router.get('/userDashboard', async function(req, res) {
+  const cars = await data.cars.getAvailableCars()
+  res.render('user/userDashboard', {body: cars});
 });
 
 router.post('/login', async (req, res) => {
@@ -38,7 +45,7 @@ router.post('/login', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   try {
-    const result = await data.checkUser(username,password);
+    const result = await data.users.checkUser(username,password);
     if(result.authenticated){
       req.session.user = username;
       res.redirect('/userDashboard')
@@ -84,7 +91,7 @@ router.post('/register', async (req, res) => {
     if (!/^[A-Za-z]{1}[0-9]{14}$/.test(licenseNum)){
       throw "license must be valid NJ license number"
     }
-    const result = await data.createUser(firstName,lastName,address,email,phoneNum,licenseNum,username, password);
+    const result = await data.users.createUser(firstName,lastName,address,email,phoneNum,licenseNum,username, password);
       if(result.userInserted){
         res.redirect('/login');
       } 
