@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>User Dashboard</title>
     <link rel="stylesheet" href="/public/css/site.css">
 </head>
 <body>
     <main>
-        {{body}}
+        {{#if body.length}}
+            <ul>
+                {{#each body}}
+                    <li>
+                        <a href="/car/{{this._id}}">{{this.model}}</a>
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
     </main>
 </body>
 </html>
