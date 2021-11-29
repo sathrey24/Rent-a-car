@@ -22,11 +22,11 @@ app.use(
   })
 );
 
-// app.use(async (req, res, next) => {
-//   let auth = req.session.user ? "(Authenticated User)" : "(Non-Authenticated User)"
-//   console.log(new Date().toUTCString() + ": " + req.method + " " + " " + req.originalUrl + " " + auth);
-//   next();
-// });
+app.use(async (req, res, next) => {
+  let auth = req.session.user ? "(Authenticated User)" : "(Non-Authenticated User)"
+  console.log(new Date().toUTCString() + ": " + req.method + " " + " " + req.originalUrl + " " + auth);
+  next();
+});
 
 app.use('/userDashboard', (req, res, next) => {
   if (!req.session.user) {

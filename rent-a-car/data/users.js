@@ -37,6 +37,7 @@ module.exports = {
         throw 'All fields need to have valid values';
         const usersCollection = await users();
         const res = await usersCollection.findOne({ username: username.toLowerCase() });
+        console.log(res.role)
         if (res === null) throw "Either the username or password is invalid";
         compareToMatch = await bcrypt.compare(password, res.password);
         if(compareToMatch){
