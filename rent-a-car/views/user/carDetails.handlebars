@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/public/css/site.css">
-</head>
-<body>
-    <main>
-       <p>Model: {{details.model}}</p> 
+<div class="wrapper">
+        <div class="header">
+            <span>  
+                <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">Back</button>      
+                <h1>Rent-a Car</h1>
+            </span>
+            </div>
+        <div class="services">
+             <p>Model: {{details.model}}</p> 
        <p>Type: {{details.type}}</p> 
        <p>Color: {{details.color}}</p> 
        <p>Number of Doors: {{details.numberDoors}}</p> 
@@ -18,6 +18,10 @@
        <p>Reviews: {{details.reviewsGiven}}</p> 
        <p>Rented: {{details.rented}}</p> 
        <p>Rented By: {{details.rentedBy}}</p> 
-    </main>
-</body>
-</html>
+        </div>
+        
+        <div class="footer">
+             <span class="btn-grp">
+                    <button class="btn btn-light-outline">Book</button>
+            </span>
+        </div>
