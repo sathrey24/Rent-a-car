@@ -1,0 +1,55 @@
+        <button onclick="window.location='/adminDashboard'" class="btn btn-light-outline">Back</button>
+        <div class="left-section regl">
+
+        <form action="/addCar" method="post" id="add-car-form">
+            <h1>Add car for rent</h1>
+            <div >
+                <label for="type">Type : <br/>
+                    <input type="text" value = "{{type}}" name="type" id="type" class="txt"/>
+                </label>
+            </div>
+            <div >
+                <label for="model">Model : <br/>
+                    <input class="txt" type="text" value = "{{model}}" name="model" id="model"/>
+                </label>
+            </div>
+            <div >
+                <label for="color">Color : <br/>
+                    <input type="text" class="txt" value = "{{color}}" name="color" id="color"/>
+                </label>
+            </div>
+            <div >
+                <label for="numberDoors">Number of Doors : <br/>
+                    <input type="number" class="txt" value = "{{numberDoors}}" name="numberDoors" id="numberDoors"/>
+                </label>
+            </div>
+            <div >
+                <label for="seatingCapacity">Seating Capacity : <br/> 
+                    <input type="number" class="txt" value = "{{seatingCapacity}}" name="seatingCapacity" id="seatingCapacity"/>
+                </label>
+            </div>
+            <div >
+                <label for="hourlyRate">Hourly Rate : <br/>
+                    <input type="text" class="txt" value = "{{hourlyRate}}" name="hourlyRate" id="hourlyRate"/>
+                </label>
+            </div>
+            <div >
+                <label for="availability">Availability : <br/>
+                    <input type="text" class="txt" value = "{{availability}}" name="availability" id="availability"/>
+                </label>
+            </div>
+             <div >
+                <label for="password">Engine Type : <br/>
+                    <input type="text" class="txt" value = "{{engineType}}" name="engineType" id="engineType"/>
+                </label>
+            </div>
+            <div >
+                <input type="submit" value="Add" class="btn btn-dark"/>
+            </div>
+        </form>
+        {{#if hasErrors}}
+        <h2>{{{error}}}</h2>
+        {{/if}}
+        </div>
+
+        

@@ -46,9 +46,9 @@ router.post('/login', async (req, res) => {
   let password = req.body.password;
   try {
     const result = await data.users.checkUser(username,password);
-    if(result.authenticated){
+    if(result.authenticated && result.role == "user"){
       req.session.user = username;
-      res.redirect('/userDashboard')
+      res.render('user/userDashboard');
     }
   } catch (e) {
     res.status(400).render('user/login', {
@@ -76,24 +76,24 @@ router.post('/register', async (req, res) => {
       throw "Username and password cannot be empty"
     }
     if (username.indexOf(' ') >= 0){
-      throw "username cannot contain spaces"
+      throw "Username cannot contain spaces"
     }
     if (password.indexOf(' ') >= 0){
-      throw "password cannot contain spaces"
+      throw "Password cannot contain spaces"
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
       throw "Email must be valid"
     }
     let phoneRegex = /^\d{3}-\d{3}-\d{4}$/
     if (!phoneRegex.test(phoneNum)){ 
-      throw "phone number must be of format XXX-XXX-XXXX"
+      throw "Phone number must be of format XXX-XXX-XXXX"
     }
     if (!/^[A-Za-z]{1}[0-9]{14}$/.test(licenseNum)){
-      throw "license must be valid NJ license number"
+      throw "License must be valid NJ license number"
     }
     const result = await data.users.createUser(firstName,lastName,address,email,phoneNum,licenseNum,username, password);
       if(result.userInserted){
-        res.redirect('/login');
+        res.render('user/login');
       } 
   }
    catch (e) {
@@ -108,6 +108,77 @@ router.post('/register', async (req, res) => {
       licenseNum: licenseNum,
       username: username,
       password: password
+    });
+    return;
+  }
+});
+
+router.get('/admin', async (req, res) => {
+  //await data.admin.createAdmin("Patrick", "Hill", "phill@stevens.edu", "password4", "444-444-4444", "phill@stevens.edu");
+  res.render('user/adminLogin');
+});
+
+router.post('/adminLogin', async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Username and password cannot be empty.</p>"})
+    return;
+  }
+  if (!req.body.username.trim() || !req.body.password.trim()){
+    res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Username and password cannot be empty.</p>"})
+    return;
+  }
+  if (req.body.username.indexOf(' ') >= 0){
+    res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Username cannot contain spaces.</p>"})
+    return;
+  }
+  if (req.body.password.indexOf(' ') >= 0){
+    res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Password cannot contain spaces.</p>"})
+    return;
+  }
+  let username = req.body.username;
+  let password = req.body.password;
+  try {
+    const result = await data.admin.checkUser(username,password);
+    if(result.authenticated && result.role == "admin"){
+      req.session.user = username;
+      res.render('user/adminDashboard');
+    }
+  } catch (e) {
+    res.status(400).render('user/adminLogin', {
+      error: "Error : " + e,
+      hasErrors : true
+    });
+    return;
+  }
+});
+
+router.get('/carList', (req, res) => {
+  res.render('user/carList');
+});
+
+router.get('/addCar', (req, res) => {
+  res.render('user/addCar');
+});
+
+router.post('/addCar', async (req, res) => {
+  let model = req.body.model;
+  let type = req.body.type;
+  let color = req.body.color;
+  let numberDoors = req.body.numberDoors;
+  let seatingCapacity = req.body.seatingCapacity;
+  let hourlyRate = req.body.hourlyRate;
+  let availability = req.body.availability;
+  let engineType = req.body.engineType;
+  try {
+    const result = await data.cars.createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
+    if(result.authenticated){
+      req.session.user = username;
+      res.render('user/carList');
+    }
+  } catch (e) {
+    res.status(400).render('user/addCar', {
+      error: "Error : " + e,
+      hasErrors : true
     });
     return;
   }

@@ -1,4 +1,6 @@
-        <div class="left-section regl"></div>
+        <div class="left-section regl">
+             <button onclick="window.location='/'" class="btn btn-light-outline">Back</button>
+        </div>
         <div class="right-section regr">
 
         <form action="/register" method="post" id="register-form">
@@ -48,14 +50,15 @@
                 <input type="submit" value="Register" class="btn btn-dark"/>
             </div>
         </form>
+        {{#if hasErrors}}
+        <h2>{{{error}}}</h2>
+        {{/if}}
         </div>
-{{!-- 
+        {{!-- 
         <div>
         <footer class="footer-design">
            <a href="/login">Already have an account? Click here to log-in</a>
         </footer>
         </div> --}}
 
-        {{#if hasErrors}}
-        <h2>{{{error}}}</h2>
-        {{/if}}
+        

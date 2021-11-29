@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/public/css/site.css">
-</head>
-<body>
-    <main>
+<div class="wrapper">
+        <div class="header">
+            <span> 
+                 <button onclick="window.location='/'" class="btn btn-light-outline">Back</button>       
+                <h1>Rent-a Car</h1>
+            </span>
+             <span class="btn-grp">
+                    <button onclick="window.location='/userHistory'" class="btn btn-light-outline">History</button>
+            </span>
+            </div>
+        <div class="services">
         {{#if body.length}}
             <ul>
                 {{#each body}}
@@ -15,6 +18,4 @@
                 {{/each}}
             </ul>
         {{/if}}
-    </main>
-</body>
-</html>
+        </div>
