@@ -1,23 +1,25 @@
 <div class="wrapper">
-        <div class="header">
-            <span> 
-                 <button onclick="window.location='/'" class="btn btn-light-outline">Back</button>       
-                <h1>Rent-a Car</h1>
-            </span>
-             <span class="btn-grp">
-                    <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car.."> 
-                    <div id="id_error" hidden></div>
-                    <button onclick="window.location='/userHistory'" class="btn btn-light-outline">History</button>
-            </span>
-            </div>
-        <div class="services">
+    <div class="header">
+        <span class="logo-action">
+            <i class="logo fas fa-arrow-circle-left" onclick="window.location='/'"></i>
+            <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </span>
+        <span class="btn-grp">
+            <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
+            <div id="id_error" hidden></div>
+            <button onclick="window.location='/userHistory'" class="btn btn-light-outline">History<i
+                    class="fas fa-history"></i></button>
+        </span>
+    </div>
+    <div class="content">
+        <h1>Cars ({{body.length}})</h1>
         {{#if body.length}}
-            <ul>
-                {{#each body}}
-                    <li class="cars">
-                        <a href="/cars/{{this._id}}">{{this.model}}</a>
-                    </li>
-                {{/each}}
-            </ul>
+        <ul class="carlist-ul">
+            {{#each body}}
+            <li class="cars">
+                <a href="/cars/{{this._id}}">{{this.model}}</a>
+            </li>
+            {{/each}}
+        </ul>
         {{/if}}
-        </div>
+    </div>
