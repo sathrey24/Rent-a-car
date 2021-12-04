@@ -1,25 +1,30 @@
 <div class="wrapper">
-        <div class="header">
-            <span>  
-                <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">Back</button>      
-                <h1>Rent-a Car</h1>
-            </span>
+    <div class="header">
+        <span class="logo-action">
+            <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userDashboard'"></i>
+            <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </span>
+    </div>
+    <div class="content">
+        <h1>Car Details</h1>
+        <div class="main-grid">
+            <div class="lgrid">
+                <p class="dtext">Model: {{details.model}}</p>
+                <p class="dtext">Type: {{details.type}}</p>
+                <p class="dtext">Color: {{details.color}}</p>
+                <p class="dtext">Number of Doors: {{details.numberDoors}}</p>
+                <p class="dtext">Seating Capacity: {{details.seatingCapacity}}</p>
             </div>
-        <div class="services">
-             <p>Model: {{details.model}}</p> 
-       <p>Type: {{details.type}}</p> 
-       <p>Color: {{details.color}}</p> 
-       <p>Number of Doors: {{details.numberDoors}}</p> 
-       <p>Seating Capacity: {{details.seatingCapacity}}</p> 
-       <p>Hourly Rate: {{details.hourlyRate}}</p> 
-       <p>Availability: {{details.availability}}</p> 
-       <p>Overall Rating: {{details.overallRating}}</p> 
-       <p>Engine Type: {{details.engineType}}</p> 
-       <p>Reviews: {{details.reviewsGiven}}</p> 
-       <p>Rented: {{details.rented}}</p> 
+            <div class="rgrid">
+                <p class="dtext">Hourly Rate: {{details.hourlyRate}}</p>
+                <p class="dtext">Availability: {{details.availability}}</p>
+                <p class="dtext">Overall Rating: {{details.overallRating}}</p>
+                <p class="dtext">Engine Type: {{details.engineType}}</p>
+                <p class="dtext">Reviews: {{details.reviewsGiven}}</p>
+                <p class="dtext">Rented: {{details.rented}}</p>
+            </div>
         </div>
-        <div class="footer">
-             <span class="btn-grp">
-                    <button class="btn btn-light-outline">Book</button>
-            </span>
-        </div>
+        <button class="btn btn-dark savebtn">Book<i class="fas fa-bookmark"></i></button>
+    </div>
+
+</div>

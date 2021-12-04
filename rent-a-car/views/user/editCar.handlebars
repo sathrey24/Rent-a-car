@@ -1,55 +1,69 @@
-        <button onclick="window.location='/adminDashboard'" class="btn btn-light-outline">Back</button>
-        <div class="left-section regl">
+<div class="header">
+    <span class="logo-action">
+        <i class="logo fas fa-arrow-circle-left" onclick="window.location='/adminDashboard'"></i>
+        <h1><i class="logo fas fa-car"></i>ezCars</h1>
+    </span>
+</div>
+<div class="content">
 
-        <form action="/editCars/{{body._id}}" method="Post" id="edit-car-form">
-            <h1>Edit</h1>
-            <div >
-                <label for="type">Type : <br/>
-                    <input type="text" value = "{{body.type}}" name="type" id="type" class="txt"/>
-                </label>
-            </div>
-            <div >
-                <label for="model">Model : <br/>
-                    <input class="txt" type="text" value = "{{body.model}}" name="model" id="model"/>
-                </label>
-            </div>
-            <div >
-                <label for="color">Color : <br/>
-                    <input type="text" class="txt" value = "{{body.color}}" name="color" id="color"/>
-                </label>
-            </div>
-            <div >
-                <label for="numberDoors">Number of Doors : <br/>
-                    <input type="number" class="txt" value = "{{body.numberDoors}}" name="numberDoors" id="numberDoors"/>
-                </label>
-            </div>
-            <div >
-                <label for="seatingCapacity">Seating Capacity : <br/> 
-                    <input type="number" class="txt" value = "{{body.seatingCapacity}}" name="seatingCapacity" id="seatingCapacity"/>
-                </label>
-            </div>
-            <div >
-                <label for="hourlyRate">Hourly Rate : <br/>
-                    <input type="text" class="txt" value = "{{body.hourlyRate}}" name="hourlyRate" id="hourlyRate"/>
-                </label>
-            </div>
-            <div >
-                <label for="availability">Availability : <br/>
-                    <input type="text" class="txt" value = "{{body.availability}}" name="availability" id="availability"/>
-                </label>
-            </div>
-             <div >
-                <label for="engineType">Engine Type : <br/>
-                    <input type="text" class="txt" value = "{{body.engineType}}" name="engineType" id="engineType"/>
-                </label>
-            </div>
-            <div >
-                <input type="submit" value="Edit" class="btn btn-dark"/>
-            </div>
-        </form>
+    <form action="/editCars/{{body._id}}" method="Post" id="edit-car-form">
         {{#if hasErrors}}
-        <h2>{{{error}}}</h2>
-        {{/if}}
+        <div class="err-strip">
+            <p>{{{error}}}</p>
         </div>
-
-        
+        {{/if}}
+        <h1>Edit</h1>
+        <div class="main-grid">
+            <div class="lgrid">
+                <div>
+                    <label for="type">Type : <br />
+                        <input type="text" value="{{body.type}}" name="type" id="type" class="txt" />
+                    </label>
+                </div>
+                <div>
+                    <label for="model">Model : <br />
+                        <input class="txt" type="text" value="{{body.model}}" name="model" id="model" />
+                    </label>
+                </div>
+                <div>
+                    <label for="color">Color : <br />
+                        <input type="text" class="txt" value="{{body.color}}" name="color" id="color" />
+                    </label>
+                </div>
+                <div>
+                    <label for="numberDoors">Number of Doors : <br />
+                        <input type="number" class="txt" value="{{body.numberDoors}}" name="numberDoors"
+                            id="numberDoors" />
+                    </label>
+                </div>
+            </div>
+            <div class="rgrid">
+                <div>
+                    <label for="seatingCapacity">Seating Capacity : <br />
+                        <input type="number" class="txt" value="{{body.seatingCapacity}}" name="seatingCapacity"
+                            id="seatingCapacity" />
+                    </label>
+                </div>
+                <div>
+                    <label for="hourlyRate">Hourly Rate : <br />
+                        <input type="text" class="txt" value="{{body.hourlyRate}}" name="hourlyRate" id="hourlyRate" />
+                    </label>
+                </div>
+                <div>
+                    <label for="availability">Availability : <br />
+                        <input type="text" class="txt" value="{{body.availability}}" name="availability"
+                            id="availability" />
+                    </label>
+                </div>
+                <div>
+                    <label for="engineType">Engine Type : <br />
+                        <input type="text" class="txt" value="{{body.engineType}}" name="engineType" id="engineType" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="savebtn">
+            <input type="submit" value="Edit" class="btn btn-dark" />
+        </div>
+    </form>
+</div>

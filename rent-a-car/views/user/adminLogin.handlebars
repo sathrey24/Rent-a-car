@@ -1,29 +1,31 @@
-        <div class="left-section">
-            <button onclick="window.location='/'" class="btn btn-light-outline">Back</button>
-        </div>
-        <div class="right-section">
-         
-        <form action="/adminLogin" method="post" id="admin-login-form">
-            <h1>Login</h1>
-            <div >
-                <label>Username : <br/>
-                    <input type="text" name="username" id="ausername" class="txt"/>
-                </label>
-            </div>
-            <div >
-                <label>Password : <br/>
-                    <input type="password" name="password" id="apassword" class="txt"/>
-                </label>
-            </div>
+<div class="left-section">
+    <img src="../../public/resources/images/bg-img.jpg" alt="bgimg" />
+</div>
+<div class="right-section">
 
-            <div >
-                <input type="submit" value="Login" class="btn btn-dark"/>
-            </div>
-        </form>
-        
+    <form action="/adminLogin" method="post" id="admin-login-form">
+        <h1>Login</h1>
+        <div>
+            <label><i class="fas fa-user"></i>Username : <br />
+                <input type="text" name="username" id="ausername" class="txt" />
+            </label>
+        </div>
+        <div>
+            <label><i class="fas fa-key"></i>Password : <br />
+                <input type="password" name="password" id="apassword" class="txt" />
+            </label>
+        </div>
+
+        <div class="login-actions">
+            <input type="submit" value="Login" class="btn btn-dark" />
+            <input onclick="window.location='/'" value="Back" class="btn btn-light-outline" />
         </div>
 
         {{#if hasErrors}}
-        <h2>{{{error}}}</h2>
-        {{/if}} 
+        <div class="err-strip">
+            <p>{{{error}}}</p>
+        </div>
+        {{/if}}
 
+    </form>
+</div>
