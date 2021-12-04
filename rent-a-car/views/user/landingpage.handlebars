@@ -5,8 +5,8 @@
             </span>
             <span class="btn-grp">
                  {{#unless user}}
-                    <button onclick="window.location='/login'" class="btn btn-light-outline">Login</button>
-                    <button onclick="window.location='/register'" class="btn btn-dark">Register</button>
+                    <button onclick="window.location='/login'" class="btn btn-light-outline">Login<i class="fas fa-sign-in-alt"></i></button>
+                    <button onclick="window.location='/register'" class="btn btn-dark">Register<i class="fas fa-user-plus"></i></button>
                 {{/unless}}
                 {{#if user}}
                     <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">My Dashboard</button>
