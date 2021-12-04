@@ -153,8 +153,9 @@ router.post('/adminLogin', async (req, res) => {
   }
 });
 
-router.get('/carList', (req, res) => {
-  res.render('user/carList');
+router.get('/carList', async(req, res) => {
+  const cars = await data.cars.getAvailableCars();
+  res.render('user/carList', {body: cars});
 });
 
 router.get('/addCar', (req, res) => {
@@ -162,6 +163,14 @@ router.get('/addCar', (req, res) => {
 });
 
 router.post('/addCar', async (req, res) => {
+  if (!req.body.model || !req.body.type || !req.body.color || !req.body.numberDoors || !req.body.seatingCapacity || !req.body.hourlyRate || !req.body.availability || !req.body.engineType) {
+    res.status(400).render('user/addCar', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    return;
+  }
+  if (req.body.numberDoors <= 0 || req.body.seatingCapacity <= 0 ) {
+    res.status(400).render('user/addCar', {hasErrors: true, error:"<p>Number of Doors and Seating Capacity cannot be 0 or less then 0.</p>"})
+    return;
+  }
   let model = req.body.model;
   let type = req.body.type;
   let color = req.body.color;
@@ -173,8 +182,8 @@ router.post('/addCar', async (req, res) => {
   try {
     const result = await data.cars.createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
     if(result.authenticated){
-      req.session.user = username;
-      res.render('user/carList');
+      const cars = await data.cars.getAvailableCars();
+      res.render('user/carList', {body: cars});
     }
   } catch (e) {
     res.status(400).render('user/addCar', {
@@ -183,6 +192,37 @@ router.post('/addCar', async (req, res) => {
     });
     return;
   }
+});
+
+router.get('/editCar/:id', async(req, res) => {
+  var car = await data.cars.getCar(req.params.id)
+   res.render('user/editCar', {body: car});
+});
+
+router.get('/deleteCar/:id', async(req, res) => {
+  await data.cars.remove(req.params.id);
+  const cars = await data.cars.getAvailableCars();
+   res.render('user/carList', {body: cars});
+});
+
+router.post('/editCars/:id', async (req, res) => {
+  const updateCarData = req.body;
+  var car = await data.cars.getCar(req.params.id)
+    try {
+      const {model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType} = updateCarData;
+      const updatedData = await data.cars.update(req.params.id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
+      if(updatedData.carInserted){
+        const cars = await data.cars.getAvailableCars();
+        res.render('user/carList', {body: cars});
+      }
+    } catch (e) {
+        res.status(400).render('user/editCar', {
+        error: "Error : " + e,
+        hasErrors : true,
+        body: car
+      });
+      return;
+    }
 });
 
 module.exports = router;

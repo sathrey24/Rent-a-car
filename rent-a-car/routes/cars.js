@@ -10,7 +10,5 @@ router.get('/:id', async function(req, res)  {
     }
     res.render('user/carDetails', {details: car});
   });
-  
-
 
 module.exports = router;
