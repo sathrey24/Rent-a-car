@@ -1,23 +1,25 @@
-    <div class="wrapper">
-        <div class="header">
-            <span>        
-                <h1>Rent-a Car</h1>
-            </span>
-            <span class="btn-grp">
-                 {{#unless user}}
-                    <button onclick="window.location='/login'" class="btn btn-light-outline">Login<i class="fas fa-sign-in-alt"></i></button>
-                    <button onclick="window.location='/register'" class="btn btn-dark">Register<i class="fas fa-user-plus"></i></button>
-                {{/unless}}
-                {{#if user}}
-                    <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">My Dashboard</button>
-                    <button onclick="window.location='/logout'" class="btn btn-dark">Logout</button>
-                {{/if}}
-            </span>
-        </div>
-        <div class="hero">
-            <h1>Where the world travels hassle free</h1>
-        </div>
-        <div class="about"></div>
-        <div class="services"></div>
-        <div class="footer"></div>
+<div class="wrapper">
+    <div class="header">
+        <span>
+            <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </span>
+        <span class="btn-grp">
+            {{#unless user}}
+            <button onclick="window.location='/login'" class="btn btn-light-outline">Login<i
+                    class="fas fa-sign-in-alt"></i></button>
+            <button onclick="window.location='/register'" class="btn btn-dark">Register<i
+                    class="fas fa-user-plus"></i></button>
+            {{/unless}}
+            {{#if user}}
+            <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">My Dashboard</button>
+            <button onclick="window.location='/logout'" class="btn btn-dark">Logout</button>
+            {{/if}}
+        </span>
     </div>
+    <div class="hero">
+        <h1>Where the world travels hassle free</h1>
+    </div>
+    <div class="about"></div>
+    <div class="services"></div>
+    <div class="footer"></div>
+</div>
