@@ -1,29 +1,28 @@
 <div class="wrapper">
-        <div class="header">
-            <span>  
-                <button onclick="window.location='/adminDashboard'" class="btn btn-light-outline">Back</button>      
-                <h1>Rent-a Car</h1>
-            </span>
-            <span class="btn-grp">
-                    <button onclick="window.location='/addCar'" class="btn btn-light-outline">Add Car</button>
-            </span>
-        </div>
-        <div class="services">
-            <h2>Cars List</h2>
-            {{#if body.length}}
-            <ul>
-                {{#each body}}
-                    <li>
-                        <a href="/cars/{{this._id}}">{{this.model}}</a>
-                        <button onclick="window.location='/deleteCar/{{this._id}}'">Delete</button>
-                        <button onclick="window.location='/editCar/{{this._id}}'">Edit</button>
-                    </li>
-                {{/each}}
-            </ul>
-        {{/if}}
-        </div>
-        <div class="footer"></div>
+    <div class="header">
+        <span class="logo-action">
+            <i class="logo fas fa-arrow-circle-left" onclick="window.location='/'"></i>
+            <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </span>
+        <span class="btn-grp">
+            <button onclick="window.location='/addCar'" class="btn btn-light-outline">Add Car<i
+                    class="far fa-plus-square"></i></button>
+        </span>
     </div>
-
-
-    
+    <div class="content">
+        <h1>Cars List ({{body.length}})</h1>
+        {{#if body.length}}
+        <ul class="carlist-ul">
+            {{#each body}}
+            <li class="cars carlist-action-btns">
+                <a href="/cars/{{this._id}}">{{this.model}}</a>
+                <span>
+                    <i class="delete fas fa-trash" onclick="window.location='/deleteCar/{{this._id}}'"></i>
+                    <i class="edit fas fa-edit" onclick="window.location='/editCar/{{this._id}}'"></i>
+                </span>
+            </li>
+            {{/each}}
+        </ul>
+        {{/if}}
+    </div>
+</div>
