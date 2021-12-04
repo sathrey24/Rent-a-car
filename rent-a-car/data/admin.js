@@ -21,8 +21,7 @@ module.exports = {
 
     async checkUser(username, password){
         let compareToMatch = false;
-        if (!username || !password) 
-        throw 'All fields need to have valid values';
+        if (!username || !password) throw 'All fields need to have valid values';
         const adminCollection = await admin();
         const res = await adminCollection.findOne({ username: username.toLowerCase() });
         if (res === null) throw "Either the username or password is invalid";
@@ -32,5 +31,5 @@ module.exports = {
         }else{
           throw "Either the username or password is invalid";
         }
-      }
+    }
 };
