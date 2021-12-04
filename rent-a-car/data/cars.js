@@ -23,7 +23,8 @@ module.exports = {
         if (insertInfo.insertedCount === 0){
             throw "Internal Server Error"
         } else {
-            return {carInserted: true}
+            const id = insertInfo.insertedId.toString()
+            return {carInserted: true, carId: id}
         }
     },
 

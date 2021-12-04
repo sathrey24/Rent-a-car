@@ -20,5 +20,6 @@ module.exports = {
   users: getCollectionFn('users'),
   cars: getCollectionFn('cars'),
   reviews: getCollectionFn('reviews'),
+  requests: getCollectionFn('requests'),
   admin: getCollectionFn('admin')
 };
