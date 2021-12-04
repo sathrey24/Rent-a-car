@@ -50,7 +50,6 @@ router.post('/login', async (req, res) => {
   let password = req.body.password;
   try {
     const result = await data.users.checkUser(username,password);
-    console.log(result.role)
     if(result.authenticated && result.role == "user"){
       req.session.user = username;
       res.redirect('/userDashboard');
