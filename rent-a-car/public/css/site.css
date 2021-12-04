@@ -140,8 +140,27 @@ i{
 	justify-content: space-between;
 }
 
+.carlist-ul{
+	list-style-type: none;
+	margin: 0px !important;
+	padding: 0px;
+}
+
 .cars{
-    display: list-item;    
+    border: 0.2px solid var(--altsecondary);
+	padding: 20px;
+	margin: 10px 0px;
+}
+
+.cars a{
+	text-decoration: none;
+	color: black;
+}
+
+.carlist-action-btns{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .err-strip{
@@ -151,6 +170,74 @@ i{
 	background-color: pink;
 	border: 0.5px solid red;
 	border-radius: 5px;
+}
+
+.logo-action{
+	display: flex;
+	align-items: center;
+}
+
+#searchbar{
+	padding: 10px;
+	width: 300px;
+}
+
+.content{
+	margin: 0px 40px;
+	background-color: #fff;
+}
+
+.delete{
+	font-size: 18px;
+	color: red;
+	cursor: pointer;
+}
+
+.edit{
+	font-size: 18px;
+	color: var(--primary);
+	cursor: pointer;
+}
+
+.main-grid{
+	display: flex;
+	align-items: center;
+	margin: 20px 0px;
+}
+
+.lgrid{
+	width: 40%;
+}
+
+.rgrid{
+	width: 40%;
+}
+
+.savebtn{
+	margin-bottom: 20px;
+}
+
+.dtext{
+	padding: 5px;
+	font-size: 20px;
+}
+
+.logout{
+	text-align: center;
+	height: 600px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.logout-logo{
+	font-size: 100px;
+	color: green;
+}
+
+.logout a{
+	margin: 20px;
+	font-size: 24px;
 }
 
 /* -- For mobile responsiveness -- */
@@ -224,5 +311,30 @@ i{
 
 	.footer{
 		margin: 0px 10px;
+	}
+
+	.logo-action h1{
+		margin: 0px;
+		padding: 5px 0px;
+	}
+
+	.content{
+		margin: 0px 10px;
+	}
+
+	.content h1{
+		margin: 5px 0px;
+	}
+
+	.main-grid{
+		display: block;
+	}
+
+	.lgrid{
+		width: 100%;
+	}
+
+	.rgrid{
+		width: 100%;
 	}
 }
