@@ -22,14 +22,17 @@ module.exports = {
             password: hashPasswd,
             carsRenting : [],
             reviewsGiven : [],
+            requestPending: false,
             role : "user"
         };
         const insertInfo = await usersCollection.insertOne(newUser);
           if (insertInfo.insertedCount === 0) throw 'Internal Server Error';
         else{
-          return {userInserted: true};
+          const id = insertInfo.insertedId.toString()
+          return {userInserted: true, userId: id};
         }
       },
+
     
       async checkUser(username, password){
         let compareToMatch = false;
@@ -37,7 +40,6 @@ module.exports = {
         throw 'All fields need to have valid values';
         const usersCollection = await users();
         const res = await usersCollection.findOne({ username: username.toLowerCase() });
-        console.log(res.role)
         if (res === null) throw "Either the username or password is invalid";
         compareToMatch = await bcrypt.compare(password, res.password);
         if(compareToMatch){
