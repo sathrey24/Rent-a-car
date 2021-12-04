@@ -162,4 +162,7 @@ html, body, p, h1, h2, h3{
 	.txt{
 		width: 300px;
 	}
+	.cars{
+        display: list-item;    
+    }
 }
