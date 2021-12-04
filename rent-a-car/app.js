@@ -29,7 +29,15 @@ app.use(async (req, res, next) => {
 
 app.use('/userDashboard', (req, res, next) => {
   if (!req.session.user) {
-    return res.status(403).render('user/error', {error: "<p>You must be logged in to view your dashboard </p>"})
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/adminDashboard', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
   } else {
     next();
   }

@@ -10,6 +10,20 @@
         </div>
         <div class="services">
             <h2>Cars List</h2>
+            {{#if body.length}}
+            <ul>
+                {{#each body}}
+                    <li>
+                        <a href="/cars/{{this._id}}">{{this.model}}</a>
+                        <button onclick="window.location='/deleteCar/{{this._id}}'">Delete</button>
+                        <button onclick="window.location='/editCar/{{this._id}}'">Edit</button>
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
         </div>
         <div class="footer"></div>
     </div>
+
+
+    
