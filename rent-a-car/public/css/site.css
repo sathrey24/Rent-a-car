@@ -13,6 +13,9 @@ html, body, p, h1, h2, h3, a{
 	border: 0px;
 	margin: 0px
 }
+.logo{
+	font-size: 30px;
+}
 
 i{
 	margin: 0px 10px;
@@ -156,6 +159,8 @@ i{
 
 	.header{
 		display: block;
+		margin: 0px 10px;
+		text-align: center;
 	}
 
 	.header h1{
@@ -168,7 +173,7 @@ i{
 
 	.btn-grp{
 		display: flex;
-		justify-content: space-evenly;
+		justify-content: space-between;
 		margin: 0px;
 	}
 
@@ -176,6 +181,12 @@ i{
 		display: flex;
 		height: 40vh;
 		width: 100%;
+	}
+
+	.left-section img{
+		width: 100%;
+		height: 40vh;
+		filter: blur(1px);
 	}
 
 	.right-section{
@@ -187,6 +198,7 @@ i{
 
 	.regl{
 		height: 0vh;
+		display: none;
 	}
 
 	.regr{
@@ -196,5 +208,21 @@ i{
 
 	.txt{
 		width: 300px;
+	}
+
+	.hero{
+		margin: 0px 10px;
+	}
+
+	.about{
+		margin: 0px 10px;
+	}
+
+	.services{
+		margin: 0px 10px;
+	}
+
+	.footer{
+		margin: 0px 10px;
 	}
 }
