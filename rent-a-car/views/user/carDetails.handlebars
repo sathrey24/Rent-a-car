@@ -20,7 +20,11 @@
                 <p class="dtext">Availability: {{details.availability}}</p>
                 <p class="dtext">Overall Rating: {{details.overallRating}}</p>
                 <p class="dtext">Engine Type: {{details.engineType}}</p>
-                <p class="dtext">Reviews: {{details.reviewsGiven}}</p>
+                <p class="dtext">Reviews:</p> {{#if rev.length}}
+                {{#each rev}}
+                    Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
+                {{/each}}
+            {{/if}}
                 <p class="dtext">Rented: {{details.rented}}</p>
             </div>
         </div>
