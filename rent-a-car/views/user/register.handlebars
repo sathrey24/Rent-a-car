@@ -1,60 +1,64 @@
         <div class="left-section regl">
-             
+             <img src="../../public/resources/images/bg-img.jpg" alt="bgimg" />
         </div>
         <div class="right-section regr">
 
         <form action="/register" method="post" id="register-form">
             <h1> Sign-Up</h1>
             <div >
-                <label for="firstName">First Name : <br/>
+                <label for="firstName">*First Name : <br/>
                     <input type="text" value = "{{firstName}}" name="firstName" id="firstName" class="txt"/>
                 </label>
             </div>
             <div >
-                <label for="lastName">Last Name : <br/>
+                <label for="lastName">*Last Name : <br/>
                     <input class="txt" type="text" value = "{{lastName}}" name="lastName" id="lastName"/>
                 </label>
             </div>
             <div >
-                <label for="address">Address : <br/>
+                <label for="address">*Address : <br/>
                     <input type="text" class="txt" value = "{{address}}" name="address" id="address"/>
                 </label>
             </div>
             <div >
-                <label for="email">Email : <br/>
+                <label for="email">*Email : <br/>
                     <input type="email" class="txt" value = "{{email}}" name="email" id="email"/>
                 </label>
             </div>
             <div >
-                <label for="phoneNum">Phone Number : <br/> 
+                <label for="phoneNum">*Phone Number : <br/> 
                     <input type="text" class="txt" value = "{{phoneNum}}" name="phoneNum" id="phoneNum"/>
                 </label>
             </div>
             <div >
-                <label for="licenseNum">License Number : <br/>
+                <label for="licenseNum">*License Number : <br/>
                     <input type="text" class="txt" value = "{{licenseNum}}" name="licenseNum" id="licenseNum"/>
                 </label>
             </div>
             <div >
-                <label for="username">Username : <br/>
+                <label for="username">*Username : <br/>
                     <input type="text" class="txt" value = "{{username}}" name="username" id="username"/>
                 </label>
             </div>
             <div >
-                <label for="password">Password : <br/>
+                <label for="password">*Password : <br/>
                     <input type="password" class="txt" value = "{{password}}" name="password" id="password"/>
                 </label>
             </div>
 
             <div class="login-actions">
                 <input type="submit" value="Register" class="btn btn-dark"/>
-                <button onclick="window.location='/'" class="btn btn-light-outline">Back</button>
+                <input onclick="window.location='/'" value ="Back" class="btn btn-light-outline" />
             </div>
+
+            {{#if hasErrors}}
+                <div class="err-strip">
+                    <p>{{{error}}}</p>
+                </div>
+            {{/if}}
+
         </form>
-        {{#if hasErrors}}
-        <h2>{{{error}}}</h2>
-        {{/if}}
-        </div>
+
         {{!-- 
         <div>
         <footer class="footer-design">

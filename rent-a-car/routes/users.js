@@ -119,7 +119,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/admin', async (req, res) => {
-  //await data.admin.createAdmin("Patrick", "Hill", "phill@stevens.edu", "password4", "444-444-4444", "phill@stevens.edu");
+  // await data.admin.createAdmin("Patrick", "Hill", "phill@stevens.edu", "password4", "444-444-4444", "phill@stevens.edu");
   res.render('user/adminLogin');
 });
 
