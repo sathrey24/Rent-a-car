@@ -1,14 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Murecho:wght@300&display=swap');
+
 :root{
 	--primary: #4484CE;
 	--secondary: #F19F4D;
 	--altprimary: #F9CF00;
 	--altsecondary: #D9D9D9;
 	--extra: #222629;
+	font-family: 'Murecho', sans-serif;
 }
-html, body, p, h1, h2, h3{
+html, body, p, h1, h2, h3, a{
 	padding: 0px;
 	border: 0px;
 	margin: 0px
+}
+
+i{
+	margin: 0px 10px;
+	font-size: 14px;
 }
 
 .wrapper{
@@ -31,8 +39,9 @@ html, body, p, h1, h2, h3{
 .btn{
 	padding: 10px;
 	border: none;
-	width: 170px;
+	width: 160px;
 	border: 0.2px solid dimgray;
+	text-align: center;
 }
 
 .btn:hover{
@@ -108,6 +117,12 @@ html, body, p, h1, h2, h3{
 	float: left;
 }
 
+.left-section img{
+	width: 100%;
+	height: 100vh;
+	filter: blur(1px);
+}
+
 .right-section{
 	width: 30%;
 	height: 100vh;
@@ -120,6 +135,19 @@ html, body, p, h1, h2, h3{
 .login-actions{
 	display: flex;
 	justify-content: space-between;
+}
+
+.cars{
+    display: list-item;    
+}
+
+.err-strip{
+	width: 95%;
+	margin: 10px 0px;
+	padding: 10px;
+	background-color: pink;
+	border: 0.5px solid red;
+	border-radius: 5px;
 }
 
 /* -- For mobile responsiveness -- */
@@ -135,7 +163,7 @@ html, body, p, h1, h2, h3{
 	}
 
 	.btn{
-		width: 145px;
+		width: 140px;
 	}
 
 	.btn-grp{
@@ -169,7 +197,4 @@ html, body, p, h1, h2, h3{
 	.txt{
 		width: 300px;
 	}
-	.cars{
-        display: list-item;    
-    }
 }
