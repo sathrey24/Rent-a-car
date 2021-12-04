@@ -15,7 +15,12 @@
        <p>Availability: {{details.availability}}</p> 
        <p>Overall Rating: {{details.overallRating}}</p> 
        <p>Engine Type: {{details.engineType}}</p> 
-       <p>Reviews: {{details.reviewsGiven}}</p> 
+       <p>Reviews: </p> 
+            {{#if rev.length}}
+                {{#each rev}}
+                    Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
+                {{/each}}
+            {{/if}}
        <p>Rented: {{details.rented}}</p> 
         </div>
         <div class="footer">
