@@ -3,14 +3,14 @@
 
         <form action="/addCar" method="post" id="add-car-form">
             <h1>Add car for rent</h1>
-            <div >
-                <label for="type">Type : <br/>
-                    <input type="text" value = "{{type}}" name="type" id="type" class="txt"/>
+             <div >
+                <label for="model">Model : <br/>
+                    <input class="txt" type="text" value = "{{model}}" name="model" id="model"/>
                 </label>
             </div>
             <div >
-                <label for="model">Model : <br/>
-                    <input class="txt" type="text" value = "{{model}}" name="model" id="model"/>
+                <label for="type">Type : <br/>
+                    <input type="text" value = "{{type}}" name="type" id="type" class="txt"/>
                 </label>
             </div>
             <div >
@@ -39,7 +39,7 @@
                 </label>
             </div>
              <div >
-                <label for="password">Engine Type : <br/>
+                <label for="engineType">Engine Type : <br/>
                     <input type="text" class="txt" value = "{{engineType}}" name="engineType" id="engineType"/>
                 </label>
             </div>
