@@ -5,7 +5,7 @@
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
         </span>
         <span class="btn-grp">
-            <button onclick="window.location='/addCar'" class="btn btn-light-outline">Add Car<i
+            <button onclick="window.location='/admin/addCar'" class="btn btn-light-outline">Add Car<i
                     class="far fa-plus-square"></i></button>
         </span>
     </div>
@@ -17,8 +17,8 @@
             <li class="cars carlist-action-btns">
                 <a href="/cars/{{this._id}}">{{this.model}}</a>
                 <span>
-                    <i class="delete fas fa-trash" onclick="window.location='/deleteCar/{{this._id}}'"></i>
-                    <i class="edit fas fa-edit" onclick="window.location='/editCar/{{this._id}}'"></i>
+                    <i class="delete fas fa-trash" onclick="window.location='/admin/deleteCar/{{this._id}}'"></i>
+                    <i class="edit fas fa-edit" onclick="window.location='/admin/editCar/{{this._id}}'"></i>
                 </span>
             </li>
             {{/each}}
