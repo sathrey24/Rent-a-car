@@ -3,7 +3,14 @@ const router = express.Router();
 const data = require('../data/');
 
 router.get('/', (req, res) => {
-      res.render('user/landingpage', {user: req.session.user});
+  if(req.session.role === "user"){
+    res.render('user/landingpage', {user: true,admin: false,login:false});
+  }
+  else if(req.session.role === "admin"){
+    res.render('user/landingpage', {user:false,admin:true,login:false});
+  }else{
+    res.render('user/landingpage',{login: true});
+  }
 });
 
 router.get('/login', (req, res) => {
@@ -22,6 +29,10 @@ router.get('/register', (req, res) => {
 
 router.get('/userHistory', (req, res) => {
   res.render('user/userHistory');
+});
+
+router.get('/adminDashboard', (req, res) => {
+  res.render('user/adminDashboard');
 });
 
 router.get('/userDashboard', async function(req, res) {
@@ -52,6 +63,7 @@ router.post('/login', async (req, res) => {
     const result = await data.users.checkUser(username,password);
     if(result.authenticated && result.role == "user"){
       req.session.user = username;
+      req.session.role = result.role;
       res.redirect('/userDashboard');
     }
   } catch (e) {
@@ -145,6 +157,7 @@ router.post('/adminLogin', async (req, res) => {
     const result = await data.admin.checkUser(username,password);
     if(result.authenticated && result.role == "admin"){
       req.session.user = username;
+      req.session.role = result.role;
       res.render('user/adminDashboard');
     }
   } catch (e) {
@@ -163,6 +176,10 @@ router.get('/carList', async(req, res) => {
 
 router.get('/addCar', (req, res) => {
   res.render('user/addCar');
+});
+
+router.get('/rentedCars', (req, res) => {
+  res.render('user/rentedCars');
 });
 
 router.post('/addCar', async (req, res) => {
