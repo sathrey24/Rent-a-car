@@ -39,6 +39,24 @@ module.exports = {
         }
         return availableCars
     },
+
+    async getRentedCars(){
+      const carCollection = await cars()
+      const carList = await carCollection.find({}).toArray();
+      let rentedCars = []
+      for (i = 0; i < carList.length; i++){
+        if (carList[i]['rented'] === true){
+          rentedCars.push(carList[i])
+        }
+      }
+      return rentedCars
+  },
+
+    async getAllCars(){
+      const carCollection = await cars()
+      const carList = await carCollection.find({}).toArray();
+      return carList
+  },
     
     async getCar(id){
       const carCollection = await cars()
