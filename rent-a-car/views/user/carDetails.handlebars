@@ -1,7 +1,11 @@
 <div class="wrapper">
     <div class="header">
         <span class="logo-action">
+            {{#if role}}
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userDashboard'"></i>
+            {{else}}
+            <i class="logo fas fa-arrow-circle-left" onclick="window.location='/adminDashboard'"></i>
+            {{/if}}
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
         </span>
     </div>
@@ -20,15 +24,18 @@
                 <p class="dtext">Availability: {{details.availability}}</p>
                 <p class="dtext">Overall Rating: {{details.overallRating}}</p>
                 <p class="dtext">Engine Type: {{details.engineType}}</p>
-                <p class="dtext">Reviews:</p> {{#if rev.length}}
-                {{#each rev}}
-                    Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
-                {{/each}}
-            {{/if}}
-                <p class="dtext">Rented: {{details.rented}}</p>
+                <p class="dtext">Reviews:</p> 
+                {{#if rev.length}}
+                    {{#each rev}}
+                        Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
+                    {{/each}}
+                {{/if}}
+                {{!-- <p class="dtext">Rented: {{details.rented}}</p> --}}
             </div>
         </div>
-        <button class="btn btn-dark savebtn">Book<i class="fas fa-bookmark"></i></button>
+        {{#if role}}
+            <button class="btn btn-dark savebtn">Book<i class="fas fa-bookmark"></i></button>
+        {{/if}}
     </div>
 
 </div>
