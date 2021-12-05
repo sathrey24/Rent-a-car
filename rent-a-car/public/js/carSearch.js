@@ -19,3 +19,19 @@ function search_car() {
         }
     }
 }
+
+function onSelectionChange(element) {
+    var numberofdays_element = document.getElementById("numberofdays");
+    var numberofdays_element = document.getElementById("numberofdays");
+    var total_element = document.getElementById("total_cost");
+    let y = document.getElementsByClassName('rgrid');
+    let perHourCost = parseInt(y[0].children[0].textContent.split(":")[1]);
+    if(element.value == "Hour")
+    {
+        let total = numberofdays_element.value*perHourCost;
+        total_element.value  = total + " $";
+    }else if(element.value == "Day"){
+        let total = numberofdays_element.value*24*perHourCost;
+        total_element.value  = total + " $";
+    }
+}
