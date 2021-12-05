@@ -43,6 +43,46 @@ app.use('/adminDashboard', (req, res, next) => {
   }
 });
 
+app.use('/cars/:id', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/addCar', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/editCar/:id', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/userHistory', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/rentedCars', (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 configRoutes(app);
