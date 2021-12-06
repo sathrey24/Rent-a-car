@@ -37,7 +37,9 @@ router.get('/userProfile', async(req, res) => {
 });
 
 router.get('/userDashboard', async function(req, res) {
-  const cars = await data.cars.getAvailableCars()
+  const cars = await data.cars.getAvailableCars();
+  //const user = await data.users.getUserDetails(req.session.user);
+  //const request = await data.requests.getAllRequestsbByID(user._id);
   res.render('user/userDashboard', {body: cars});
 });
 
