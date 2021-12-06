@@ -96,6 +96,5 @@ module.exports = {
       } else {
           return {carInserted: true}
       }
-
   }
 };

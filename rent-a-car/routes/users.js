@@ -31,6 +31,11 @@ router.get('/userHistory', (req, res) => {
   res.render('user/userHistory');
 });
 
+router.get('/userProfile', async(req, res) => {
+  const user = await data.users.getUserDetails(req.session.user)
+  res.render('user/userProfile',{body:user});
+});
+
 router.get('/userDashboard', async function(req, res) {
   const cars = await data.cars.getAvailableCars()
   res.render('user/userDashboard', {body: cars});
