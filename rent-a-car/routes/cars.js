@@ -18,7 +18,6 @@ router.get('/:id', async function(req, res)  {
         res.render('user/error', {error: `<p> ${e} </p>`});
     }
     if(req.session.role === "user"){
-        console.log(req.originalUrl)
         res.render('user/carDetails', {details: car, rev : car_reviews,role:true});
     }
     else{
