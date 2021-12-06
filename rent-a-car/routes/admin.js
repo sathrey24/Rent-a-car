@@ -51,6 +51,14 @@ router.post('/adminLogin', async (req, res) => {
     const cars = await data.cars.getAllCars();
     res.render('user/carList', {body: cars});
   });
+
+  router.get('/request/:id', async(req,res) =>{
+    const request = await data.requests.getRequest(req.params.id)
+    const userdetails = await data.users.getUser(request.userId)
+    const cardetails = await data.cars.getCar(request.carId)
+    res.render('user/request', {req: request,car : cardetails, user: userdetails})
+
+  })
   
   router.get('/addCar', (req, res) => {
     res.render('user/addCar');
