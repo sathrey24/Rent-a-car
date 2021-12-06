@@ -56,8 +56,9 @@ router.post('/adminLogin', async (req, res) => {
     res.render('user/addCar');
   });
   
-  router.get('/rentedCars', (req, res) => {
-    res.render('user/rentedCars');
+  router.get('/rentedCars', async(req, res) => {
+    const rentedcars = await data.cars.getRentedCars();
+    res.render('user/rentedCars', {body: rentedcars});
   });
   
   router.post('/addCar', async (req, res) => {
