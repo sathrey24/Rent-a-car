@@ -1,6 +1,6 @@
 function search_car() {
-    let input = document.getElementById('searchbar').value;
     let errorDiv = document.getElementById('id_error');
+    let input = document.getElementById('searchbar').value;
     input=input.toLowerCase();
     let x = document.getElementsByClassName('cars');
     if(input.trim().length == 0){
@@ -33,5 +33,33 @@ function onSelectionChange(element) {
     }else if(element.value == "Day"){
         let total = numberofdays_element.value*24*perHourCost;
         total_element.value  = total + " $";
+    }
+}
+
+function onFromDateChange(element){
+    let errorDiv = document.getElementById('id_error1');
+    let currentDate = new Date();
+    let slectedDate = new Date(new Date(element.value).getTime() + 86400000);
+    if(slectedDate == "Invalid Date") throw "Invalid Date";
+    if(currentDate.getDate() != slectedDate.getDate() || currentDate.getMonth() != slectedDate.getMonth() || currentDate.getFullYear() != slectedDate.getFullYear()) {
+        errorDiv.hidden = false;
+        errorDiv.innerHTML = "From date should be current or future date only";
+        document.getElementById('from_date').focus();
+    }else{
+        errorDiv.hidden = true;
+    }
+}
+
+function onToDateChange(element){
+    let errorDiv = document.getElementById('id_error1');
+    let currentDate = new Date();
+    let slectedDate = new Date(new Date(element.value).getTime() + 86400000);
+    if(slectedDate == "Invalid Date") throw "Invalid Date";
+    if(currentDate.getDate() != slectedDate.getDate() || currentDate.getMonth() != slectedDate.getMonth() || currentDate.getFullYear() != slectedDate.getFullYear()) {
+        errorDiv.hidden = false;
+        errorDiv.innerHTML = "To date should be current or future date only";
+        document.getElementById('to_date').focus();
+    }else{
+        errorDiv.hidden = true;
     }
 }
