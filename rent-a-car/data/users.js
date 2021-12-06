@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
+let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
@@ -47,5 +48,12 @@ module.exports = {
         }else{
           throw "Either the username or password is invalid";
         }
-      }
+      },
+
+      async getUserDetails(username){
+        const usersCollection = await users()
+        const user = await usersCollection.findOne({ username: username.toLowerCase() });
+        if (user === null) {throw "No user with that name"}
+        return user
+      },
 };
