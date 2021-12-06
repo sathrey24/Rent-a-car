@@ -46,7 +46,12 @@
                 <label>Total :
                     <input type="text" readonly id="total_cost"/>
                 </label>
+                <label>From-To Date :
+                    <input type="date" id="from_date" onchange="onFromDateChange(this)"/>
+                    <input type="date" id="to_date" onchange="onToDateChange(this)"/>
+                </label>
                 <input type="submit" value="Book" class="btn btn-dark savebtn"/>
+                <div id="id_error1" hidden></div>
             </form>
         {{/if}}
     </div>
