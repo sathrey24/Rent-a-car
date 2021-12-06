@@ -5,11 +5,16 @@
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
         </span>
         <span class="btn-grp">
-            <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
-            <div id="id_error" hidden></div>
+            <span class="sfield">
+                <i class="fas fa-search"></i>
+                <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
+            </span>
+
             <button onclick="window.location='/userHistory'" class="btn btn-light-outline">History<i
                     class="fas fa-history"></i></button>
+            <p id="id_error" hidden></p>
         </span>
+
     </div>
     <div class="content">
         <h1>Cars ({{body.length}})</h1>
