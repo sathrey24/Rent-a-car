@@ -214,6 +214,30 @@ i{
 	width: 40%;
 }
 
+.form-grid{
+	display: flex;
+	align-items: center;
+}
+
+.flgrid{
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+	width: 40%;
+	height: 150px;
+	margin-left: 20px;
+}
+
+.frgrid{
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	justify-content: center;
+	width: 40%;
+	height: 150px;
+}
+
 .savebtn{
 	margin-bottom: 20px;
 }
@@ -221,6 +245,11 @@ i{
 .dtext{
 	padding: 5px;
 	font-size: 20px;
+	color: green;
+}
+
+.dtext b{
+	color: var(--extra);
 }
 
 .logout{
@@ -252,6 +281,38 @@ i{
 	font-size: 11px;
 	color: red;
 }
+
+#booking-form{
+	width: 100%;
+	padding: 10px 0px;
+	background-color: var(--altsecondary);
+}
+
+#from_date, #to_date{
+	width: 200px;
+	padding: 4px 0px;
+	margin-left: 20px;
+}
+
+#numberofdays{
+	width: 200px;
+	padding: 4px 0px;
+	margin-left: 8px;
+}
+
+#timePeriod{
+	padding: 4px 0px;
+}
+
+#total_cost, #total_cost_label{
+	background: none;
+	color: black;
+	border: none;
+	font-size: 22px;
+	margin-left: 8px;
+	font-weight: bold;
+}
+
 
 /* -- For mobile responsiveness -- */
 
@@ -349,5 +410,24 @@ i{
 
 	.rgrid{
 		width: 100%;
+	}
+
+	.form-grid{
+		display: block;
+	}
+
+	.flgrid{
+		width: 100%;
+	}
+
+	.frgrid{
+		width: 100%;
+		align-items: center;
+	}
+
+	#numberofdays{
+		width: 120px;
+		padding: 4px 0px;
+		margin-left: 8px;
 	}
 }
