@@ -66,9 +66,13 @@ module.exports = {
             throw "Internal Server Error"
         } 
         const carCollection = await cars()
+        const updateAvailability = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { availability: false } })
         const updateRented = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { rented: true } })
         const updateRentedby = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { rentedBy: userId } })
         if (updateRented.insertedCount === 0){
+            throw "Internal Server Error"
+        } 
+        if (updateAvailability.insertedCount === 0){
             throw "Internal Server Error"
         } 
         if (updateRentedby.insertedCount === 0){
