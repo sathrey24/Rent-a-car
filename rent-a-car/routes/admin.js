@@ -99,7 +99,6 @@ router.post('/adminLogin', async (req, res) => {
   router.get('/deleteCar/:id', async(req, res) => {
     await data.cars.remove(req.params.id);
     const cars = await data.cars.getAllCars();
-    //  res.render('user/carList', {body: cars});
      res.redirect('/admin/carList');
   });
   
