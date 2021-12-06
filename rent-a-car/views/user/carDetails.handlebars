@@ -24,14 +24,17 @@
                 <p class="dtext"><b>Availability: </b>{{details.availability}}</p>
                 <p class="dtext"><b>Overall Rating: </b>{{details.overallRating}}</p>
                 <p class="dtext"><b>Engine Type: </b>{{details.engineType}}</p>
-                <p class="dtext"><b>Reviews:</b></p>
-                {{#if rev.length}}
-                {{#each rev}}
-                Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
-                {{/each}}
-                {{/if}}
             </div>
         </div>
+        <hr />
+        <h1>Reviews:</h1>
+        {{#if rev.length}}
+        {{#each rev}}
+        <b>Rating: </b>{{this.rating}}<br />
+        <b>Client said: </b><i>"{{this.text}}"</i><br /><br />
+        {{/each}}
+        {{/if}}
+
         <div id="id_error1" hidden class="err-strip"></div>
         {{#if role}}
         <form action="/bookCar" method="post" id="booking-form">
@@ -63,6 +66,7 @@
             </div>
         </form>
         {{/if}}
+
     </div>
 
 </div>

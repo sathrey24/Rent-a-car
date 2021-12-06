@@ -14,11 +14,13 @@
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars">
+            <li class="cars carlist-action-btns">
                 {{this.userId}}
                 <span>
-                    <button onclick="window.location='/admin/approveRequest/{{this._id}}'">Approve</button>
-                    <button onclick="window.location='/admin/rejectRequest/{{this._id}}'">Reject</button>
+                    <button onclick="window.location='/admin/approveRequest/{{this._id}}'"
+                        class="btn btn-dark">Approve</button>
+                    <button onclick="window.location='/admin/rejectRequest/{{this._id}}'"
+                        class="btn btn-light-outline">Reject</button>
                 </span>
             </li>
             {{/each}}
