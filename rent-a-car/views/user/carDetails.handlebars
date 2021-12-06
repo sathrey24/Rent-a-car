@@ -13,45 +13,55 @@
         <h1>Car Details</h1>
         <div class="main-grid">
             <div class="lgrid">
-                <p class="dtext">Model: {{details.model}}</p>
-                <p class="dtext">Type: {{details.type}}</p>
-                <p class="dtext">Color: {{details.color}}</p>
-                <p class="dtext">Number of Doors: {{details.numberDoors}}</p>
-                <p class="dtext">Seating Capacity: {{details.seatingCapacity}}</p>
+                <p class="dtext"><b>Model: </b>{{details.model}}</p>
+                <p class="dtext"><b>Type: </b>{{details.type}}</p>
+                <p class="dtext"><b>Color: </b>{{details.color}}</p>
+                <p class="dtext"><b>Number of Doors: </b>{{details.numberDoors}}</p>
+                <p class="dtext"><b>Seating Capacity: </b>{{details.seatingCapacity}}</p>
             </div>
             <div class="rgrid">
-                <p class="dtext">Hourly Rate: {{details.hourlyRate}}</p>
-                <p class="dtext">Availability: {{details.availability}}</p>
-                <p class="dtext">Overall Rating: {{details.overallRating}}</p>
-                <p class="dtext">Engine Type: {{details.engineType}}</p>
-                <p class="dtext">Reviews:</p> 
+                <p class="dtext"><b>Hourly Rate: </b>{{details.hourlyRate}}</p>
+                <p class="dtext"><b>Availability: </b>{{details.availability}}</p>
+                <p class="dtext"><b>Overall Rating: </b>{{details.overallRating}}</p>
+                <p class="dtext"><b>Engine Type: </b>{{details.engineType}}</p>
+                <p class="dtext"><b>Reviews:</b></p>
                 {{#if rev.length}}
-                    {{#each rev}}
-                        Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
-                    {{/each}}
+                {{#each rev}}
+                Client said: "{{this.text}}" Rating: {{this.rating}}<br></br>
+                {{/each}}
                 {{/if}}
             </div>
         </div>
+        <div id="id_error1" hidden class="err-strip"></div>
         {{#if role}}
-            <form action="/bookCar" method="post" id="booking-form">
-                <label>Time Period : 
-                    <input type="number" name="count" id="numberofdays"/>
-                    <select name="timePeriod" id="timePeriod" onchange="onSelectionChange(this)">
-                        <option value="None"></option>
-                        <option value="Hour">Hour</option>
-                        <option value="Day">Day</option>
-                    </select>
-                </label>
-                <label>Total :
-                    <input type="text" readonly id="total_cost"/>
-                </label>
-                <label>From-To Date :
-                    <input type="date" id="from_date" onchange="onFromDateChange(this)"/>
-                    <input type="date" id="to_date" onchange="onToDateChange(this)"/>
-                </label>
-                <input type="submit" value="Book" class="btn btn-dark savebtn"/>
-                <div id="id_error1" hidden></div>
-            </form>
+        <form action="/bookCar" method="post" id="booking-form">
+            <div class="form-grid">
+                <div class="flgrid">
+                    <label>From Date :
+                        <input type="date" id="from_date" onchange="onFromDateChange(this)" />
+                    </label><br />
+                    <label>Upto Date :
+                        <input type="date" id="to_date" onchange="onToDateChange(this)" />
+                    </label><br />
+                    <label>Time Period :
+                        <input type="number" name="count" id="numberofdays" />
+                        <select name="timePeriod" id="timePeriod" onchange="onSelectionChange(this)">
+                            <option value="None">--Select--</option>
+                            <option value="Hour">Hour</option>
+                            <option value="Day">Day</option>
+                        </select>
+                    </label>
+
+                </div>
+                <div class="frgrid">
+                    <label id="total_cost_label">Total :
+                        <input type="text" readonly id="total_cost" />
+                    </label>
+                    <br />
+                    <input type="submit" value="Book" class="btn btn-dark savebtn" />
+                </div>
+            </div>
+        </form>
         {{/if}}
     </div>
 
