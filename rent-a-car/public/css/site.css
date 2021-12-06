@@ -178,8 +178,9 @@ i{
 }
 
 #searchbar{
-	padding: 10px;
-	width: 300px;
+	padding: 2px;
+	width: 220px;
+	border: none;
 }
 
 .content{
@@ -238,6 +239,18 @@ i{
 .logout a{
 	margin: 20px;
 	font-size: 24px;
+}
+
+.sfield{
+	border: 0.5px solid var(--extra);
+	padding: 3px 2px 8px 2px;
+	width: 220px;
+	margin: 2px;
+}
+
+#id_error{
+	font-size: 11px;
+	color: red;
 }
 
 /* -- For mobile responsiveness -- */
