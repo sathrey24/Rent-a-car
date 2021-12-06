@@ -27,7 +27,7 @@ module.exports = {
         if (res === null) throw "Either the username or password is invalid";
         compareToMatch = await bcrypt.compare(password, res.password);
         if(compareToMatch){
-          return {authenticated: true,role : res.role, id:res._id.toString()};
+          return {authenticated: true,role : res.role};
         }else{
           throw "Either the username or password is invalid";
         }

@@ -8,6 +8,8 @@ async function main(){
     const sanjay = await data.users.createUser("Sanjay", "Athrey", "123 Stevens Ave", "sathrey@stevens.edu", "111-111-1111", "A11111111111111", "sathrey@stevens.edu", "password1")
     const priyanka = await data.users.createUser("Priyanka", "Chaurasia", "456 Stevens Ave", "pchauras@stevens.edu", "222-222-2222", "A22222222222222", "pchauras@stevens.edu", "password2")
     const anjali = await data.users.createUser("Anjali", "Paliwal", "789 Stevens Ave", "apaliwa1@stevens.edu", "333-333-3333", "A33333333333333", "apaliwa1@stevens.edu", "password3")
+    const user4 = await data.users.createUser("Joe", "Ronaldo", "546 Stevens Ave", "jronaldo@stevens.edu", "444-444-4444", "A33333333333334", "jronaldo@stevens.edu", "password6")
+    const user5 = await data.users.createUser("John", "Jaferi", "367 Stevens Ave", "jJaferi@stevens.edu", "444-444-444", "A333333333333335", "jJaferi@stevens.edu", "password7")
     
     //create admin
     await data.admin.createAdmin("Patrick", "Hill", "phill@stevens.edu", "password4", "444-444-4444", "phill@stevens.edu")
