@@ -7,8 +7,9 @@ router.get('/', async (req, res) => {
     res.render('user/adminLogin');
   });
 
-router.get('/adminDashboard', (req, res) => {
-    res.render('user/adminDashboard');
+router.get('/adminDashboard', async(req, res) => {
+   const request = await data.requests.getAllRequests();
+    res.render('user/adminDashboard',{body: request});
   });
 
 router.post('/adminLogin', async (req, res) => {
@@ -109,7 +110,6 @@ router.post('/adminLogin', async (req, res) => {
         const {model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType} = updateCarData;
         const updatedData = await data.cars.update(req.params.id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
         if(updatedData.carInserted){
-          // const cars = await data.cars.getAllCars();
           res.redirect('/admin/carList');
         }
       } catch (e) {
@@ -120,6 +120,18 @@ router.post('/adminLogin', async (req, res) => {
         });
         return;
       }
+  });
+
+  router.get('/approveRequest/:id', async(req, res) => {
+    await data.requests.approveRequest(req.params.id,true);
+    const cars = await data.requests.getAllRequests();
+     res.redirect('/admin/adminDashboard');
+  });
+
+  router.get('/rejectRequest/:id', async(req, res) => {
+    await data.requests.approveRequest(req.params.id,false);
+    const cars = await data.requests.getAllRequests();
+     res.redirect('/admin/adminDashboard');
   });
 
 module.exports = router;
