@@ -1,7 +1,8 @@
 const mongoCollections = require('../config/mongoCollections');
 const requests = mongoCollections.requests;
+const cars = mongoCollections.cars
 let { ObjectId } = require('mongodb');
-const { request } = require('express');
+const data = require('./')
 
 module.exports = {
 
@@ -56,11 +57,24 @@ module.exports = {
             approved : flag
         }
         const requestCollection = await requests()
+        let req = await this.getRequest(id)
+        let carId = req.carId
+        let userId = req.userId
         const updateInfo = await requestCollection.updateOne({ _id: id },
           { $set: updateRequest });
         if (updateInfo.insertedCount === 0){
             throw "Internal Server Error"
-        } else {
+        } 
+        const carCollection = await cars()
+        const updateRented = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { rented: true } })
+        const updateRentedby = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { rentedBy: userId } })
+        if (updateRented.insertedCount === 0){
+            throw "Internal Server Error"
+        } 
+        if (updateRentedby.insertedCount === 0){
+            throw "Internal Server Error"
+        } 
+        else {
             return {requestUpdated: true}
         }
     }
