@@ -6,6 +6,15 @@
         </span>
     </div>
     <div class="content">
-        <h1>Rented Cars List</h1>
+        <h1>Rented Cars List ({{body.length}})</h1>
+        {{#if body.length}}
+        <ul class="carlist-ul">
+            {{#each body}}
+            <li class="cars carlist-action-btns">
+                <a href="/cars/{{this._id}}">{{this.model}}</a>
+            </li>
+            {{/each}}
+        </ul>
+        {{/if}}
     </div>
 </div>
