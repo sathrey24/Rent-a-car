@@ -1,6 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const requests = mongoCollections.requests;
 const cars = mongoCollections.cars
+const users = mongoCollections.users
 let { ObjectId } = require('mongodb');
 const data = require('./')
 
@@ -17,12 +18,20 @@ module.exports = {
         };
         const requestCollection = await requests();
         const insertInfo = await requestCollection.insertOne(newRequest);
+        const usersCollection = await users()
+        try{
+            await usersCollection.updateOne({ _id: ObjectId(userId) }, { $set: { requestPending: true } })
+        }catch (e){
+            throw e
+        }
         if (insertInfo.insertedCount === 0){
             throw "Internal Server Error";
-        } else {
-            const id = insertInfo.insertedId.toString();
-            return {requestInserted: true, requestId: id};
-        }
+        } 
+        else {
+                const id = insertInfo.insertedId.toString();
+                return {requestInserted: true, requestId: id};
+            }
+            
     },
 
     async getAllRequests(){
@@ -39,8 +48,8 @@ module.exports = {
 
     async getAllRequestsbByID(userId){
         const requestCollection = await requests()
-        const requests = await requestCollection.find({userId: userId}).toArray()
-        return requests;
+        const requestsList = await requestCollection.find({userId: userId}).toArray()
+        return requestsList;
     },
       
     async getRequest(id){
@@ -62,22 +71,38 @@ module.exports = {
         let userId = req.userId
         const updateInfo = await requestCollection.updateOne({ _id: id },
           { $set: updateRequest });
-        if (updateInfo.insertedCount === 0){
+        if (updateInfo.modifiedCount === 0){
             throw "Internal Server Error"
         } 
         const carCollection = await cars()
         const updateAvailability = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { availability: false } })
         const updateRented = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { rented: true } })
         const updateRentedby = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { rentedBy: userId } })
-        if (updateRented.insertedCount === 0){
+        if (updateRented.modifiedCount === 0){
             throw "Internal Server Error"
         } 
-        if (updateAvailability.insertedCount === 0){
+        if (updateAvailability.modifiedCount === 0){
             throw "Internal Server Error"
         } 
-        if (updateRentedby.insertedCount === 0){
+        if (updateRentedby.modifiedCount === 0){
             throw "Internal Server Error"
         } 
+        const req_array = await this.getAllRequestsbByID(userId);
+        let multirequest = false;
+        for(i = 0; i < req_array.length; i++){
+            if (!req_array[i].hasOwnProperty('approved')){
+                multirequest = true
+                break;
+            }
+        }
+        if (!multirequest){
+            const usersCollection = await users()
+            try{
+                await usersCollection.updateOne({ _id: ObjectId(userId) }, { $set: { requestPending: false } })
+            }catch (e){
+                throw e
+            }
+        }
         else {
             return {requestUpdated: true}
         }
