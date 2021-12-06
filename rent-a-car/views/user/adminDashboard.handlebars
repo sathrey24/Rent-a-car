@@ -15,7 +15,9 @@
         <ul class="carlist-ul">
             {{#each body}}
             <li class="cars carlist-action-btns">
-                {{this.userId}}
+                <a href="/admin/request/{{this._id}}">
+                {{this._id}}
+                </a>
                 <span>
                     <button onclick="window.location='/admin/approveRequest/{{this._id}}'"
                         class="btn btn-dark">Approve</button>
