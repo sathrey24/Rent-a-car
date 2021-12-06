@@ -132,9 +132,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.post('/bookCar', (req, res) => {
-  console.log(req.originalUrl)
-});
 
 
 module.exports = router;
