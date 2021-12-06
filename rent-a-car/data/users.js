@@ -50,6 +50,14 @@ module.exports = {
         }
       },
 
+      async getUser(id){
+        const usersCollection = await users()
+        let parsedId = ObjectId(id);
+        const user = await usersCollection.findOne({_id: parsedId})
+        if (user === null) {throw "no user with that id"}
+        return user
+      },
+
       async getUserDetails(username){
         const usersCollection = await users()
         const user = await usersCollection.findOne({ username: username.toLowerCase() });
