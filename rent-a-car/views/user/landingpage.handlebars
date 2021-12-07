@@ -16,15 +16,69 @@
             <button onclick="window.location='/logout'" class="btn btn-dark">Logout</button>
             {{/if}}
             {{#if admin}}
-            <button onclick="window.location='/admin/adminDashboard'" class="btn btn-light-outline">My Dashboard</button>
+            <button onclick="window.location='/admin/adminDashboard'" class="btn btn-light-outline">My
+                Dashboard</button>
             <button onclick="window.location='/logout'" class="btn btn-dark">Logout</button>
             {{/if}}
         </span>
     </div>
     <div class="hero">
-        <h1>Where the world travels hassle free</h1>
+        <img src="../../public/resources/images/hero-img2.jpg" alt="heroimg" />
+        <div class="centered">
+            <h1>Choose your dream car</h1>
+            <p>At a price as low as $2 per hour</p>
+            <button class="btn btn-dark" onclick="window.location='/login'">Book Now!</button>
+        </div>
     </div>
-    <div class="about"></div>
-    <div class="services"></div>
-    <div class="footer"></div>
+    <div class="about">
+        <div class="landing-content">
+            <h1>Our Services</h1>
+            <div class="section-main">
+                <div class="section-1">
+                    <i class="logo-sr fas fa-handshake"></i>
+                    <h3>Personalised service by experts</h3>
+                </div>
+                <div class="section-2">
+                    <i class="logo-sr fas fa-clock"></i>
+                    <h3>Round the clock support & assistance</h3>
+                </div>
+                <div class="section-3">
+                    <i class="logo-sr fas fa-door-open"></i>
+                    <h3>Door drop & pickup of your selected vehicle</h3>
+                </div>
+                <div class="section-4">
+                    <i class="logo-sr fas fa-user-tie"></i>
+                    <h3>Professional chauffeur available on hourly basis</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-main">
+            <div class="f1">
+                <h2>Address:</h2>
+                <p>#1 street, downtown,<br />New Jersey</p>
+            </div>
+            <div class="f1">
+                <h2>Contact Us:</h2>
+                <p>Email: support@ezcars.com</p>
+                <p>Contact: 100-999-823 (Toll free)</p>
+            </div>
+            <div class="f1">
+                <h2>Important Links:</h2>
+                <p>
+                    <a href="/admin">Admin Login</a>
+                </p>
+                <p>
+                    <a href="/login">User Login</a>
+                </p>
+                <p>
+                    <a href="/register">New user registration</a>
+                </p>
+            </div>
+        </div>
+        <div class="footerbar">
+            <p>&copy; ezCars LLC. All rights reserved 2021-22.</p>
+        </div>
+    </div>
 </div>
