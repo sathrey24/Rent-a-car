@@ -108,6 +108,10 @@ router.get('/request/:id', async(req,res) =>{
 router.get('/allRequests/:id', async(req,res) =>{
   const request = await data.requests.getRequest(req.params.id);
   const requestList = await data.requests.getAllPendingRequestsByID(request.username)
+  for (i = 0; i < requestList.length; i++){
+    const car = await data.cars.getCar(requestList[i].carId)
+    requestList[i].model = car.model
+  }
   res.render('user/allRequests', {body: requestList});
 })
 router.post('/register', async (req, res) => {
