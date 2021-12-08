@@ -33,7 +33,7 @@ async function main(){
     const review4= await data.requests.createRequest(priyanka.username, tesla.carId,"2021-12-07","2021-12-24","11 Day","2640$")
     await data.reviews.createReview(priyanka.username, review4.requestId, "This car was outstanding!", 5)
     
-    const ranualt = await data.cars.createCar("2021 Ranualt Triber", "Sedan", "White", "3", "5", "20$/hr", "No", "Electric")
+    const ranualt = await data.cars.createCar("2021 Ranualt Triber", "Sedan", "White", "3", "5", "20$/hr", "Yes", "Electric")
     await data.requests.createRequest(sanjay.username, ranualt.carId,"2021-12-13","2021-12-15","2 Day","960$")
 
     await db.serverConfig.close()
