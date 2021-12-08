@@ -16,19 +16,25 @@ async function main(){
     
     //create cars, reviews, and requests to rent
     const honda = await data.cars.createCar("2018 Honda Civic", "Sedan", "Black", "4", "5", "30$/hr", "Yes", "Gas")
-    await data.reviews.createReview(sanjay.username, honda.carId, "This car was awesome!", 5)
-    await data.requests.createRequest(sanjay.username, honda.carId,"2021-12-08","2021-12-08","5 Hours","150$")
-    await data.reviews.createReview(priyanka.username, honda.carId, "This car was horrible!", 1)
+    const request1 = await data.requests.createRequest(sanjay.username, honda.carId,"2021-12-08","2021-12-08","5 Hours","150$")
+    await data.reviews.createReview(sanjay.username, request1.requestId, "This car was awesome!", 5)
+    await data.reviews.createReview(priyanka.username, request1.requestId, "This car was horrible!", 1)
+
     const audi = await data.cars.createCar("2020 Audi A6", "Sedan", "Grey", "4", "5", "60$/hr", "Yes", "Gas")
-    await data.reviews.createReview(anjali.username, audi.carId, "This car was amazing!", 4)
-    await data.requests.createRequest(anjali.username, audi.carId,"2021-12-09","2021-12-11","3 Day","4320$")
+    const request2=await data.requests.createRequest(anjali.username, audi.carId,"2021-12-09","2021-12-11","3 Day","4320$")
+    await data.reviews.createReview(anjali.username, request2.requestId, "This car was amazing!", 4)
+
     const nissan = await data.cars.createCar("2019 Nissan Altima", "Coupe", "Blue", "2", "4", "40$/hr", "Yes", "Gas")
-    await data.requests.createRequest(sanjay.username, nissan.carId,"2021-12-07","2021-12-08","1 Day","960$")
+    const review3=await data.requests.createRequest(sanjay.username, nissan.carId,"2021-12-07","2021-12-08","1 Day","960$")
+
     const tesla = await data.cars.createCar("2021 Tesla Model S", "Sedan", "Red", "4", "5", "10$/hr", "Yes", "Electric")
-    await data.reviews.createReview(priyanka.username, nissan.carId, "This car was ok!", 3)
-    await data.reviews.createReview(priyanka.username, tesla.carId, "This car was outstanding!", 5)
-    await data.requests.createRequest(priyanka.username, tesla.carId,"2021-12-07","2021-12-24","11 Day","2640$")
+    await data.reviews.createReview(priyanka.username, review3.requestId, "This car was ok!", 3)
+
+    const review4= await data.requests.createRequest(priyanka.username, tesla.carId,"2021-12-07","2021-12-24","11 Day","2640$")
+    await data.reviews.createReview(priyanka.username, review4.requestId, "This car was outstanding!", 5)
+    
     const ranualt = await data.cars.createCar("2021 Ranualt Triber", "Sedan", "White", "3", "5", "20$/hr", "No", "Electric")
+    await data.requests.createRequest(sanjay.username, ranualt.carId,"2021-12-13","2021-12-15","2 Day","960$")
 
     await db.serverConfig.close()
 

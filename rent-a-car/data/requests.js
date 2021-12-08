@@ -1,14 +1,14 @@
 const mongoCollections = require('../config/mongoCollections');
 const requests = mongoCollections.requests;
-const cars = mongoCollections.cars
-const users = mongoCollections.users
+const cars = mongoCollections.cars;
+const users = mongoCollections.users;
 let { ObjectId } = require('mongodb');
-const data = require('./')
+const data = require('./requests');
 
 module.exports = {
 
     async createRequest(username, carId,fromDate,toDate,timePeriod,totalCost){
-        if (arguments.length !== 5){throw "Expected userId and carId as arguments"}
+        if (arguments.length !== 6){throw "Expected userId and carId as arguments"}
         let newRequest = {
             username:username,
             carId:carId,
