@@ -3,11 +3,11 @@ const reviews = mongoCollections.reviews;
 const cars = mongoCollections.cars;
 const users = mongoCollections.users;
 let { ObjectId } = require('mongodb');
-const data = require('.');
+const data = require('./requests');
 
 module.exports = {
-    async createReview(username, reviewId, reviewText, rating){
-        const request = await data.requests.getRequest(reviewId);
+    async createReview(username, requestId, reviewText, rating){
+        const request = await data.getRequest(requestId);
         const carId = request.carId;
         if (arguments.length !=4) {throw "expected 4 arguments: userId, carId, reviewText, and rating "}
         const reviewsCollection = await reviews()
