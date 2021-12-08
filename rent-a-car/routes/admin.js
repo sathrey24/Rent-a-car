@@ -53,11 +53,10 @@ router.post('/adminLogin', async (req, res) => {
   });
 
   router.get('/request/:id', async(req,res) =>{
-    const request = await data.requests.getRequest(req.params.id)
-    const userdetails = await data.users.getUser(request.userId)
-    const cardetails = await data.cars.getCar(request.carId)
-    res.render('user/request', {req: request,car : cardetails, user: userdetails})
-
+    const request = await data.requests.getRequest(req.params.id);
+    const userdetails = await data.users.getUserDetails(request.username);
+    const cardetails = await data.cars.getCar(request.carId);
+    res.render('user/request', {req: request,car : cardetails, user: userdetails});
   })
   
   router.get('/addCar', (req, res) => {
@@ -65,7 +64,7 @@ router.post('/adminLogin', async (req, res) => {
   });
   
   router.get('/rentedCars', async(req, res) => {
-    const rentedcars = await data.cars.getRentedCars();
+    const rentedcars = await data.requests.getRentedCars();
     res.render('user/rentedCars', {body: rentedcars});
   });
   
@@ -137,7 +136,7 @@ router.post('/adminLogin', async (req, res) => {
   });
 
   router.get('/rejectRequest/:id', async(req, res) => {
-    await data.requests.approveRequest(req.params.id,false);
+    await data.requests.rejectRequest(req.params.id,false);
     const cars = await data.requests.getAllRequests();
      res.redirect('/admin/adminDashboard');
   });

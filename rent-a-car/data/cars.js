@@ -14,9 +14,7 @@ module.exports = {
             availability: availability,
             overallRating: 0,
             engineType: engineType,
-            reviewsGiven: [],
-            rented: false,
-            rentedBy: "Currrently not being rented by anyone"
+            reviewsGiven: []
         }
         const carCollection = await cars()
         const insertInfo = await carCollection.insertOne(newCar);
@@ -39,18 +37,6 @@ module.exports = {
         }
         return availableCars
     },
-
-    async getRentedCars(){
-      const carCollection = await cars()
-      const carList = await carCollection.find({}).toArray();
-      let rentedCars = []
-      for (i = 0; i < carList.length; i++){
-        if (carList[i]['rented'] === true){
-          rentedCars.push(carList[i])
-        }
-      }
-      return rentedCars
-  },
 
     async getAllCars(){
       const carCollection = await cars()
