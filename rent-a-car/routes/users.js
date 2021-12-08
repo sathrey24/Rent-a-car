@@ -154,25 +154,25 @@ router.post('/bookCar/:id', async (req, res) => {
   }
 });
 
-router.post('/review/:id', async (req, res) => {
-  if (!req.body.review || !req.body.rate) {
-    res.status(400).render('user/History', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
-    return;
-  }
-  let review = req.body.review;
-  let rate = req.body.rate;
-  try {
-    const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
-    if(result.reviewInserted){
-      res.redirect('/History');
-    }
-  } catch (e) {
-    res.status(400).render('user/History', {
-      error: "Error : " + e,
-      hasErrors : true
-    });
-    return;
-  }
-});
+// router.post('/review/:id', async (req, res) => {
+//   if (!req.body.review || !req.body.rate) {
+//     res.status(400).render('user/History', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+//     return;
+//   }
+//   let review = req.body.review;
+//   let rate = req.body.rate;
+//   try {
+//     const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
+//     if(result.reviewInserted){
+//       res.redirect('/History');
+//     }
+//   } catch (e) {
+//     res.status(400).render('user/History', {
+//       error: "Error : " + e,
+//       hasErrors : true
+//     });
+//     return;
+//   }
+// });
 
 module.exports = router;
