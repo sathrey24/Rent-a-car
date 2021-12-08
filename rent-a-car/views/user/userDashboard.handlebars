@@ -4,49 +4,48 @@
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/'"></i>
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
         </span>
-        <span class="btn-grp">
-            <span class="sfield">
-                <i class="fas fa-search"></i>
-                <select name="filter" id="filter" onchange="onFilterChange(this)">
-                            <option value="None">--Select--</option>
-                            <option value="All">All</option>
-                            <option value="Model">Model</option>
-                            <option value="Color">Color</option>
-                            <option value="Seating Capacity">Seating Capacity</option>
-                            <option value="Engine Type">Engine Type</option>
-                            <option value="Rating">Rating</option>
-                </select>
-                <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
-            </span>
-
-            <button onclick="window.location='/userHistory'" class="btn btn-light-outline">History<i
-                    class="fas fa-history"></i></button>
-            <p id="id_error" hidden></p>
-        </span>
-
+        <button onclick="window.location='/userHistory'" class="btn btn-light-outline">History<i
+                class="fas fa-history"></i></button>
+        <p id="id_error" hidden></p>
     </div>
-    {{#if request.length}}
-    <ol>
-        <a href="/admin/request/{{request}}">
-                 One Pending Request.Click to see more details.
-            </a>
-    </ol>
-    {{/if}}
+    <div class="mob-grp">
+        <select name="filter" id="filter" onchange="onFilterChange(this)" class="sfield">
+            <option value="None">--Select--</option>
+            <option value="All">All</option>
+            <option value="Model">Model</option>
+            <option value="Color">Color</option>
+            <option value="Seating Capacity">Seating Capacity</option>
+            <option value="Engine Type">Engine Type</option>
+            <option value="Rating">Rating</option>
+        </select>
+        <span class="sfield">
+            <i class="fas fa-search"></i>
+            <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
+        </span>
+    </div>
     <div class="content">
         <h1>Cars ({{body.length}})</h1>
+        {{#if request.length}}
+        <ol class="info-strip">
+            <a href="/admin/request/{{request}}" class="powerlinks">
+                Pending Request(s). Click for details.
+            </a>
+        </ol>
+        {{/if}}
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars">Model : 
-                <a href="/cars/{{this._id}}">{{this.model}}</a> <br/>
-                Color : {{this.color}} <br/>
-                Seating Capacity : {{this.seatingCapacity}} <br/>
-                Engine Type : {{this.engineType}} <br/>
-                Rating : {{this.overallRating}} <br/>
+            <li class="cars">Model :
+                <a href="/cars/{{this._id}}">{{this.model}}</a> <br />
+                Color : {{this.color}} <br />
+                Seating Capacity : {{this.seatingCapacity}} <br />
+                Engine Type : {{this.engineType}} <br />
+                Rating : {{this.overallRating}} <br />
             </li>
             {{/each}}
         </ul>
         {{/if}}
+        {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
     </div>
 
     <script src="public/js/carSearch.js"></script>
