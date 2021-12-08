@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Murecho:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 :root{
 	--primary: #4484CE;
@@ -6,7 +6,7 @@
 	--altprimary: #F9CF00;
 	--altsecondary: #D9D9D9;
 	--extra: #222629;
-	font-family: 'Murecho', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 html, body, p, h1, h2, h3, a{
 	padding: 0px;
@@ -19,6 +19,7 @@ html, body, p, h1, h2, h3, a{
 
 .logo-sr{
 	font-size: 100px;
+	margin-bottom: 20px;
 }
 
 i{
@@ -198,6 +199,7 @@ i{
     border: 0.2px solid var(--altsecondary);
 	padding: 20px;
 	margin: 10px 0px;
+	border-radius: 5px;
 }
 
 .cars a{
