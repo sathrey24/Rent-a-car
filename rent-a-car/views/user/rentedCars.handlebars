@@ -10,14 +10,16 @@
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars carlist-action-btns">
-                 Rented by : {{this.username}}<br />
-            
+            <li class="cars">
+                Rented by : {{this.username}}<br />
                 Date : {{fromDate}} to {{toDate}}<br />
                 Time span : {{timePeriod}}<br />
-                <a href="/admin/request/{{this._id}}">
-                 Request Details
-                </a>
+                <span class="carlist-action-btns">
+                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/admin/request/{{this._id}}'"
+                        style="color: blue;">
+                        <span class="tooltiptext">View Details</span>
+                    </i>
+                </span>
             </li>
             {{/each}}
         </ul>
