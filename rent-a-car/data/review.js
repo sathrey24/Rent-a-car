@@ -5,11 +5,11 @@ const users = mongoCollections.users
 let { ObjectId } = require('mongodb');
 
 module.exports = {
-    async createReview(userId, carId, reviewText, rating){
+    async createReview(username, carId, reviewText, rating){
         if (arguments.length !=4) {throw "expected 4 arguments: userId, carId, reviewText, and rating "}
         const reviewsCollection = await reviews()
         let newReview = {
-            userId: userId,
+            username: username,
             carId: carId,
             reviewText: reviewText,
             rating: rating
@@ -24,7 +24,7 @@ module.exports = {
         });
         const usersCollection = await users()
         await usersCollection.updateOne(
-            { _id: ObjectId(userId) },
+            { username: username },
             { $addToSet: { reviewsGiven: id }  
         });
         let reviewArray = await reviewsCollection.find({carId: carId}).toArray()
@@ -41,6 +41,7 @@ module.exports = {
         });
         return {reviewInserted: true, reviewId: id }
     },
+
     async getReview(id){
         const reviewsCollection = await reviews()
         let parsedId = ObjectId(id);

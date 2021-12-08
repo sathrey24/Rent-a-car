@@ -11,8 +11,15 @@
         <ul class="carlist-ul">
             {{#each body}}
             <li class="cars carlist-action-btns">
-                <a href="/cars/{{this._id}}">{{this.model}}</a>
+                <li>
+                 Rented by : {{this.username}}
+                </li>
             </li>
+            <li>Date : {{fromDate}} to {{toDate}}</li>
+            <li>Time span : {{timePeriod}}</li>
+            <a href="/admin/request/{{this._id}}">
+                 Request Details
+            </a>
             {{/each}}
         </ul>
         {{/if}}
