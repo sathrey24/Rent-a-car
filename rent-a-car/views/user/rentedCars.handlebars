@@ -11,11 +11,10 @@
         <ul class="carlist-ul">
             {{#each body}}
             <li class="cars carlist-action-btns">
-                <li>
-                 Rented by : {{this.username}}
-                </li>
-                <li>Date : {{fromDate}} to {{toDate}}</li>
-                <li>Time span : {{timePeriod}}</li>
+                 Rented by : {{this.username}}<br />
+            
+                Date : {{fromDate}} to {{toDate}}<br />
+                Time span : {{timePeriod}}<br />
                 <a href="/admin/request/{{this._id}}">
                  Request Details
                 </a>
