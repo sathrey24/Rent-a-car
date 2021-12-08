@@ -207,7 +207,7 @@ i{
 
 .carlist-action-btns{
 	display: flex;
-	justify-content: space-between;
+	justify-content: right;
 	align-items: center;
 }
 
@@ -236,14 +236,19 @@ i{
 	background-color: #fff;
 }
 
+.action-logo{
+	font-size: 20px;
+	cursor: pointer;
+}
+
 .delete{
-	font-size: 18px;
+	font-size: 20px;
 	color: red;
 	cursor: pointer;
 }
 
 .edit{
-	font-size: 18px;
+	font-size: 20px;
 	color: var(--primary);
 	cursor: pointer;
 }
@@ -572,3 +577,32 @@ i{
 		width: 80%;
 	}
 }
+
+/* -- tooltip -- */
+.tooltip {
+	position: relative;
+	display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	margin: 5px 0px;
+	font-size: 10px;
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+  }
+  
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+	width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  }
