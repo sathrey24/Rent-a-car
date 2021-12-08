@@ -1,6 +1,11 @@
+function onFilterChange(){
+    document.getElementById('searchbar').value = "";
+}
+
 function search_car() {
     let errorDiv = document.getElementById('id_error');
     let input = document.getElementById('searchbar').value;
+    let filterValue = document.getElementById('filter').value;
     input=input.toLowerCase();
     let x = document.getElementsByClassName('cars');
     if(input.trim().length == 0){
@@ -11,11 +16,20 @@ function search_car() {
         errorDiv.hidden = true;
     }
     for (i = 0; i < x.length; i++) { 
-        if (!x[i].innerHTML.toLowerCase().includes(input)) {
-            x[i].style.display="none";
-        }
-        else {
-            x[i].style.display="list-item";                 
+        if(x[i].innerHTML.toLowerCase().includes(filterValue.toLowerCase())){
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display="none";
+            }
+            else {
+                x[i].style.display="list-item";                 
+            }
+        }else{
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                x[i].style.display="none";
+            }
+            else {
+                x[i].style.display="list-item";                 
+            }
         }
     }
 }
@@ -29,10 +43,10 @@ function onSelectionChange(element) {
     if(element.value == "Hour")
     {
         let total = numberofdays_element.value*perHourCost;
-        total_element.value  = total + " $";
+        total_element.value  = total + "$";
     }else if(element.value == "Day"){
         let total = numberofdays_element.value*24*perHourCost;
-        total_element.value  = total + " $";
+        total_element.value  = total + "$";
     }
 }
 

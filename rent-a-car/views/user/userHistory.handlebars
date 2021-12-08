@@ -1,22 +1,28 @@
   <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">Back</button>
- {{!--<div class="content">
+ <div class="content">
         <h1>Past History ({{body.length}})</h1>
         {{#if body.length}}
+        <form action="/review/{{this._id}}" method="post" id="review-form"></form>
         <ul class="carlist-ul">
             {{#each body}}
+            <a href="/admin/request/{{this._id}}">
+                 Request Details
+            </a>
+            <li>Date : {{fromDate}} to {{toDate}}</li>
+            <li>Time span : {{timePeriod}}</li>
             <li class="cars">
-                {{this.carId}}
                 <span>
                     <label>Review : 
-                    <input type="text" id="reviewId"/>
+                    <input name="review" type="text" id="reviewId"/>
                     </label>
                     <label>Rating : 
-                    <input type="number" id="rateId"/>
+                    <input name="rating" type="number" id="rateId"/>
                     </label>
-                    <button >Submit</button>
+                    <input type="submit" value="Submit" class="btn btn-dark savebtn" />
                 </span>
             </li>
             {{/each}}
         </ul>
+        </form>
         {{/if}}
-    </div> --}}
+    </div>
