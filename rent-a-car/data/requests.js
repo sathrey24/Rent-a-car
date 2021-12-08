@@ -80,15 +80,21 @@ module.exports = {
         const requestCollection = await requests();
         let req = await this.getRequest(id)
         let carId = req.carId;
+        try{
         const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
-        if (updateInfo.modifiedCount === 0) {
-            throw "Internal Server Error"
         }
+        catch(e){
+            throw e
+        }
+       
         const carCollection = await cars()
+        try{
         const updateAvailability = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { availability: "No" } })
-        if (updateAvailability.modifiedCount === 0) {
-            throw "Internal Server Error"
         }
+        catch(e){
+            throw e
+        }
+
     },
 
     async rejectRequest(id, flag) {
