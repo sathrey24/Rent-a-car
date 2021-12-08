@@ -7,14 +7,15 @@ const data = require('./')
 
 module.exports = {
 
-    async createRequest(username, carId,fromDate,toDate,timePeriod){
+    async createRequest(username, carId,fromDate,toDate,timePeriod,totalCost){
         if (arguments.length !== 5){throw "Expected userId and carId as arguments"}
         let newRequest = {
             username:username,
             carId:carId,
             fromDate:fromDate,
             toDate:toDate,
-            timePeriod:timePeriod
+            timePeriod:timePeriod,
+            totalCost:totalCost
         };
         const requestCollection = await requests();
         const insertInfo = await requestCollection.insertOne(newRequest);
@@ -34,10 +35,28 @@ module.exports = {
         return pendingRequestList;
     },
 
-    async getAllRequestsbByID(username){
+    async getAllRequestsByID(username){
         const requestCollection = await requests()
-        const requestsList = await requestCollection.find({username: username}).toArray()
-        return requestsList;
+        const requestsList = await requestCollection.find({username: username}).toArray();
+        let rentedCars = []
+        for (i = 0; i < requestsList.length; i++){
+          if (requestsList[i].hasOwnProperty('approved')){
+              if(requestsList[i].approved){
+                    rentedCars.push(requestsList[i]);
+              }
+            }}
+        return rentedCars;
+    },
+
+    async getAllPendingRequestsByID(username){
+        const requestCollection = await requests()
+        const requestsList = await requestCollection.find({username: username}).toArray();
+        let pendingRequest = []
+        for (i = 0; i < requestsList.length; i++){
+          if (!requestsList[i].hasOwnProperty('approved')){
+            pendingRequest.push(requestsList[i]);
+            }}
+        return pendingRequest;
     },
       
     async getRequest(id){
@@ -87,9 +106,9 @@ module.exports = {
           if (requestList[i].hasOwnProperty('approved')){
               let fromDate = checkDate(new Date(new Date(requestList[i].fromDate).getTime() + 86400000));
               let toDate = checkDate(new Date(new Date(requestList[i].toDate).getTime() + 86400000));
-              if(requestList[i].approved && (fromDate || toDate)){}
+              if(requestList[i].approved && (fromDate || toDate)){
                     rentedCars.push(requestList[i]);
-              }
+              }}
           } 
         return rentedCars;
     },
