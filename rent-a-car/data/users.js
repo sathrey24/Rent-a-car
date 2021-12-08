@@ -21,16 +21,14 @@ module.exports = {
             licenseNum:licenseNum,
             username: username.toLowerCase(),
             password: hashPasswd,
-            carsRenting : [],
             reviewsGiven : [],
-            requestPending: false,
             role : "user"
         };
         const insertInfo = await usersCollection.insertOne(newUser);
           if (insertInfo.insertedCount === 0) throw 'Internal Server Error';
         else{
           const id = insertInfo.insertedId.toString()
-          return {userInserted: true, userId: id};
+          return {userInserted: true, userId: id , username : username};
         }
       },
 
@@ -48,14 +46,6 @@ module.exports = {
         }else{
           throw "Either the username or password is invalid";
         }
-      },
-
-      async getUser(id){
-        const usersCollection = await users()
-        let parsedId = ObjectId(id);
-        const user = await usersCollection.findOne({_id: parsedId})
-        if (user === null) {throw "no user with that id"}
-        return user
       },
 
       async getUserDetails(username){
