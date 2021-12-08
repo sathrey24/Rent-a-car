@@ -11,12 +11,20 @@
         <form action="/review/{{this._id}}" method="post" id="review-form"></form>
         <ul class="carlist-ul">
             {{#each body}}
+<<<<<<< HEAD
             <a href="/admin/request/{{this._id}}">
                 Request Details
             </a>
             <li>Date : {{fromDate}} to {{toDate}}</li>
             <li>Time span : {{timePeriod}}</li>
+=======
+>>>>>>> 61272f0afed44b7fc8e057e858af34253a3bf09b
             <li class="cars">
+                <a href="/request/{{this._id}}">
+                 Request Details
+                </a><br />
+                Date : {{fromDate}} to {{toDate}}<br />
+                Time span : {{timePeriod}}</br>
                 <span>
                     <label>Review :
                         <input name="review" type="text" id="reviewId" />

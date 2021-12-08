@@ -40,13 +40,28 @@ router.get('/userProfile', async (req, res) => {
 router.get('/userDashboard', async function (req, res) {
   const cars = await data.cars.getAvailableCars();
   const request = await data.requests.getAllPendingRequestsByID(req.session.user);
+  let all_CarIDS = []
+  let request_CarIDS = []
+  let filtered = []
+  let carList = []
+  for (i = 0; i < cars.length; i++){
+    all_CarIDS.push(cars[i]._id.toString())
+  }
+  for (i = 0; i < request.length; i++){
+    request_CarIDS.push(request[i].carId)
+  }
+  filtered = all_CarIDS.filter(item => !request_CarIDS.includes(item));
+  for (i = 0; i < filtered.length; i++){
+    const thecar = await data.cars.getCar(filtered[i])
+    carList.push(thecar)
+  }
   let reqs;
   if (request.length > 0) {
     reqs = request[0]._id.toString();
   } else {
     reqs = [];
   }
-  res.render('user/userDashboard', { body: cars, request: reqs });
+  res.render('user/userDashboard', { body: carList, request: reqs });
 });
 
 router.post('/login', async (req, res) => {
@@ -83,7 +98,18 @@ router.post('/login', async (req, res) => {
     return;
   }
 });
+router.get('/request/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(req.params.id);
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails});
+})
 
+router.get('/allRequests/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(req.params.id);
+  const requestList = await data.requests.getAllPendingRequestsByID(request.username)
+  res.render('user/allRequests', {body: requestList});
+})
 router.post('/register', async (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
