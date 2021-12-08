@@ -7,6 +7,15 @@
         <span class="btn-grp">
             <span class="sfield">
                 <i class="fas fa-search"></i>
+                <select name="filter" id="filter" onchange="onFilterChange(this)">
+                            <option value="None">--Select--</option>
+                            <option value="All">All</option>
+                            <option value="Model">Model</option>
+                            <option value="Color">Color</option>
+                            <option value="Seating Capacity">Seating Capacity</option>
+                            <option value="Engine Type">Engine Type</option>
+                            <option value="Rating">Rating</option>
+                </select>
                 <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
             </span>
 
@@ -16,18 +25,24 @@
         </span>
 
     </div>
-    {{!-- {{#if request.length}}
+    {{#if request.length}}
     <ol>
-        <li>Request 1 : {{request.approved}}</li>
+        <a href="/admin/request/{{request}}">
+                 One Pending Request.Click to see more details.
+            </a>
     </ol>
-    {{/if}} --}}
+    {{/if}}
     <div class="content">
         <h1>Cars ({{body.length}})</h1>
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars">
-                <a href="/cars/{{this._id}}">{{this.model}}</a>
+            <li class="cars">Model : 
+                <a href="/cars/{{this._id}}">{{this.model}}</a> <br/>
+                Color : {{this.color}} <br/>
+                Seating Capacity : {{this.seatingCapacity}} <br/>
+                Engine Type : {{this.engineType}} <br/>
+                Rating : {{this.overallRating}} <br/>
             </li>
             {{/each}}
         </ul>
