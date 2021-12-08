@@ -1,22 +1,28 @@
-  <button onclick="window.location='/userDashboard'" class="btn btn-light-outline">Back</button>
- <div class="content">
+<div class="wrapper">
+    <div class="header">
+        <span class="logo-action">
+            <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userDashboard'"></i>
+            <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </span>
+    </div>
+    <div class="content">
         <h1>Past History ({{body.length}})</h1>
         {{#if body.length}}
         <form action="/review/{{this._id}}" method="post" id="review-form"></form>
         <ul class="carlist-ul">
             {{#each body}}
             <a href="/admin/request/{{this._id}}">
-                 Request Details
+                Request Details
             </a>
             <li>Date : {{fromDate}} to {{toDate}}</li>
             <li>Time span : {{timePeriod}}</li>
             <li class="cars">
                 <span>
-                    <label>Review : 
-                    <input name="review" type="text" id="reviewId"/>
+                    <label>Review :
+                        <input name="review" type="text" id="reviewId" />
                     </label>
-                    <label>Rating : 
-                    <input name="rating" type="number" id="rateId"/>
+                    <label>Rating :
+                        <input name="rating" type="number" id="rateId" />
                     </label>
                     <input type="submit" value="Submit" class="btn btn-dark savebtn" />
                 </span>
@@ -26,3 +32,4 @@
         </form>
         {{/if}}
     </div>
+</div>
