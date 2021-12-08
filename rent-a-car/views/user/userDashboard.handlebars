@@ -21,9 +21,9 @@
         <span class="sfield">
             <i class="fas fa-search"></i>
             <input id="searchbar" onkeyup="search_car()" type="text" name="search" placeholder="Search car..">
-        </span>
-        <p id="id_error" hidden></p>
+        </span><br />
     </div>
+    <p id="id_error" hidden style="text-align: right; width:80%"></p>
     <div class="content">
         <h1>Cars ({{body.length}})</h1>
         {{#if request.length}}
@@ -37,11 +37,18 @@
         <ul class="carlist-ul">
             {{#each body}}
             <li class="cars">Model :
-                <a href="/cars/{{this._id}}">{{this.model}}</a> <br />
+                <a href="/cars/{{this._id}}" style="text-decoration:underline">{{this.model}}</a>
+                <br />
                 Color : {{this.color}} <br />
                 Seating Capacity : {{this.seatingCapacity}} <br />
                 Engine Type : {{this.engineType}} <br />
                 Rating : {{this.overallRating}} <br />
+                <span class="carlist-action-btns">
+                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/cars/{{this._id}}'"
+                        style="color: blue;">
+                        <span class="tooltiptext">View Details</span>
+                    </i>
+                </span>
             </li>
             {{/each}}
         </ul>
