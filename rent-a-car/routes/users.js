@@ -27,8 +27,9 @@ router.get('/register', (req, res) => {
   res.render('user/register');
 });
 
-router.get('/userHistory', (req, res) => {
-  res.render('user/userHistory');
+router.get('/userHistory', async(req, res) => {
+  const requestList = await data.requests.getAllRequestsByID(req.session.user);
+  res.render('user/userHistory',{body : requestList});
 });
 
 router.get('/userProfile', async(req, res) => {
@@ -38,9 +39,8 @@ router.get('/userProfile', async(req, res) => {
 
 router.get('/userDashboard', async function(req, res) {
   const cars = await data.cars.getAvailableCars();
-  //const user = await data.users.getUserDetails(req.session.user);
-  //const request = await data.requests.getAllRequestsbByID(user._id);
-  res.render('user/userDashboard', {body: cars});
+  const request = await data.requests.getAllPendingRequestsByID(req.session.user);
+  res.render('user/userDashboard', {body: cars , request : request[0]._id.toString()});
 });
 
 router.post('/login', async (req, res) => {
@@ -132,6 +132,47 @@ router.post('/register', async (req, res) => {
   }
 });
 
+router.post('/bookCar/:id', async (req, res) => {
+  if (!req.body.fromDate || !req.body.toDate || !req.body.count || !req.body.timePeriod) {
+    res.status(400).render('user/carDetails', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    return;
+  }
+  let fromDate = req.body.fromDate;
+  let toDate = req.body.toDate;
+  let timePeriod = req.body.count +' '+req.body.timePeriod;
+  try {
+    const result = await data.requests.createRequest(req.session.user, req.params.id,fromDate,toDate,timePeriod,req.body.total);
+    if(result.requestInserted){
+      res.redirect('/userDashboard');
+    }
+  } catch (e) {
+    res.status(400).render('user/carDetails', {
+      error: "Error : " + e,
+      hasErrors : true
+    });
+    return;
+  }
+});
 
+router.post('/review/:id', async (req, res) => {
+  if (!req.body.review || !req.body.rate) {
+    res.status(400).render('user/History', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    return;
+  }
+  let review = req.body.review;
+  let rate = req.body.rate;
+  try {
+    const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
+    if(result.reviewInserted){
+      res.redirect('/History');
+    }
+  } catch (e) {
+    res.status(400).render('user/History', {
+      error: "Error : " + e,
+      hasErrors : true
+    });
+    return;
+  }
+});
 
 module.exports = router;
