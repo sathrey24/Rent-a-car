@@ -15,9 +15,12 @@
         <ul class="carlist-ul">
             {{#each body}}
             <li class="cars carlist-action-btns">
-                <li>
-                 Request from User : {{this.username}}
-                </li>
+                 Request from User : {{this.username}}<br />
+                 Date : {{fromDate}} to {{toDate}}<br />
+                 Time span : {{timePeriod}}<br />
+                 <a href="/admin/request/{{this._id}}">
+                    Request Details
+                </a>
                 <span>
                     <button onclick="window.location='/admin/approveRequest/{{this._id}}'"
                         class="btn btn-dark">Approve</button>
@@ -25,11 +28,6 @@
                         class="btn btn-light-outline">Reject</button>
                 </span>
             </li>
-            <li>Date : {{fromDate}} to {{toDate}}</li>
-            <li>Time span : {{timePeriod}}</li>
-            <a href="/admin/request/{{this._id}}">
-                 Request Details
-            </a>
             {{/each}}
         </ul>
         {{/if}}
