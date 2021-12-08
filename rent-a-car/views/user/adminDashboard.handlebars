@@ -14,20 +14,28 @@
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars carlist-action-btns">
-                 Request from User : {{this.username}}<br />
-                 Date : {{fromDate}} to {{toDate}}<br />
-                 Time span : {{timePeriod}}<br />
-                 <a href="/admin/request/{{this._id}}">
-                    Request Details
-                </a>
-                <span>
-                    <button onclick="window.location='/admin/approveRequest/{{this._id}}'"
-                        class="btn btn-dark">Approve</button>
-                    <button onclick="window.location='/admin/rejectRequest/{{this._id}}'"
-                        class="btn btn-light-outline">Reject</button>
+            <li class="cars">
+                <span style="display: block;">
+                    <p>Username : {{this.username}}</p>
+                    <p>Date : {{fromDate}} to {{toDate}}</p>
+                    <p>Time span : {{timePeriod}}</p>
+                </span>
+                <span class="carlist-action-btns">
+                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/admin/request/{{this._id}}'"
+                        style="color: blue;">
+                        <span class="tooltiptext">View Details</span>
+                    </i>
+                    <i class="tooltip action-logo fas fa-vote-yea"
+                        onclick="window.location='/admin/approveRequest/{{this._id}}'" style="color: green;">
+                        <span class="tooltiptext">Approve Request</span>
+                    </i>
+                    <i class="tooltip action-logo fas fa-window-close"
+                        onclick="window.location='/admin/rejectRequest/{{this._id}}'" style="color: red;">
+                        <span class="tooltiptext">Reject Request</span>
+                    </i>
                 </span>
             </li>
+
             {{/each}}
         </ul>
         {{/if}}
