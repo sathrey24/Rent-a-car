@@ -51,11 +51,21 @@ function onSelectionChange(element) {
 }
 
 function onFromDateChange(element){
+    let noresponseDiv = document.getElementById('noresponseError')
+    if (typeof(noresponseDiv) != 'undefined' && noresponseDiv != null){
+        noresponseDiv.hidden = true
+    }
     let errorDiv = document.getElementById('id_error1');
-    let currentDate = new Date();
-    let slectedDate = new Date(new Date(element.value).getTime() + 86400000);
-    if(slectedDate == "Invalid Date") throw "Invalid Date";
-    if(currentDate.getDate() != slectedDate.getDate() || currentDate.getMonth() != slectedDate.getMonth() || currentDate.getFullYear() != slectedDate.getFullYear()) {
+    errorDiv.hidden = true;
+    var dateObj = new Date();
+    var month = dateObj.getMonth() + 1; //months from 1-12
+    var day = dateObj.getDate();
+    var year = dateObj.getFullYear();
+    let selectedDay = parseInt(element.value.substr(8,9))
+    let selectedYear = parseInt(element.value.substr(0,4))
+    let selectedMonth = parseInt(element.value.substr(5,2))
+    if(dateObj == "Invalid Date") throw "Invalid Date";
+    if(selectedDay != day || selectedMonth != month || selectedYear != year) {
         errorDiv.hidden = false;
         errorDiv.innerHTML = "From date should be current or future date only";
         document.getElementById('from_date').focus();
@@ -66,14 +76,34 @@ function onFromDateChange(element){
 
 function onToDateChange(element){
     let errorDiv = document.getElementById('id_error1');
-    let currentDate = new Date();
-    let slectedDate = new Date(new Date(element.value).getTime() + 86400000);
-    if(slectedDate == "Invalid Date") throw "Invalid Date";
-    if(currentDate.getDate() != slectedDate.getDate() || currentDate.getMonth() != slectedDate.getMonth() || currentDate.getFullYear() != slectedDate.getFullYear()) {
+    var dateObj = new Date();
+    var month = dateObj.getMonth() + 1; //months from 1-12
+    var day = dateObj.getDate();
+    var year = dateObj.getFullYear();
+    if (!element.value){
         errorDiv.hidden = false;
         errorDiv.innerHTML = "To date should be current or future date only";
         document.getElementById('to_date').focus();
-    }else{
+    }
+    let selectedDay = parseInt(element.value.substr(8,9))
+    let selectedYear = parseInt(element.value.substr(0,4))
+    let selectedMonth = parseInt(element.value.substr(5,2))
+    if(dateObj == "Invalid Date") throw "Invalid Date";
+    if (selectedYear < year){
+        errorDiv.hidden = false;
+        errorDiv.innerHTML = "To date should be current or future date only";
+        document.getElementById('to_date').focus();
+    }
+    if (selectedYear > year){
         errorDiv.hidden = true;
+    }
+    if (selectedYear === year){
+        if (selectedDay >= day && selectedMonth >= month){
+                errorDiv.hidden = true;
+            } else {
+                errorDiv.hidden = false;
+                errorDiv.innerHTML = "To date should be current or future date only";
+                document.getElementById('to_date').focus();
+            }
     }
 }
