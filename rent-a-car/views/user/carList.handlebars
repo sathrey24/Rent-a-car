@@ -14,11 +14,15 @@
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars carlist-action-btns">
+            <li class="cars">
                 <a href="/cars/{{this._id}}">{{this.model}}</a>
-                <span>
-                    <i class="delete fas fa-trash" onclick="window.location='/admin/deleteCar/{{this._id}}'"></i>
-                    <i class="edit fas fa-edit" onclick="window.location='/admin/editCar/{{this._id}}'"></i>
+                <span class="carlist-action-btns">
+                    <i class="tooltip delete fas fa-trash" onclick="window.location='/admin/deleteCar/{{this._id}}'">
+                        <span class="tooltiptext">Delete</span>
+                    </i>
+                    <i class="tooltip edit fas fa-edit" onclick="window.location='/admin/editCar/{{this._id}}'">
+                        <span class="tooltiptext">Edit</span>
+                    </i>
                 </span>
             </li>
             {{/each}}
