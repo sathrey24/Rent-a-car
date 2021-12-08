@@ -31,11 +31,11 @@ module.exports = {
         const carList = await carCollection.find({}).toArray();
         let availableCars = []
         for (i = 0; i < carList.length; i++){
-          if (carList[i]['rented'] === false){
+          if (carList[i]['availability'] === "Yes"){
             availableCars.push(carList[i])
           }
         }
-        return availableCars
+        return availableCars;
     },
 
     async getAllCars(){

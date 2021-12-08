@@ -37,14 +37,14 @@
 
         <div id="id_error1" hidden class="err-strip"></div>
         {{#if role}}
-        <form action="/bookCar" method="post" id="booking-form">
+        <form action="/bookCar/{{details._id}}" method="post" id="booking-form">
             <div class="form-grid">
                 <div class="flgrid">
                     <label>From Date :
-                        <input type="date" id="from_date" onchange="onFromDateChange(this)" />
+                        <input type="date" name="fromDate" id="from_date" onchange="onFromDateChange(this)" />
                     </label><br />
                     <label>Upto Date :
-                        <input type="date" id="to_date" onchange="onToDateChange(this)" />
+                        <input type="date" name="toDate" id="to_date" onchange="onToDateChange(this)" />
                     </label><br />
                     <label>Time Period :
                         <input type="number" name="count" id="numberofdays" />
@@ -58,12 +58,17 @@
                 </div>
                 <div class="frgrid">
                     <label id="total_cost_label">Total :
-                        <input type="text" readonly id="total_cost" />
+                        <input name="total" type="text" readonly id="total_cost" />
                     </label>
                     <br />
                     <input type="submit" value="Book" class="btn btn-dark savebtn" />
                 </div>
             </div>
+            {{#if hasErrors}}
+                        <div class="err-strip">
+                            <p>{{{error}}}</p>
+                        </div>
+                    {{/if}}
         </form>
         {{/if}}
 
