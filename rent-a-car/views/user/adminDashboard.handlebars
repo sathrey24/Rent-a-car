@@ -11,33 +11,35 @@
     </div>
     <div class="content">
         <h1>User Requests ({{body.length}})</h1>
-        {{#if body.length}}
-        <ul class="carlist-ul">
-            {{#each body}}
-            <li class="cars">
-                <span style="display: block;">
-                    <p>Username : {{this.username}}</p>
-                    <p>Date : {{fromDate}} to {{toDate}}</p>
-                    <p>Time span : {{timePeriod}}</p>
-                </span>
-                <span class="carlist-action-btns">
-                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/admin/request/{{this._id}}'"
-                        style="color: blue;">
-                        <span class="tooltiptext">View Details</span>
-                    </i>
-                    <i class="tooltip action-logo fas fa-vote-yea"
-                        onclick="window.location='/admin/approveRequest/{{this._id}}'" style="color: green;">
-                        <span class="tooltiptext">Approve Request</span>
-                    </i>
-                    <i class="tooltip action-logo fas fa-window-close"
-                        onclick="window.location='/admin/rejectRequest/{{this._id}}'" style="color: red;">
-                        <span class="tooltiptext">Reject Request</span>
-                    </i>
-                </span>
-            </li>
-            {{/each}}
-        </ul>
-        {{/if}}
+        <div class="scroll-container">
+            {{#if body.length}}
+            <ul class="carlist-ul">
+                {{#each body}}
+                <li class="cars">
+                    <span style="display: block;">
+                        <p>Username : {{this.username}}</p>
+                        <p>Date : {{fromDate}} to {{toDate}}</p>
+                        <p>Time span : {{timePeriod}}</p>
+                    </span>
+                    <span class="carlist-action-btns">
+                        <i class="tooltip action-logo fas fa-eye"
+                            onclick="window.location='/admin/request/{{this._id}}'" style="color: blue;">
+                            <span class="tooltiptext">View Details</span>
+                        </i>
+                        <i class="tooltip action-logo fas fa-vote-yea"
+                            onclick="window.location='/admin/approveRequest/{{this._id}}'" style="color: green;">
+                            <span class="tooltiptext">Approve Request</span>
+                        </i>
+                        <i class="tooltip action-logo fas fa-window-close"
+                            onclick="window.location='/admin/rejectRequest/{{this._id}}'" style="color: red;">
+                            <span class="tooltiptext">Reject Request</span>
+                        </i>
+                    </span>
+                </li>
+                {{/each}}
+            </ul>
+            {{/if}}
+        </div>
     </div>
 
     <div class="content">
@@ -51,8 +53,8 @@
                     <p>Extension Time Span : {{this.extensionPeriod}}</p>
                 </span>
                 <span class="carlist-action-btns">
-                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/admin/request/ext/{{this._id}}'"
-                        style="color: blue;">
+                    <i class="tooltip action-logo fas fa-eye"
+                        onclick="window.location='/admin/request/ext/{{this._id}}'" style="color: blue;">
                         <span class="tooltiptext">View Details</span>
                     </i>
                     <i class="tooltip action-logo fas fa-vote-yea"
