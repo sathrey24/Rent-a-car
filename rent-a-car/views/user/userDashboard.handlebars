@@ -33,6 +33,13 @@
             </a>
         </ol>
         {{/if}}
+        {{#if extension.length}}
+        <ol class="info-strip">
+            <a href="/allRequests/extension/{{extenreqs}}" class="powerlinks">
+                Pending Extension Request(s). Click for details.
+            </a>
+        </ol>
+        {{/if}}
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}

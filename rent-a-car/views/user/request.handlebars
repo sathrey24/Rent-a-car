@@ -30,3 +30,16 @@
         <hr />
     </div>
 </div>
+{{#if extension}}
+<div class="content">
+        <h1>Extension Request Details</h1>
+        <div class="main-grid">
+            <div class="rgrid">
+                <p class="dtext"><b>Extension Time Span: </b>{{extension.extensionPeriod}}</p>
+                <p class="dtext"><b>Total Cost after extension: </b>{{extension.newTotal}}</p>
+            </div>
+        </div>
+        <hr />
+    </div>
+{{/if}}
+</div>
