@@ -25,3 +25,40 @@
             </div>
         </div>
         <hr />
+    </div>
+    <div class="content">
+    {{#if review}}
+        <form action="/review/{{req._id}}" method="post" id="review-form">
+                <span>
+                    <label>Review :
+                        <input name="review" type="text" id="reviewId" style="margin: 5px 0px;" />
+                    </label>
+                    <br />
+                    <label>Rating :
+                        <input name="rating" type="number" id="rateId" style="margin: 5px 0px;" min="1" max="5"/>
+                    </label>
+                    <br />
+                    <input type="submit" value="Submit Review" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
+                </span>
+        </form>
+    {{/if}}
+    </div>
+    <div class="content">
+    {{#if extension}}
+        <form action="/extension/{{req._id}}" method="post" id="extension-form">
+                <span>
+                    <label>Time Span :
+                        <input type="number" name="count" id="numberofdays1" min="1" max="10"/>
+                        <select name="timePeriod" id="timePeriod1">
+                            <option value="None">--Select--</option>
+                            <option value="Hour">Hour</option>
+                            <option value="Day">Day</option>
+                        </select>
+                    </label>
+                    <br />
+                    <input type="submit" value="Request Extension" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
+                </span>
+        </form>
+    {{/if}}
+    </div>
+    </div>

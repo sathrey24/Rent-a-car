@@ -31,7 +31,7 @@ module.exports = {
         const carList = await carCollection.find({}).toArray();
         let availableCars = []
         for (i = 0; i < carList.length; i++){
-          if (carList[i]['availability'] === "Yes"){
+          if (carList[i]['availability'] === "YES"){
             availableCars.push(carList[i])
           }
         }
@@ -48,7 +48,7 @@ module.exports = {
       const carCollection = await cars()
       let parsedId = ObjectId(id);
       const car = await carCollection.findOne({_id: parsedId})
-      if (car === null) {throw "no car with that id"}
+      if (car === null) {throw "No car with that id"}
       return car
     },
 

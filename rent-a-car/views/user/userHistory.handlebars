@@ -6,35 +6,41 @@
         </span>
     </div>
     <div class="content">
-        <h1>Past History ({{body.length}})</h1>
-        {{#if body.length}}
-        <form action="/review/{{this._id}}" method="post" id="review-form"></form>
+        <h1>Currently Renting ({{currentRequest.length}})</h1>
+        {{#if currentRequest.length}}
         <ul class="carlist-ul">
-            {{#each body}}
+            {{#each currentRequest}}
             <li class="cars">
                 Date : {{fromDate}} to {{toDate}}<br />
                 Time span : {{timePeriod}}</br>
-                <span>
-                    <label>Review :
-                        <input name="review" type="text" id="reviewId" style="margin: 5px 0px;" />
-                    </label>
-                    <br />
-                    <label>Rating :
-                        <input name="rating" type="number" id="rateId" style="margin: 5px 0px;" />
-                    </label>
-                    <br />
-                    <input type="submit" value="Submit" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
-                </span>
                 <span class="carlist-action-btns">
-                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/request/{{this._id}}'"
+                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/request/extension/{{this._id}}'"
                         style="color: blue;">
-                        <span class="tooltiptext">View Details</span>
+                        <span class="tooltiptext">View Details and Request for extension</span>
                     </i>
                 </span>
             </li>
             {{/each}}
         </ul>
-        </form>
+        {{/if}}
+    </div>
+    <div class="content">
+        <h1>Past History ({{body.length}})</h1>
+        {{#if body.length}}
+        <ul class="carlist-ul">
+            {{#each body}}
+            <li class="cars">
+                Date : {{fromDate}} to {{toDate}}<br />
+                Time span : {{timePeriod}}</br>
+                <span class="carlist-action-btns">
+                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/request/review/{{this._id}}'"
+                        style="color: blue;">
+                        <span class="tooltiptext">View Details and provide feedback</span>
+                    </i>
+                </span>
+            </li>
+            {{/each}}
+        </ul>
         {{/if}}
     </div>
 </div>
