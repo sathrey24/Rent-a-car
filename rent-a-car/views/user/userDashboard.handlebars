@@ -36,9 +36,7 @@
         {{#if body.length}}
         <ul class="carlist-ul">
             {{#each body}}
-            <li class="cars">Model :
-                <a href="/cars/{{this._id}}" style="text-decoration:underline">{{this.model}}</a>
-                <br />
+            <li class="cars">Model :{{this.model}} <br />
                 Color : {{this.color}} <br />
                 Seating Capacity : {{this.seatingCapacity}} <br />
                 Engine Type : {{this.engineType}} <br />
@@ -46,7 +44,7 @@
                 <span class="carlist-action-btns">
                     <i class="tooltip action-logo fas fa-eye" onclick="window.location='/cars/{{this._id}}'"
                         style="color: blue;">
-                        <span class="tooltiptext">View Details</span>
+                        <span class="tooltiptext">View Details and Book</span>
                     </i>
                 </span>
             </li>
