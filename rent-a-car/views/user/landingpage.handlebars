@@ -26,8 +26,13 @@
         <img src="../../public/resources/images/hero-img2.jpg" alt="heroimg" />
         <div class="centered">
             <h1>Choose your dream car</h1>
-            <p>At a price as low as $2 per hour</p>
-            <button class="btn btn-dark" onclick="window.location='/login'">Book Now!</button>
+            <p>At a price as low as $10 per hour</p>
+            {{#if user}}
+                <button class="btn btn-dark" onclick="window.location='/userDashboard'">Book Now!</button>
+            {{/if}}
+            {{#if login}}
+                <button class="btn btn-dark" onclick="window.location='/login'">Book Now!</button>
+            {{/if}}
         </div>
     </div>
     <div class="about">
