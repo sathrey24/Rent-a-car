@@ -28,8 +28,9 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/userHistory', async (req, res) => {
-  const requestList = await data.requests.getAllRequestsByID(req.session.user);
-  res.render('user/userHistory', { body: requestList });
+  const requestList = await data.requests.getPastHistoryByID(req.session.user);
+  const currentrequestList = await data.requests.getUserCurrentlyRentedCars(req.session.user);
+  res.render('user/userHistory', { body: requestList , currentRequest : currentrequestList});
 });
 
 router.get('/userProfile', async (req, res) => {
@@ -105,6 +106,20 @@ router.get('/request/:id', async(req,res) =>{
   res.render('user/userRequest', {req: request,car : cardetails, user: userdetails});
 })
 
+router.get('/request/review/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(req.params.id);
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true});
+})
+
+router.get('/request/extension/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(req.params.id);
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : true});
+})
+
 router.get('/allRequests/:id', async(req,res) =>{
   const request = await data.requests.getRequest(req.params.id);
   const requestList = await data.requests.getAllPendingRequestsByID(request.username)
@@ -114,6 +129,7 @@ router.get('/allRequests/:id', async(req,res) =>{
   }
   res.render('user/allRequests', {body: requestList});
 })
+
 router.post('/register', async (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
@@ -198,25 +214,54 @@ router.post('/bookCar/:id', async (req, res) => {
   }
 });
 
-// router.post('/review/:id', async (req, res) => {
-//   if (!req.body.review || !req.body.rate) {
-//     res.status(400).render('user/History', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
-//     return;
-//   }
-//   let review = req.body.review;
-//   let rate = req.body.rate;
-//   try {
-//     const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
-//     if(result.reviewInserted){
-//       res.redirect('/History');
-//     }
-//   } catch (e) {
-//     res.status(400).render('user/History', {
-//       error: "Error : " + e,
-//       hasErrors : true
-//     });
-//     return;
-//   }
-// });
+router.post('/review/:id', async (req, res) => {
+  const request = await data.requests.getRequest(req.params.id);
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  if (!req.body.review || !req.body.rating) {
+    res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true,extension : false , hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    return;
+  }
+  let review = req.body.review;
+  let rate = req.body.rating;
+  try {
+    const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
+    if(result.reviewInserted){
+      res.redirect('/userHistory');
+    }
+  } catch (e) {
+    res.status(400).render('user/userRequest', {
+      error: "Error : " + e,
+      hasErrors : true,
+      req: request,car : cardetails, user: userdetails,review : true,extension : false
+    });
+    return;
+  }
+});
+
+router.post('/extension/:id', async (req, res) => {
+  const request = await data.requests.getRequest(req.params.id);
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  if (!req.body.count || !req.body.timePeriod) {
+    res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true,extension : false , hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    return;
+  }
+  let count = req.body.count;
+  let timePeriod = req.body.timePeriod;
+  try {
+    const result = await data.requests.createRequestExtension(req.params.id,count,timePeriod);
+    if(result.requestInserted){
+      res.redirect('/userHistory');
+    }
+  } catch (e) {
+    res.status(400).render('user/userRequest', {
+      error: "Error : " + e,
+      hasErrors : true,
+      req: request,car : cardetails, user: userdetails,review : true,extension : false
+    });
+    return;
+  }
+});
 
 module.exports = router;

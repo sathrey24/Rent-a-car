@@ -3,7 +3,7 @@ const requests = mongoCollections.requests;
 const cars = mongoCollections.cars;
 const users = mongoCollections.users;
 let { ObjectId } = require('mongodb');
-const data = require('./requests');
+const data = require('./cars');
 
 module.exports = {
 
@@ -35,20 +35,6 @@ module.exports = {
         return pendingRequestList;
     },
 
-    async getAllRequestsByID(username) {
-        const requestCollection = await requests()
-        const requestsList = await requestCollection.find({ username: username }).toArray();
-        let rentedCars = []
-        for (i = 0; i < requestsList.length; i++) {
-            if (requestsList[i].hasOwnProperty('approved')) {
-                if (requestsList[i].approved) {
-                    rentedCars.push(requestsList[i]);
-                }
-            }
-        }
-        return rentedCars;
-    },
-
     async getAllPendingRequestsByID(username) {
         const requestCollection = await requests()
         const requestsList = await requestCollection.find({ username: username }).toArray();
@@ -68,7 +54,7 @@ module.exports = {
             parsedId = ObjectId(id);
         }
         const request = await requestCollection.findOne({ _id: parsedId });
-        if (request === null) { throw "no request with that id" };
+        if (request === null) { throw "No request with that id" };
         return request;
     },
 
@@ -89,7 +75,7 @@ module.exports = {
        
         const carCollection = await cars()
         try{
-        const updateAvailability = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { availability: "No" } })
+        const updateAvailability = await carCollection.updateOne({ _id: ObjectId(carId) }, { $set: { availability: "NO" } })
         }
         catch(e){
             throw e
@@ -124,11 +110,99 @@ module.exports = {
         }
         return rentedCars;
     },
+
+    async getUserCurrentlyRentedCars(username) {
+        const requestCollection = await requests()
+        const requestList = await requestCollection.find({ username: username }).toArray();
+        let rentedCars = []
+        for (i = 0; i < requestList.length; i++) {
+            if (requestList[i].hasOwnProperty('approved')) {
+                let fromDate = checkDate(new Date(new Date(requestList[i].fromDate).getTime() + 86400000));
+                let toDate = checkDate(new Date(new Date(requestList[i].toDate).getTime() + 86400000));
+                if (requestList[i].approved && (fromDate || toDate)) {
+                    rentedCars.push(requestList[i]);
+                }
+            }
+        }
+        return rentedCars;
+    },
+
+    async getPastHistoryByID(username) {
+        const requestCollection = await requests()
+        const requestsList = await requestCollection.find({ username: username }).toArray();
+        let rentedCars = []
+        for (i = 0; i < requestsList.length; i++) {
+            if (requestsList[i].hasOwnProperty('approved')) {
+                let fromDate = checkPastDate(new Date(new Date(requestsList[i].fromDate).getTime() + 86400000));
+                let toDate = checkPastDate(new Date(new Date(requestsList[i].toDate).getTime() + 86400000));
+                if (requestsList[i].approved && (fromDate || toDate)) {
+                    rentedCars.push(requestsList[i]);
+                }
+            }
+        }
+        return rentedCars;
+    },
+
+    async createRequestExtension(id,count,timeSpan) {
+        let req = await this.getRequest(id);
+        const car = await data.getCar(req.carId);
+        let parsedId;
+        if (id) {
+            parsedId = ObjectId(id);
+        }
+        let newtoDate , newTimePeriod , newTotal;
+        if(timeSpan === "Hour"){
+            newtoDate=req.toDate;
+            if(req.timePeriod.includes('Day')){
+                newTimePeriod = req.timePeriod +' '+count+' ' +timeSpan;
+            }
+            else{
+                newTimePeriod = parseInt(req.timePeriod.split(' ')[0]) + parseInt(count) + ' Hour'
+            }
+            newTotal = parseInt(count)*parseInt(car.hourlyRate) + parseInt(req.totalCost) +'$'
+        }
+        else{
+            let toDateValue = new Date(new Date(req.toDate).getTime()+(1*24*60*60*1000));
+            let expectedDate = new Date(new Date(toDateValue).getTime()+(count*24*60*60*1000));
+            newtoDate=expectedDate;
+            if(req.timePeriod.includes('Hour')){
+                newTimePeriod = count+' ' +timeSpan+' '+req.timePeriod ;
+            }
+            else{
+                newTimePeriod = parseInt(req.timePeriod.split(' ')[0]) + parseInt(count) + ' Day'
+            }
+            newTotal = parseInt(count)*parseInt(car.hourlyRate)*24 + parseInt(req.totalCost) +'$'
+        }
+        
+        let newRequest = {
+            toDate: newtoDate,
+            timePeriod: newTimePeriod,
+            totalCost: newTotal,
+            extension : true
+        };
+        const requestCollection = await requests();
+        const insertInfo = await requestCollection.updateOne({ _id: parsedId },
+            { $set: newRequest });
+            if (insertInfo.insertedCount === 0){
+                throw "Internal Server Error"
+            } else {
+                return { requestInserted: true, requestId: id }
+            }
+    },
 }
 
 function checkDate(oDate) {
     let currentDate = new Date();
     if (currentDate.getDate() >= oDate.getDate() || currentDate.getMonth() >= oDate.getMonth() || currentDate.getFullYear() >= oDate.getFullYear()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkPastDate(oDate) {
+    let currentDate = new Date();
+    if (currentDate.getDate() < oDate.getDate() || currentDate.getMonth() < oDate.getMonth() || currentDate.getFullYear() < oDate.getFullYear()) {
         return true;
     } else {
         return false;
