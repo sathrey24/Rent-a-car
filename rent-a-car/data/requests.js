@@ -205,6 +205,19 @@ module.exports = {
             newTotal = parseInt(count)*parseInt(car.hourlyRate) + parseInt(req.totalCost) +'$'
         }
         else{
+            let toDateValue = new Date(new Date(req.toDate).getTime()+(1*24*60*60*1000));
+            let expectedDate = new Date(new Date(toDateValue).getTime()+(count*24*60*60*1000));
+            var month = expectedDate.getUTCMonth() + 1;
+            var day = expectedDate.getUTCDate() - 1;
+            var year = expectedDate.getUTCFullYear();
+            newtoDate = year + "-" + month + "-" + day;
+            //newtoDate=expectedDate;
+            if(req.timePeriod.includes('Hour')){
+                newTimePeriod = count+' ' +timeSpan+' '+req.timePeriod ;
+            }
+            else{
+                newTimePeriod = parseInt(req.timePeriod.split(' ')[0]) + parseInt(count) + ' Day'
+            }
             newTotal = parseInt(count)*parseInt(car.hourlyRate)*24 + parseInt(req.totalCost) +'$'
         }
         
