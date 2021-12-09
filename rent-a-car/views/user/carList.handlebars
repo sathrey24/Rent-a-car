@@ -11,22 +11,25 @@
     </div>
     <div class="content">
         <h1>Cars List ({{body.length}})</h1>
-        {{#if body.length}}
-        <ul class="carlist-ul">
-            {{#each body}}
-            <li class="cars">
-                <a href="/cars/{{this._id}}">{{this.model}}</a>
-                <span class="carlist-action-btns">
-                    <i class="tooltip delete fas fa-trash" onclick="window.location='/admin/deleteCar/{{this._id}}'">
-                        <span class="tooltiptext">Delete</span>
-                    </i>
-                    <i class="tooltip edit fas fa-edit" onclick="window.location='/admin/editCar/{{this._id}}'">
-                        <span class="tooltiptext">Edit</span>
-                    </i>
-                </span>
-            </li>
-            {{/each}}
-        </ul>
-        {{/if}}
+        <div class="scroll-container">
+            {{#if body.length}}
+            <ul class="carlist-ul">
+                {{#each body}}
+                <li class="cars">
+                    <a href="/cars/{{this._id}}">{{this.model}}</a>
+                    <span class="carlist-action-btns">
+                        <i class="tooltip delete fas fa-trash"
+                            onclick="window.location='/admin/deleteCar/{{this._id}}'">
+                            <span class="tooltiptext">Delete</span>
+                        </i>
+                        <i class="tooltip edit fas fa-edit" onclick="window.location='/admin/editCar/{{this._id}}'">
+                            <span class="tooltiptext">Edit</span>
+                        </i>
+                    </span>
+                </li>
+                {{/each}}
+            </ul>
+            {{/if}}
+        </div>
     </div>
 </div>

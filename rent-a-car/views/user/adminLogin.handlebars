@@ -1,31 +1,31 @@
 <div class="left-section">
-           <img src="../../public/resources/images/bg-img.jpg" alt="bgimg" />
-        </div>
-        <div class="right-section">
+    <img src="../../public/resources/images/bg-img.jpg" alt="bgimg" />
+</div>
+<div class="right-section">
+    <div>
+        <form action="/admin/adminLogin" method="post" id="login-form">
+            <h1>Admin Login</h1>
             <div>
-                <form action="/admin/adminLogin" method="post" id="login-form">
-                    <h1>ezCars Administrator Login</h1>
-                    <div >
-                        <label><i class="fas fa-user"></i>Username : <br/>
-                            <input type="text" name="username" id="username" class="txt"/>
-                        </label>
-                    </div>
-                    <div >
-                        <label><i class="fas fa-key"></i>Password : <br/>
-                            <input type="password" name="password" id="password" class="txt"/>
-                        </label>
-                    </div>
-
-                    <div class="login-actions" >
-                        <input type="submit" value="Login" class="btn btn-dark"/>
-                        <input onclick="window.location='/'" value ="Back" class="btn btn-light-outline" />
-                    </div>
-
-                    {{#if hasErrors}}
-                        <div class="err-strip">
-                            <p>{{{error}}}</p>
-                        </div>
-                    {{/if}}
-                </form>
+                <label><i class="fas fa-user"></i>Username : <br />
+                    <input type="text" name="username" id="username" class="txt" />
+                </label>
             </div>
-        </div>
+            <div>
+                <label><i class="fas fa-key"></i>Password : <br />
+                    <input type="password" name="password" id="password" class="txt" />
+                </label>
+            </div>
+
+            <div class="login-actions">
+                <input type="submit" value="Login" class="btn btn-dark" />
+                <input onclick="window.location='/'" value="Back" class="btn btn-light-outline" />
+            </div>
+
+            {{#if hasErrors}}
+            <div class="err-strip">
+                <p>{{{error}}}</p>
+            </div>
+            {{/if}}
+        </form>
+    </div>
+</div>
