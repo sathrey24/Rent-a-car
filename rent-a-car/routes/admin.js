@@ -34,7 +34,7 @@ router.post('/adminLogin', async (req, res) => {
     let password = req.body.password;
     try {
       const result = await data.admin.checkUser(username,password);
-      if(result.authenticated && result.role == "admin"){
+      if(result.authenticated && result.role === "admin"){
         req.session.user = username;
         req.session.role = result.role;
         res.redirect('/admin/adminDashboard');
