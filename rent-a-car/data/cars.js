@@ -5,15 +5,15 @@ let { ObjectId } = require('mongodb');
 module.exports = {
     async createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
         let newCar = {
-            model: model,
-            type: type,
-            color: color,
+            model: model.toUpperCase(),
+            type: type.toUpperCase(),
+            color: color.toUpperCase(),
             numberDoors: numberDoors,
             seatingCapacity: seatingCapacity,
             hourlyRate: hourlyRate,
-            availability: availability,
+            availability: availability.toUpperCase(),
             overallRating: 0,
-            engineType: engineType,
+            engineType: engineType.toUpperCase(),
             reviewsGiven: []
         }
         const carCollection = await cars()
@@ -65,14 +65,14 @@ module.exports = {
     async update(id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
       id = ObjectId(id);
       let newCar = {
-          model: model,
-          type: type,
-          color: color,
+          model: model.toUpperCase(),
+          type: type.toUpperCase(),
+          color: color.toUpperCase(),
           numberDoors: numberDoors,
           seatingCapacity: seatingCapacity,
           hourlyRate: hourlyRate,
-          availability: availability,
-          engineType: engineType
+          availability: availability.toUpperCase(),
+          engineType: engineType.toUpperCase()
       }
       const carCollection = await cars()
       const updateInfo = await carCollection.updateOne({ _id: id },

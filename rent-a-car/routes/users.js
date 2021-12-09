@@ -167,12 +167,14 @@ router.post('/register', async (req, res) => {
     return;
   }
 });
+
 router.get('/bookCar/:id', async(req,res) =>{
-  const car = await data.cars.getCar(req.params.id)
+  const car = await data.cars.getCar(req.params.id);
   res.status(400).render('user/carDetails', { details: car, role: true,hasErrors: true, error: "<p>None of the fields should be empty.</p>" })
 })
 
 router.post('/bookCar/:id', async (req, res) => {
+  const car = await data.cars.getCar(req.params.id);
   if (!req.body.fromDate || !req.body.toDate || !req.body.count || !req.body.timePeriod) {
     res.status(400).redirect(`/bookCar/${req.params.id}`)
     return;
@@ -189,7 +191,8 @@ router.post('/bookCar/:id', async (req, res) => {
     res.status(400).render('user/carDetails', {
       role: true,
       error: "Error : " + e,
-      hasErrors: true
+      hasErrors: true,
+      details: car,
     });
     return;
   }
