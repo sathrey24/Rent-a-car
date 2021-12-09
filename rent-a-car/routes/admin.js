@@ -73,8 +73,8 @@ router.post('/adminLogin', async (req, res) => {
       res.status(400).render('user/addCar', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
       return;
     }
-    if (req.body.numberDoors <= 0 || req.body.seatingCapacity <= 0 ) {
-      res.status(400).render('user/addCar', {hasErrors: true, error:"<p>Number of Doors and Seating Capacity cannot be 0 or less then 0.</p>"})
+    if(!req.body.hourlyRate.includes('$/hr')){
+      res.status(400).render('user/addCar', {hasErrors: true, error:"<p>Hourly Rate should be in $/hr only .</p>"})
       return;
     }
     let model = req.body.model;
@@ -112,7 +112,15 @@ router.post('/adminLogin', async (req, res) => {
   
   router.post('/editCars/:id', async (req, res) => {
     const updateCarData = req.body;
-    var car = await data.cars.getCar(req.params.id)
+    var car = await data.cars.getCar(req.params.id);
+    if (!req.body.model || !req.body.type || !req.body.color || !req.body.numberDoors || !req.body.seatingCapacity || !req.body.hourlyRate || !req.body.availability || !req.body.engineType) {
+      res.status(400).render('user/editCar', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>",body: car})
+      return;
+    }
+    if(!req.body.hourlyRate.includes('$/hr')){
+      res.status(400).render('user/editCar', {hasErrors: true, error:"<p>Hourly Rate should be in $/hr only .</p>",body: car})
+      return;
+    }
       try {
         const {model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType} = updateCarData;
         const updatedData = await data.cars.update(req.params.id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
