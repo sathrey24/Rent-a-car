@@ -28,15 +28,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use('/userDashboard', (req, res, next) => {
-  if (!req.session.user) {
-    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
-  } else {
-    next();
-  }
-});
-
-app.use('/adminDashboard', (req, res, next) => {
-  if (!req.session.user) {
+  if (!req.session.user && req.session.role !== "user") {
     return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
   } else {
     next();
@@ -44,23 +36,15 @@ app.use('/adminDashboard', (req, res, next) => {
 });
 
 app.use('/cars/:id', (req, res, next) => {
-  if (!req.session.user) {
+  if (!req.session.user && req.session.role !== "user") {
     return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
   } else {
     next();
   }
 });
 
-app.use('/addCar', (req, res, next) => {
-  if (!req.session.user) {
-    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
-  } else {
-    next();
-  }
-});
-
-app.use('/editCar/:id', (req, res, next) => {
-  if (!req.session.user) {
+app.use('/request/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
     return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
   } else {
     next();
@@ -68,15 +52,167 @@ app.use('/editCar/:id', (req, res, next) => {
 });
 
 app.use('/userHistory', (req, res, next) => {
-  if (!req.session.user) {
+  if (!req.session.user && req.session.role !== "user") {
     return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
   } else {
     next();
   }
 });
 
-app.use('/rentedCars', (req, res, next) => {
-  if (!req.session.user) {
+app.use('/userProfile', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/request/review/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/request/extension/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/allRequests/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/allRequests/extension/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/bookCar/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/allRequests/extension/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "user") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/adminDashboard', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/cars/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/request/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/addCar', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/deleteCar/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/carList', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/editCar/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/approveRequest/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/rejectRequest/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/approveExtenRequest/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/rejectExtenRequest/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/request/ext/:id', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
+    return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
+  } else {
+    next();
+  }
+});
+
+app.use('/admin/rentedCars', (req, res, next) => {
+  if (!req.session.user && req.session.role !== "admin") {
     return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
   } else {
     next();
