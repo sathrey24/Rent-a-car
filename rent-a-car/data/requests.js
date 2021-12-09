@@ -35,12 +35,36 @@ module.exports = {
         return pendingRequestList;
     },
 
+    async getAllExtensionRequests() {
+        let pendingRequestList = [];
+        const requestCollection = await requests();
+        const requestList = await requestCollection.find({}).toArray();
+        for (let i = 0; i < requestList.length; i++) {
+            if (!requestList[i].hasOwnProperty('extensionRequest') && requestList[i].extension) {
+                pendingRequestList.push(requestList[i]);
+            }
+        }
+        return pendingRequestList;
+    },
+
     async getAllPendingRequestsByID(username) {
         const requestCollection = await requests()
         const requestsList = await requestCollection.find({ username: username }).toArray();
         let pendingRequest = []
         for (i = 0; i < requestsList.length; i++) {
             if (!requestsList[i].hasOwnProperty('approved')) {
+                pendingRequest.push(requestsList[i]);
+            }
+        }
+        return pendingRequest;
+    },
+
+    async getAllExtensionRequestsByID(username) {
+        const requestCollection = await requests()
+        const requestsList = await requestCollection.find({ username: username }).toArray();
+        let pendingRequest = []
+        for (i = 0; i < requestsList.length; i++) {
+            if (!requestsList[i].hasOwnProperty('extensionRequest') && requestsList[i].extension) {
                 pendingRequest.push(requestsList[i]);
             }
         }
@@ -95,6 +119,32 @@ module.exports = {
         }
     },
 
+    async approveExtensionRequest(id, flag) {
+        id = ObjectId(id);
+        let updateRequest = {
+            extensionRequest: flag
+        }
+        const requestCollection = await requests();
+        try{
+        const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
+        }
+        catch(e){
+            throw e
+        }
+    },
+
+    async rejectExtensionRequest(id, flag) {
+        id = ObjectId(id);
+        let updateRequest = {
+            extensionRequest: flag
+        }
+        const requestCollection = await requests();
+        const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
+        if (updateInfo.modifiedCount === 0) {
+            throw "Internal Server Error"
+        }
+    },
+
     async getRentedCars() {
         const requestCollection = await requests()
         const requestList = await requestCollection.find({}).toArray();
@@ -135,7 +185,7 @@ module.exports = {
             if (requestsList[i].hasOwnProperty('approved')) {
                 let fromDate = checkPastDate(new Date(new Date(requestsList[i].fromDate).getTime() + 86400000));
                 let toDate = checkPastDate(new Date(new Date(requestsList[i].toDate).getTime() + 86400000));
-                if (requestsList[i].approved && (fromDate || toDate)) {
+                if (requestsList[i].approved && fromDate && toDate) {
                     rentedCars.push(requestsList[i]);
                 }
             }
@@ -150,34 +200,17 @@ module.exports = {
         if (id) {
             parsedId = ObjectId(id);
         }
-        let newtoDate , newTimePeriod , newTotal;
+        let newTotal;
         if(timeSpan === "Hour"){
-            newtoDate=req.toDate;
-            if(req.timePeriod.includes('Day')){
-                newTimePeriod = req.timePeriod +' '+count+' ' +timeSpan;
-            }
-            else{
-                newTimePeriod = parseInt(req.timePeriod.split(' ')[0]) + parseInt(count) + ' Hour'
-            }
             newTotal = parseInt(count)*parseInt(car.hourlyRate) + parseInt(req.totalCost) +'$'
         }
         else{
-            let toDateValue = new Date(new Date(req.toDate).getTime()+(1*24*60*60*1000));
-            let expectedDate = new Date(new Date(toDateValue).getTime()+(count*24*60*60*1000));
-            newtoDate=expectedDate;
-            if(req.timePeriod.includes('Hour')){
-                newTimePeriod = count+' ' +timeSpan+' '+req.timePeriod ;
-            }
-            else{
-                newTimePeriod = parseInt(req.timePeriod.split(' ')[0]) + parseInt(count) + ' Day'
-            }
             newTotal = parseInt(count)*parseInt(car.hourlyRate)*24 + parseInt(req.totalCost) +'$'
         }
         
         let newRequest = {
-            toDate: newtoDate,
-            timePeriod: newTimePeriod,
-            totalCost: newTotal,
+            extensionPeriod: count +' '+timeSpan,
+            newTotal: newTotal,
             extension : true
         };
         const requestCollection = await requests();

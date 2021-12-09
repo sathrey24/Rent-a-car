@@ -62,7 +62,14 @@ router.get('/userDashboard', async function (req, res) {
   } else {
     reqs = [];
   }
-  res.render('user/userDashboard', { body: carList, request: reqs });
+  const extensionrequest = await data.requests.getAllExtensionRequestsByID(req.session.user);
+  let extenreqs;
+  if (extensionrequest.length > 0) {
+    extenreqs = extensionrequest[0]._id.toString();
+  } else {
+    extenreqs = [];
+  }
+  res.render('user/userDashboard', { body: carList, request: reqs ,extension :extensionrequest,extenreqs:extenreqs});
 });
 
 router.post('/login', async (req, res) => {
@@ -117,7 +124,14 @@ router.get('/request/extension/:id', async(req,res) =>{
   const request = await data.requests.getRequest(req.params.id);
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
-  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : true});
+  const requestPending = await data.requests.getAllExtensionRequestsByID(request.username);
+  let flag;
+  if(requestPending.length !== 0){
+    flag = false;
+  }else{
+    flag = true;
+  }
+  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : flag});
 })
 
 router.get('/allRequests/:id', async(req,res) =>{
@@ -127,7 +141,17 @@ router.get('/allRequests/:id', async(req,res) =>{
     const car = await data.cars.getCar(requestList[i].carId)
     requestList[i].model = car.model
   }
-  res.render('user/allRequests', {body: requestList});
+  res.render('user/allRequests', {body: requestList,request : true});
+})
+
+router.get('/allRequests/extension/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(req.params.id);
+  const requestList = await data.requests.getAllExtensionRequestsByID(request.username)
+  for (i = 0; i < requestList.length; i++){
+    const car = await data.cars.getCar(requestList[i].carId)
+    requestList[i].model = car.model
+  }
+  res.render('user/allRequests', {body: requestList,extension:true});
 })
 
 router.post('/register', async (req, res) => {
@@ -219,7 +243,7 @@ router.post('/review/:id', async (req, res) => {
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   if (!req.body.review || !req.body.rating) {
-    res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true,extension : false , hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true, hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
     return;
   }
   let review = req.body.review;
@@ -233,7 +257,7 @@ router.post('/review/:id', async (req, res) => {
     res.status(400).render('user/userRequest', {
       error: "Error : " + e,
       hasErrors : true,
-      req: request,car : cardetails, user: userdetails,review : true,extension : false
+      req: request,car : cardetails, user: userdetails,review : true
     });
     return;
   }
@@ -244,7 +268,7 @@ router.post('/extension/:id', async (req, res) => {
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   if (!req.body.count || !req.body.timePeriod) {
-    res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true,extension : false , hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
+    res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : true , hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
     return;
   }
   let count = req.body.count;
@@ -258,7 +282,7 @@ router.post('/extension/:id', async (req, res) => {
     res.status(400).render('user/userRequest', {
       error: "Error : " + e,
       hasErrors : true,
-      req: request,car : cardetails, user: userdetails,review : true,extension : false
+      req: request,car : cardetails, user: userdetails,extension : true
     });
     return;
   }
