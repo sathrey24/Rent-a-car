@@ -40,6 +40,11 @@
                     <br />
                     <input type="submit" value="Submit Review" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
                 </span>
+                {{#if hasErrors}}
+                        <div id = "noresponseError" class="err-strip">
+                            <p>{{{error}}}</p>
+                        </div>
+            {{/if}}
         </form>
     {{/if}}
     </div>
@@ -58,6 +63,11 @@
                     <br />
                     <input type="submit" value="Request Extension" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
                 </span>
+                {{#if hasErrors}}
+                        <div id = "noresponseError" class="err-strip">
+                            <p>{{{error}}}</p>
+                        </div>
+            {{/if}}
         </form>
     {{/if}}
     </div>

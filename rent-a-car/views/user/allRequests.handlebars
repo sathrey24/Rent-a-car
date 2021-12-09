@@ -6,6 +6,7 @@
         </span>
     </div>
     <div class="content">
+        {{#if request}}
         <h1>Requests ({{body.length}})</h1>
         {{#if body.length}}
         {{#each body}}
@@ -15,7 +16,7 @@
                 <p class="dtext"><b>Car: </b>{{this.model}}</p>
                 <p class="dtext"><b>From: </b>{{this.fromDate}}</p>
                 <p class="dtext"><b>To: </b>{{this.toDate}}</p>
-                <p class="dtext"><b>Time Period: </b>{{this.timePeriod}}</p>
+                <p class="dtext"><b>Time Span: </b>{{this.timePeriod}}</p>
                 <p class="dtext"><b>Total Cost: </b>{{this.totalCost}}</p>
             </div>
         </div>
@@ -23,3 +24,24 @@
         {{/if}}
         {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
         <hr />
+        {{/if}}
+
+        {{#if extension}}
+        <h1>Extension Requests ({{body.length}})</h1>
+        {{#if body.length}}
+        {{#each body}}
+        <div class="main-grid">
+            <div class="lgrid">
+                <p class="dtext"><b>Username: </b>{{this.username}}</p>
+                <p class="dtext"><b>Car: </b>{{this.model}}</p>
+                <p class="dtext"><b>Extension Time Span: </b>{{this.extensionPeriod}}</p>
+                <p class="dtext"><b>Total Cost after extension: </b>{{this.newTotal}}</p>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
+        <hr />
+        {{/if}}
+        </div>
+    </div>

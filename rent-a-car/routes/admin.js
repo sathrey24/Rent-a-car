@@ -9,7 +9,8 @@ router.get('/', async (req, res) => {
 
 router.get('/adminDashboard', async(req, res) => {
    const request = await data.requests.getAllRequests();
-    res.render('user/adminDashboard',{body: request});
+   const extensionRequest = await data.requests.getAllExtensionRequests();
+    res.render('user/adminDashboard',{body: request,extensionRequest:extensionRequest});
   });
 
 router.post('/adminLogin', async (req, res) => {
@@ -139,14 +140,29 @@ router.post('/adminLogin', async (req, res) => {
 
   router.get('/approveRequest/:id', async(req, res) => {
     await data.requests.approveRequest(req.params.id,true);
-    const cars = await data.requests.getAllRequests();
      res.redirect('/admin/adminDashboard');
   });
 
   router.get('/rejectRequest/:id', async(req, res) => {
     await data.requests.rejectRequest(req.params.id,false);
-    const cars = await data.requests.getAllRequests();
      res.redirect('/admin/adminDashboard');
   });
+
+  router.get('/approveExtenRequest/:id', async(req, res) => {
+    await data.requests.approveExtensionRequest(req.params.id,true);
+     res.redirect('/admin/adminDashboard');
+  });
+
+  router.get('/rejectExtenRequest/:id', async(req, res) => {
+    await data.requests.rejectExtensionRequest(req.params.id,false);
+     res.redirect('/admin/adminDashboard');
+  });
+
+  router.get('/request/ext/:id', async(req,res) =>{
+    const request = await data.requests.getRequest(req.params.id);
+    const userdetails = await data.users.getUserDetails(request.username);
+    const cardetails = await data.cars.getCar(request.carId);
+    res.render('user/request', {req: request,car : cardetails, user: userdetails,extension:true});
+  })
 
 module.exports = router;
