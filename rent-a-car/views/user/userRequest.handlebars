@@ -27,33 +27,37 @@
         <hr />
     </div>
     <div class="content">
-    {{#if review}}
-        <form action="/review/{{req._id}}" method="post" id="review-form">
+        {{#if review}}
+        <form action="/review/{{req._id}}" method="post" id="review-form" class="booking-form">
+            <div style="margin-left: 10px;">
                 <span>
                     <label>Review :
                         <input name="review" type="text" id="reviewId" style="margin: 5px 0px;" />
                     </label>
                     <br />
                     <label>Rating :
-                        <input name="rating" type="number" id="rateId" style="margin: 5px 0px;" min="1" max="5"/>
+                        <input name="rating" type="number" id="rateId" style="margin: 5px 0px; width:150px;" min="1"
+                            max="5" />
                     </label>
                     <br />
                     <input type="submit" value="Submit Review" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
                 </span>
-                {{#if hasErrors}}
-                        <div id = "noresponseError" class="err-strip">
-                            <p>{{{error}}}</p>
-                        </div>
+            </div>
+            {{#if hasErrors}}
+            <div id="noresponseError" class="err-strip">
+                <p>{{{error}}}</p>
+            </div>
             {{/if}}
         </form>
-    {{/if}}
+        {{/if}}
     </div>
     <div class="content">
-    {{#if extension}}
-        <form action="/extension/{{req._id}}" method="post" id="extension-form">
+        {{#if extension}}
+        <form action="/extension/{{req._id}}" method="post" id="extension-form" class="booking-form">
+            <div style="margin-left: 10px;">
                 <span>
                     <label>Time Span :
-                        <input type="number" name="count" id="numberofdays1" min="1" max="10"/>
+                        <input type="number" name="count" id="numberofdays1" min="1" max="10" style="width:150px" />
                         <select name="timePeriod" id="timePeriod1">
                             <option value="None">--Select--</option>
                             <option value="Hour">Hour</option>
@@ -61,14 +65,16 @@
                         </select>
                     </label>
                     <br />
-                    <input type="submit" value="Request Extension" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
+                    <input type="submit" value="Request Extension" class="btn btn-dark savebtn"
+                        style="margin: 5px 0px;" />
                 </span>
-                {{#if hasErrors}}
-                        <div id = "noresponseError" class="err-strip">
-                            <p>{{{error}}}</p>
-                        </div>
+            </div>
+            {{#if hasErrors}}
+            <div id="noresponseError" class="err-strip">
+                <p>{{{error}}}</p>
+            </div>
             {{/if}}
         </form>
-    {{/if}}
+        {{/if}}
     </div>
-    </div>
+</div>

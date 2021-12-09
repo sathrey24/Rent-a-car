@@ -37,11 +37,12 @@
 
         <div id="id_error1" hidden class="err-strip"></div>
         {{#if role}}
-        <form action="/bookCar/{{details._id}}" method="post" id="booking-form">
+        <form action="/bookCar/{{details._id}}" method="post" id="booking-form" class="booking-form">
             <div class="form-grid">
                 <div class="flgrid">
                     <label>Time Span :
-                        <input type="number" name="count" id="numberofdays" min="1" max="10" onchange="onCountChange(this)"/>
+                        <input type="number" name="count" id="numberofdays" min="1" max="10"
+                            onchange="onCountChange(this)" />
                         <select name="timePeriod" id="timePeriod" onchange="onSelectionChange(this)">
                             <option value="None">--Select--</option>
                             <option value="Hour">Hour</option>
@@ -64,9 +65,9 @@
                 </div>
             </div>
             {{#if hasErrors}}
-                        <div id = "noresponseError" class="err-strip">
-                            <p>{{{error}}}</p>
-                        </div>
+            <div id="noresponseError" class="err-strip">
+                <p>{{{error}}}</p>
+            </div>
             {{/if}}
         </form>
         {{/if}}

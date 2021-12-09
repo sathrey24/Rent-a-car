@@ -356,7 +356,7 @@ i{
 	color: red;
 }
 
-#booking-form{
+.booking-form{
 	width: 100%;
 	padding: 10px 0px;
 	background-color: var(--altsecondary);
