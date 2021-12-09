@@ -15,10 +15,8 @@
                     Date : {{fromDate}} to {{toDate}}<br />
                     Time span : {{timePeriod}}</br>
                     <span class="carlist-action-btns">
-                        <i class="tooltip action-logo fas fa-eye"
-                            onclick="window.location='/request/extension/{{this._id}}'" style="color: blue;">
-                            <span class="tooltiptext">View Details and Request for extension</span>
-                        </i>
+                        <button onclick="window.location='/request/extension/{{this._id}}'">View Request/ <br/>
+                        Extend Request</button>
                     </span>
                 </li>
                 {{/each}}
@@ -36,10 +34,8 @@
                     Date : {{fromDate}} to {{toDate}}<br />
                     Time span : {{timePeriod}}</br>
                     <span class="carlist-action-btns">
-                        <i class="tooltip action-logo fas fa-eye"
-                            onclick="window.location='/request/review/{{this._id}}'" style="color: blue;">
-                            <span class="tooltiptext">View Details and provide feedback</span>
-                        </i>
+                        <button onclick="window.location='/request/review/{{this._id}}'">View Request/ <br/>
+                        Provide Feedback</button>
                     </span>
                 </li>
                 {{/each}}
