@@ -40,25 +40,27 @@
             </a>
         </ol>
         {{/if}}
-        {{#if body.length}}
-        <ul class="carlist-ul">
-            {{#each body}}
-            <li class="cars">Model :{{this.model}} <br />
-                Color : {{this.color}} <br />
-                Seating Capacity : {{this.seatingCapacity}} <br />
-                Engine Type : {{this.engineType}} <br />
-                Rating : {{this.overallRating}} <br />
-                <span class="carlist-action-btns">
-                    <i class="tooltip action-logo fas fa-eye" onclick="window.location='/cars/{{this._id}}'"
-                        style="color: blue;">
-                        <span class="tooltiptext">View Details and Book</span>
-                    </i>
-                </span>
-            </li>
-            {{/each}}
-        </ul>
-        {{/if}}
-        {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
+        <div class="scroll-container">
+            {{#if body.length}}
+            <ul class="carlist-ul">
+                {{#each body}}
+                <li class="cars">Model :{{this.model}} <br />
+                    Color : {{this.color}} <br />
+                    Seating Capacity : {{this.seatingCapacity}} <br />
+                    Engine Type : {{this.engineType}} <br />
+                    Rating : {{this.overallRating}} <br />
+                    <span class="carlist-action-btns">
+                        <i class="tooltip action-logo fas fa-eye" onclick="window.location='/cars/{{this._id}}'"
+                            style="color: blue;">
+                            <span class="tooltiptext">View Details and Book</span>
+                        </i>
+                    </span>
+                </li>
+                {{/each}}
+            </ul>
+            {{/if}}
+            {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
+        </div>
     </div>
 
     <script src="public/js/carSearch.js"></script>
