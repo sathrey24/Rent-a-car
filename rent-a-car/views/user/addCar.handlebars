@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <label for="numberDoors">Number of Doors : <br />
-                        <input type="number" class="txt" value="{{numberDoors}}" name="numberDoors" id="numberDoors" />
+                        <input type="number" class="txt" value="{{numberDoors}}" name="numberDoors" id="numberDoors" min="1" max="10"/>
                     </label>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div>
                     <label for="seatingCapacity">Seating Capacity : <br />
                         <input type="number" class="txt" value="{{seatingCapacity}}" name="seatingCapacity"
-                            id="seatingCapacity" />
+                            id="seatingCapacity" min="1" max="10"/>
                     </label>
                 </div>
                 <div>
@@ -49,7 +49,10 @@
                 </div>
                 <div>
                     <label for="availability">Availability : <br />
-                        <input type="text" class="txt" value="{{availability}}" name="availability" id="availability" />
+                        <select class="txt" value="{{availability}}" name="availability" id="availability">
+                            <option value="Hour">Yes</option>
+                            <option value="Day">No</option>
+                        </select>
                     </label>
                 </div>
                 <div>
