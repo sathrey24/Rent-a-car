@@ -12,7 +12,7 @@
             <p>{{{error}}}</p>
         </div>
         {{/if}}
-        <h1>Edit</h1>
+        <h1>Update Car Details</h1>
         <div class="main-grid">
             <div class="lgrid">
                 <div>
@@ -33,7 +33,7 @@
                 <div>
                     <label for="numberDoors">Number of Doors : <br />
                         <input type="number" class="txt" value="{{body.numberDoors}}" name="numberDoors"
-                            id="numberDoors" />
+                            id="numberDoors" min="1" max="10"/>
                     </label>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div>
                     <label for="seatingCapacity">Seating Capacity : <br />
                         <input type="number" class="txt" value="{{body.seatingCapacity}}" name="seatingCapacity"
-                            id="seatingCapacity" />
+                            id="seatingCapacity" min="1" max="10"/>
                     </label>
                 </div>
                 <div>
@@ -51,8 +51,10 @@
                 </div>
                 <div>
                     <label for="availability">Availability : <br />
-                        <input type="text" class="txt" value="{{body.availability}}" name="availability"
-                            id="availability" />
+                        <select class="txt" value="{{body.availability}}" name="availability" id="availability">
+                            <option value="Hour">Yes</option>
+                            <option value="Day">No</option>
+                        </select>
                     </label>
                 </div>
                 <div>
