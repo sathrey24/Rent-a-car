@@ -120,11 +120,25 @@ module.exports = {
     },
 
     async approveExtensionRequest(id, flag) {
+        const requestCollection = await requests();
+        let req = await this.getRequest(id);
+        let newtoDate;
+        if(req.extensionPeriod.includes('Hour')){
+            newtoDate = req.toDate;
+        }else{
+            let count = parseInt(req.extensionPeriod);
+            let toDateValue = new Date(new Date(req.toDate).getTime()+(1*24*60*60*1000));
+            let expectedDate = new Date(new Date(toDateValue).getTime()+(count*24*60*60*1000));
+            var month = expectedDate.getUTCMonth() + 1;
+            var day = expectedDate.getUTCDate() - 1;
+            var year = expectedDate.getUTCFullYear();
+            newtoDate = year + "-" + month + "-" + day;
+        }
         id = ObjectId(id);
         let updateRequest = {
-            extensionRequest: flag
+            extensionRequest: flag,
+            toDate:newtoDate
         }
-        const requestCollection = await requests();
         try{
         const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
         }

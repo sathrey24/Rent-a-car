@@ -1,10 +1,8 @@
 <div class="wrapper">
     <div class="header">
-        <span class="logo-action">
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userHistory'"></i>
 
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
-        </span>
     </div>
     <div class="content">
         <h1>Request Details</h1>
@@ -58,12 +56,13 @@
                 <span>
                     <label>Time Span :
                         <input type="number" name="count" id="numberofdays1" min="1" max="10" style="width:150px" />
+                    </label>
                         <select name="timePeriod" id="timePeriod1">
                             <option value="None">--Select--</option>
                             <option value="Hour">Hour</option>
                             <option value="Day">Day</option>
                         </select>
-                    </label>
+                    
                     <br />
                     <input type="submit" value="Request Extension" class="btn btn-dark savebtn"
                         style="margin: 5px 0px;" />

@@ -1,13 +1,11 @@
 <div class="wrapper">
     <div class="header">
-        <span class="logo-action">
             {{#if role}}
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userDashboard'"></i>
             {{else}}
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/admin/adminDashboard'"></i>
             {{/if}}
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
-        </span>
     </div>
     <div class="content">
         <h1>Car Details</h1>
@@ -43,12 +41,13 @@
                     <label>Time Span :
                         <input type="number" name="count" id="numberofdays" min="1" max="10"
                             onchange="onCountChange(this)" />
+                    </label>
                         <select name="timePeriod" id="timePeriod" onchange="onSelectionChange(this)">
                             <option value="None">--Select--</option>
                             <option value="Hour">Hour</option>
                             <option value="Day">Day</option>
                         </select>
-                    </label><br />
+                    <br />
                     <label>From Date :
                         <input type="date" name="fromDate" id="from_date" onchange="onFromDateChange(this)" />
                     </label><br />
