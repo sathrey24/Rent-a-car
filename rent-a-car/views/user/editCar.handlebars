@@ -5,6 +5,7 @@
 <div class="content">
 
     <form action="/admin/editCars/{{body._id}}" method="Post" id="edit-car-form">
+        <div id="divError" class="err-strip" hidden></div>
         {{#if hasErrors}}
         <div class="err-strip">
             <p>{{{error}}}</p>
@@ -66,4 +67,6 @@
             <input type="submit" value="Update" class="btn btn-dark" />
         </div>
     </form>
+
+    <script src="../../public/js/editFormValidation.js"></script>
 </div>

@@ -4,6 +4,7 @@
 </div>
 <div class="content">
     <form action="/admin/addCar" method="post" id="add-car-form">
+        <div id="divError" class="err-strip" hidden></div>
         {{#if hasErrors}}
         <div class="err-strip">
             <p>{{{error}}}</p>
@@ -64,4 +65,6 @@
             <input type="submit" value="Add" class="btn btn-dark" />
         </div>
     </form>
+
+    <script src="../../public/js/addFormValidation.js"></script>
 </div>
