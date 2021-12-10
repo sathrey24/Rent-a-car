@@ -226,7 +226,7 @@ module.exports = {
 
 function checkDate(oDate) {
     let currentDate = new Date();
-    if (currentDate.getDate() >= oDate.getDate() || currentDate.getMonth() >= oDate.getMonth() || currentDate.getFullYear() >= oDate.getFullYear()) {
+    if (currentDate.getDate() <= oDate.getDate() || currentDate.getMonth() <= oDate.getMonth() || currentDate.getFullYear() <= oDate.getFullYear()) {
         return true;
     } else {
         return false;
@@ -235,7 +235,7 @@ function checkDate(oDate) {
 
 function checkPastDate(oDate) {
     let currentDate = new Date();
-    if (currentDate.getDate() < oDate.getDate() || currentDate.getMonth() < oDate.getMonth() || currentDate.getFullYear() < oDate.getFullYear()) {
+    if (currentDate.getDate() > oDate.getDate() || currentDate.getMonth() > oDate.getMonth() || currentDate.getFullYear() > oDate.getFullYear()) {
         return true;
     } else {
         return false;
