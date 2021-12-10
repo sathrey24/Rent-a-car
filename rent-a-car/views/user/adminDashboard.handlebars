@@ -1,13 +1,9 @@
 <div class="wrapper">
     <div class="header">
-        <span class="logo-action">
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/'"></i>
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
-        </span>
-        <span class="btn-grp">
             <button onclick="window.location='/admin/rentedCars'" class="btn btn-light-outline">Rented Car List</button>
             <button onclick="window.location='/admin/carList'" class="btn btn-dark">Car List</button>
-        </span>
     </div>
     <div class="content">
         <h1>User Requests ({{body.length}})</h1>
@@ -17,9 +13,9 @@
                 {{#each body}}
                 <li class="cars">
                     <span style="display: block;">
-                        <p>Username : {{this.username}}</p>
-                        <p>Date : {{fromDate}} to {{toDate}}</p>
-                        <p>Time span : {{timePeriod}}</p>
+                        Username : {{this.username}} <br />
+                        Date : {{fromDate}} to {{toDate}}<br />
+                        Time span : {{timePeriod}}
                     </span>
                     <span class="carlist-action-btns">
                         <i class="tooltip action-logo fas fa-eye"
@@ -49,8 +45,8 @@
             {{#each extensionRequest}}
             <li class="cars">
                 <span style="display: block;">
-                    <p>Username : {{this.username}}</p>
-                    <p>Extension Time Span : {{this.extensionPeriod}}</p>
+                    Username : {{this.username}} <br/>
+                    Extension Time Span : {{this.extensionPeriod}}
                 </span>
                 <span class="carlist-action-btns">
                     <i class="tooltip action-logo fas fa-eye"
