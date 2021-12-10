@@ -28,6 +28,14 @@
         {{#if review}}
         <form action="/review/{{req._id}}" method="post" id="review-form" class="booking-form">
             <div style="margin-left: 10px;">
+        <h1>Reviews:</h1>
+            {{#if rev.length}}
+            {{#each rev}}
+            <b>Rating: </b>{{this.rating}}<br />
+            <b>Client said: </b><i>"{{this.reviewText}}"</i><br /><br />
+            {{/each}}
+            {{/if}}
+        <form action="/review/{{req._id}}" method="post" id="review-form">
                 <span>
                     <label>Review :
                         <input name="review" type="text" id="reviewId" style="margin: 5px 0px;" />

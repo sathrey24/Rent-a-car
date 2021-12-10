@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data/');
+const mongoCollections = require('../config/mongoCollections');
+const reviews = mongoCollections.reviews;
 
 router.get('/', (req, res) => {
   if (req.session.role === "user") {
@@ -110,14 +112,34 @@ router.get('/request/:id', async(req,res) =>{
   const request = await data.requests.getRequest(req.params.id);
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
-  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails});
+  
+  //res.render('user/userRequest', {req: request,car : cardetails, user: userdetails});
+  try{
+    const reviewsCollection = await reviews()
+          let reviewArray = await reviewsCollection.find({carId: cardetails}).toArray()
+          var car_reviews = []
+          for (i = 0; i < reviewArray.length; i++){
+              car_reviews.push({text: reviewArray[i].reviewText, rating: reviewArray[i].rating})
+          }
+        }
+        catch (e) {
+          var car_reviews = null;
+        }
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails, rev : car_reviews});
 })
 
 router.get('/request/review/:id', async(req,res) =>{
   const request = await data.requests.getRequest(req.params.id);
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
-  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true});
+  const reviewsCollection = await reviews();
+        let reviewArray = await reviewsCollection.find({carId: request.carId}).toArray()
+        var car_reviews = []
+        for (i = 0; i < reviewArray.length; i++){
+            car_reviews.push({reviewText: reviewArray[i].reviewText, rating: reviewArray[i].rating})
+        }
+  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true, rev : car_reviews});
+  //res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true});
 })
 
 router.get('/request/extension/:id', async(req,res) =>{
@@ -251,10 +273,10 @@ router.post('/review/:id', async (req, res) => {
   try {
     const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
     if(result.reviewInserted){
-      res.redirect('/userHistory');
+      res.redirect(res.redirect(`/request/review/${req.params.id}`));
     }
   } catch (e) {
-    res.status(400).render('user/userRequest', {
+    res.status(400).render(`/request/extension/${req.params.id}`, {
       error: "Error : " + e,
       hasErrors : true,
       req: request,car : cardetails, user: userdetails,review : true
