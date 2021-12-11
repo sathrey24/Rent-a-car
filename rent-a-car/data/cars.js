@@ -76,9 +76,6 @@ module.exports = {
     },
 
     async update(id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
-      if (!model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
-        throw "All fields must be present";
-      }
       if (!id || !model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
         throw "None of the feilds should be empty.";
       }
