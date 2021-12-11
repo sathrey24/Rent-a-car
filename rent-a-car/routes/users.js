@@ -140,7 +140,6 @@ router.get('/request/review/:id', async(req,res) =>{
             car_reviews.push({reviewText: reviewArray[i].reviewText, rating: reviewArray[i].rating})
         }
   res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true, rev : car_reviews});
-  //res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true});
 })
 
 router.get('/request/extension/:id', async(req,res) =>{
@@ -148,13 +147,11 @@ router.get('/request/extension/:id', async(req,res) =>{
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   const requestPending = await data.requests.getAllExtensionRequestsByID(request.username);
-  let flag;
-  if(requestPending.length !== 0){
-    flag = false;
+  if(requestPending.length == 0){
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : true});
   }else{
-    flag = true;
-  }
-  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : flag});
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : false});
+  } 
 })
 
 router.get('/allRequests/:id', async(req,res) =>{

@@ -27,7 +27,6 @@
         <hr />
     </div>
     <div class="content">
-        <div class="scroll-container">
         {{#if review}}
         <form action="/review/{{req._id}}" method="post" id="review-form" class="booking-form">
             <div style="margin-left: 10px;">
@@ -59,9 +58,7 @@
         </form>
         {{/if}}
     </div>
-    </div>
     <div class="content">
-        <div class="scroll-container">
         {{#if extension}}
         <form action="/extension/{{req._id}}" method="post" id="extension-form" class="booking-form">
             <div style="margin-left: 10px;">
@@ -87,7 +84,6 @@
             {{/if}}
         </form>
         {{/if}}
-    </div>
     </div>
     <footer>
         <p id="time"  class="formating">1:43</p>
