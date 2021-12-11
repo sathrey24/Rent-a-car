@@ -26,26 +26,29 @@
     <p id="id_error" hidden style="text-align: right; width:80%"></p>
     <div class="content">
         <h1>Cars ({{body.length}})</h1>
-        <p id="time"  style="text-align: right; width:98%">1:43</p>
         {{#if request.length}}
-        <ol class="info-strip">
+        <ul class="info-strip">
+            <li>
             <a href="/allRequests/{{request}}" class="powerlinks">
                 Pending Request(s). Click for details.
             </a>
-        </ol>
+            </li>
+        </ul>
         {{/if}}
         {{#if extension.length}}
-        <ol class="info-strip">
+        <ul class="info-strip">
+             <li>
             <a href="/allRequests/extension/{{extenreqs}}" class="powerlinks">
                 Pending Extension Request(s). Click for details.
             </a>
-        </ol>
+            </li>
+        </ul>
         {{/if}}
         <div class="scroll-container">
             {{#if body.length}}
             <ul class="carlist-ul">
                 {{#each body}}
-                <li class="cars">Model :{{this.model}} <br />
+                <li class="cars">Model : {{this.model}} <br />
                     Color : {{this.color}} <br />
                     Seating Capacity : {{this.seatingCapacity}} <br />
                     Engine Type : {{this.engineType}} <br />
@@ -60,7 +63,9 @@
             {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
         </div>
     </div>
-
+    <footer >
+        <p id="time"  class="formating">1:43</p>
+    </footer>
     <script src="public/js/carSearch.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="public/js/time.js"></script>

@@ -6,7 +6,12 @@
                 method: "GET",
                 url : "http://worldtimeapi.org/api/timezone/America/New_York",
                 success: function(data) {
-                    time.html(data.datetime.substr(11,5));
+                    let currenttime = new Date(data.datetime).toLocaleString('en-US', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true
+                    });
+                    time.html(currenttime);
                  },
                 complete: function() {
                 setTimeout(getTime, 5000);
