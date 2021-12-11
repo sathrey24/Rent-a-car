@@ -113,7 +113,6 @@ router.post('/adminLogin', async (req, res) => {
   });
   
   router.post('/editCars/:id', async (req, res) => {
-    const updateCarData = xss(req.body);
     var car = await data.cars.getCar(xss(req.params.id));
     if (!xss(req.body.model) || !xss(req.body.type) || !xss(req.body.color) || !xss(req.body.numberDoors) || !xss(req.body.seatingCapacity) || !xss(req.body.hourlyRate) || !xss(req.body.availability) || !xss(req.body.engineType)) {
       res.status(400).render('user/editCar', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>",body: car})
@@ -123,8 +122,15 @@ router.post('/adminLogin', async (req, res) => {
       res.status(400).render('user/editCar', {hasErrors: true, error:"<p>Hourly Rate should be in $/hr only .</p>",body: car})
       return;
     }
+    let model = xss(req.body.model);
+    let type = xss(req.body.type);
+    let color = xss(req.body.color);
+    let numberDoors = xss(req.body.numberDoors);
+    let seatingCapacity = xss(req.body.seatingCapacity);
+    let hourlyRate = xss(req.body.hourlyRate);
+    let availability = xss(req.body.availability);
+    let engineType = xss(req.body.engineType);
       try {
-        const {model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType} = updateCarData;
         const updatedData = await data.cars.update(xss(req.params.id),model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
         if(updatedData.carInserted){
           res.redirect('/admin/carList');
