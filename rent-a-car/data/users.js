@@ -80,7 +80,7 @@ module.exports = {
         if (!username) {
           throw 'All fields need to have valid values';
         }
-        if (!username.trim() || !password.trim()) {
+        if (!username.trim() ) {
           throw "Username cannot be empty"
         }
         if (username.indexOf(' ') >= 0) {
