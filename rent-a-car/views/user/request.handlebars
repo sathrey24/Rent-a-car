@@ -1,11 +1,13 @@
 <div class="wrapper">
     <div class="header">
+            <div class="logo-action">
             {{#if role}}
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userDashboard'"></i>
             {{else}}
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/admin/adminDashboard'"></i>
             {{/if}}
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </div>
     </div>
     <div class="content">
         <h1>Request Details</h1>
@@ -32,11 +34,20 @@
         <h1>Extension Request Details</h1>
         <div class="main-grid">
             <div class="rgrid">
-                <p class="dtext"><b>Extension Time Span: </b>{{extension.extensionPeriod}}</p>
-                <p class="dtext"><b>Total Cost after extension: </b>{{extension.newTotal}}</p>
+                <p class="dtext"><b>Extension Time Span: </b>{{req.extensionPeriod}}</p>
+                <p class="dtext"><b>Total Cost after extension: </b>{{req.newTotal}}</p>
             </div>
         </div>
         <hr />
     </div>
 {{/if}}
+<footer>
+        <p id="time"  class="formating">1:43</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    {{#if role}}
+    <script src="../../public/js/time.js"></script>
+    {{else}}
+    <script src="../../../public/js/time.js"></script>
+    {{/if}}
 </div>

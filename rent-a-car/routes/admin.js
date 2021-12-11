@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data/');
 
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
     res.render('user/adminLogin');
@@ -14,24 +15,24 @@ router.get('/adminDashboard', async(req, res) => {
   });
 
 router.post('/adminLogin', async (req, res) => {
-    if (!req.body.username || !req.body.password) {
+    if (!xss(req.body.username) || !xss(req.body.password)) {
       res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Username and password cannot be empty.</p>"})
       return;
     }
-    if (!req.body.username.trim() || !req.body.password.trim()){
+    if (!xss(req.body.username).trim() || !xss(req.body.password).trim()){
       res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Username and password cannot be empty.</p>"})
       return;
     }
-    if (req.body.username.indexOf(' ') >= 0){
+    if (xss(req.body.username).indexOf(' ') >= 0){
       res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Username cannot contain spaces.</p>"})
       return;
     }
-    if (req.body.password.indexOf(' ') >= 0){
+    if (xss(req.body.password).indexOf(' ') >= 0){
       res.status(400).render('user/adminLogin', {hasErrors: true, error:"<p>Password cannot contain spaces.</p>"})
       return;
     }
-    let username = req.body.username;
-    let password = req.body.password;
+    let username = xss(req.body.username);
+    let password = xss(req.body.password);
     try {
       const result = await data.admin.checkUser(username,password);
       if(result.authenticated && result.role === "admin"){
@@ -54,7 +55,7 @@ router.post('/adminLogin', async (req, res) => {
   });
 
   router.get('/request/:id', async(req,res) =>{
-    const request = await data.requests.getRequest(req.params.id);
+    const request = await data.requests.getRequest(xss(req.params.id));
     const userdetails = await data.users.getUserDetails(request.username);
     const cardetails = await data.cars.getCar(request.carId);
     res.render('user/request', {req: request,car : cardetails, user: userdetails});
@@ -70,22 +71,22 @@ router.post('/adminLogin', async (req, res) => {
   });
   
   router.post('/addCar', async (req, res) => {
-    if (!req.body.model || !req.body.type || !req.body.color || !req.body.numberDoors || !req.body.seatingCapacity || !req.body.hourlyRate || !req.body.availability || !req.body.engineType) {
+    if (!xss(req.body.model) || !xss(req.body.type) || !xss(req.body.color) || !xss(req.body.numberDoors) || !xss(req.body.seatingCapacity) || !xss(req.body.hourlyRate) || !xss(req.body.availability) || !xss(req.body.engineType)) {
       res.status(400).render('user/addCar', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
       return;
     }
-    if(!req.body.hourlyRate.includes('$/hr')){
+    if(!xss(req.body.hourlyRate).includes('$/hr')){
       res.status(400).render('user/addCar', {hasErrors: true, error:"<p>Hourly Rate should be in $/hr only .</p>"})
       return;
     }
-    let model = req.body.model;
-    let type = req.body.type;
-    let color = req.body.color;
-    let numberDoors = req.body.numberDoors;
-    let seatingCapacity = req.body.seatingCapacity;
-    let hourlyRate = req.body.hourlyRate;
-    let availability = req.body.availability;
-    let engineType = req.body.engineType;
+    let model = xss(req.body.model);
+    let type = xss(req.body.type);
+    let color = xss(req.body.color);
+    let numberDoors = xss(req.body.numberDoors);
+    let seatingCapacity = xss(req.body.seatingCapacity);
+    let hourlyRate = xss(req.body.hourlyRate);
+    let availability = xss(req.body.availability);
+    let engineType = xss(req.body.engineType);
     try {
       const result = await data.cars.createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
       if(result.carInserted){
@@ -101,30 +102,30 @@ router.post('/adminLogin', async (req, res) => {
   });
   
   router.get('/editCar/:id', async(req, res) => {
-    var car = await data.cars.getCar(req.params.id)
+    var car = await data.cars.getCar(xss(req.params.id))
      res.render('user/editCar', {body: car});
   });
   
   router.get('/deleteCar/:id', async(req, res) => {
-    await data.cars.remove(req.params.id);
+    await data.cars.remove(xss(req.params.id));
     const cars = await data.cars.getAllCars();
      res.redirect('/admin/carList');
   });
   
   router.post('/editCars/:id', async (req, res) => {
-    const updateCarData = req.body;
-    var car = await data.cars.getCar(req.params.id);
-    if (!req.body.model || !req.body.type || !req.body.color || !req.body.numberDoors || !req.body.seatingCapacity || !req.body.hourlyRate || !req.body.availability || !req.body.engineType) {
+    const updateCarData = xss(req.body);
+    var car = await data.cars.getCar(xss(req.params.id));
+    if (!xss(req.body.model) || !xss(req.body.type) || !xss(req.body.color) || !xss(req.body.numberDoors) || !xss(req.body.seatingCapacity) || !xss(req.body.hourlyRate) || !xss(req.body.availability) || !xss(req.body.engineType)) {
       res.status(400).render('user/editCar', {hasErrors: true, error:"<p>None of the feilds should be empty.</p>",body: car})
       return;
     }
-    if(!req.body.hourlyRate.includes('$/hr')){
+    if(!xss(req.body.hourlyRate).includes('$/hr')){
       res.status(400).render('user/editCar', {hasErrors: true, error:"<p>Hourly Rate should be in $/hr only .</p>",body: car})
       return;
     }
       try {
         const {model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType} = updateCarData;
-        const updatedData = await data.cars.update(req.params.id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
+        const updatedData = await data.cars.update(xss(req.params.id),model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType);
         if(updatedData.carInserted){
           res.redirect('/admin/carList');
         }
@@ -139,27 +140,27 @@ router.post('/adminLogin', async (req, res) => {
   });
 
   router.get('/approveRequest/:id', async(req, res) => {
-    await data.requests.approveRequest(req.params.id,true);
+    await data.requests.approveRequest(xss(req.params.id),true);
      res.redirect('/admin/adminDashboard');
   });
 
   router.get('/rejectRequest/:id', async(req, res) => {
-    await data.requests.rejectRequest(req.params.id,false);
+    await data.requests.rejectRequest(xss(req.params.id),false);
      res.redirect('/admin/adminDashboard');
   });
 
   router.get('/approveExtenRequest/:id', async(req, res) => {
-    await data.requests.approveExtensionRequest(req.params.id,true);
+    await data.requests.approveExtensionRequest(xss(req.params.id),true);
      res.redirect('/admin/adminDashboard');
   });
 
   router.get('/rejectExtenRequest/:id', async(req, res) => {
-    await data.requests.rejectExtensionRequest(req.params.id,false);
+    await data.requests.rejectExtensionRequest(xss(req.params.id),false);
      res.redirect('/admin/adminDashboard');
   });
 
   router.get('/request/ext/:id', async(req,res) =>{
-    const request = await data.requests.getRequest(req.params.id);
+    const request = await data.requests.getRequest(xss(req.params.id));
     const userdetails = await data.users.getUserDetails(request.username);
     const cardetails = await data.cars.getCar(request.carId);
     res.render('user/request', {req: request,car : cardetails, user: userdetails,extension:true});

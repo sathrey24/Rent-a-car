@@ -75,6 +75,9 @@ module.exports = {
         }
 
         if (arguments.length !== 6) { throw "Expected userId and carId as arguments" }
+        if (!username || !carId || !fromDate || !toDate || !timePeriod || !totalCost) {
+            throw "None of the feilds should be empty.";
+          }
         let newRequest = {
             username: username,
             carId: carId,
@@ -267,9 +270,8 @@ module.exports = {
         let rentedCars = []
         for (i = 0; i < requestList.length; i++) {
             if (requestList[i].hasOwnProperty('approved')) {
-                let fromDate = checkDate(new Date(new Date(requestList[i].fromDate).getTime() + 86400000));
                 let toDate = checkDate(new Date(new Date(requestList[i].toDate).getTime() + 86400000));
-                if (requestList[i].approved && (fromDate || toDate)) {
+                if (requestList[i].approved && toDate) {
                     rentedCars.push(requestList[i]);
                 }
             }
@@ -394,7 +396,7 @@ function checkDate(oDate) {
         throw "Day must be within valid range";
     } 
     let currentDate = new Date();
-    if (currentDate.getDate() <= oDate.getDate() || currentDate.getMonth() <= oDate.getMonth() || currentDate.getFullYear() <= oDate.getFullYear()) {
+    if (currentDate.getDate() <= oDate.getDate() && currentDate.getMonth() <= oDate.getMonth() && currentDate.getFullYear() <= oDate.getFullYear()) {
         return true;
     } else {
         return false;

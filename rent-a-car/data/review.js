@@ -10,12 +10,6 @@ module.exports = {
         if (!username || !requestId || !reviewText || !rating) {
             throw "All fields need to have valid values";
         }
-        if (!username.trim()) {
-            throw "Username cannot be empty"
-          }
-          if (username.indexOf(' ') >= 0) {
-            throw "Username cannot contain spaces"
-          }
         if (rating < 1 || rating > 5) {
             throw "Rating must be between 1 - 5"
         }
@@ -58,9 +52,6 @@ module.exports = {
     },
 
     async getReview(id){
-        if (!id) {
-            throw "Id must be present";
-        }
         const reviewsCollection = await reviews()
         let parsedId = ObjectId(id);
         const review = await reviewsCollection.findOne({_id: parsedId})

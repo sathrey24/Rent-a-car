@@ -6,6 +6,10 @@ module.exports = {
     async createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
       if (!model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
         throw "All fields must be present";
+        throw "None of the feilds should be empty.";
+      }
+      if(!hourlyRate.includes('$/hr')){
+        throw "Hourly Rate should be in $/hr only .";
       }
         let newCar = {
             model: model.toUpperCase(),
@@ -74,6 +78,11 @@ module.exports = {
     async update(id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
       if (!model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
         throw "All fields must be present";
+      if (!id || !model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
+        throw "None of the feilds should be empty.";
+      }
+      if(!hourlyRate.includes('$/hr')){
+        throw "Hourly Rate should be in $/hr only .";
       }
       id = ObjectId(id);
       let newCar = {

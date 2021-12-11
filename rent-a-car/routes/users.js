@@ -4,6 +4,8 @@ const data = require('../data/');
 const mongoCollections = require('../config/mongoCollections');
 const reviews = mongoCollections.reviews;
 
+const xss = require('xss');
+
 router.get('/', (req, res) => {
   if (req.session.role === "user") {
     res.render('user/landingpage', { user: true, admin: false, login: false });
@@ -75,24 +77,24 @@ router.get('/userDashboard', async function (req, res) {
 });
 
 router.post('/login', async (req, res) => {
-  if (!req.body.username || !req.body.password) {
+  if (!xss(req.body.username) || !xss(req.body.password)) {
     res.status(400).render('user/login', { hasErrors: true, error: "<p>Username and password cannot be empty.</p>" })
     return;
   }
-  if (!req.body.username.trim() || !req.body.password.trim()) {
+  if (!xss(req.body.username).trim() || !xss(req.body.password).trim()) {
     res.status(400).render('user/login', { hasErrors: true, error: "<p>Username and password cannot be empty.</p>" })
     return;
   }
-  if (req.body.username.indexOf(' ') >= 0) {
+  if (xss(req.body.username).indexOf(' ') >= 0) {
     res.status(400).render('user/login', { hasErrors: true, error: "<p>Username cannot contain spaces.</p>" })
     return;
   }
-  if (req.body.password.indexOf(' ') >= 0) {
+  if (xss(req.body.password).indexOf(' ') >= 0) {
     res.status(400).render('user/login', { hasErrors: true, error: "<p>Password cannot contain spaces.</p>" })
     return;
   }
-  let username = req.body.username;
-  let password = req.body.password;
+  let username = xss(req.body.username);
+  let password = xss(req.body.password);
   try {
     const result = await data.users.checkUser(username, password);
     if (result.authenticated && result.role == "user") {
@@ -109,11 +111,10 @@ router.post('/login', async (req, res) => {
   }
 });
 router.get('/request/:id', async(req,res) =>{
-  const request = await data.requests.getRequest(req.params.id);
+  const request = await data.requests.getRequest(xss(req.params.id));
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   
-  //res.render('user/userRequest', {req: request,car : cardetails, user: userdetails});
   try{
     const reviewsCollection = await reviews()
           let reviewArray = await reviewsCollection.find({carId: cardetails}).toArray()
@@ -129,7 +130,7 @@ router.get('/request/:id', async(req,res) =>{
 })
 
 router.get('/request/review/:id', async(req,res) =>{
-  const request = await data.requests.getRequest(req.params.id);
+  const request = await data.requests.getRequest(xss(req.params.id));
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   const reviewsCollection = await reviews();
@@ -139,25 +140,22 @@ router.get('/request/review/:id', async(req,res) =>{
             car_reviews.push({reviewText: reviewArray[i].reviewText, rating: reviewArray[i].rating})
         }
   res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true, rev : car_reviews});
-  //res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true});
 })
 
 router.get('/request/extension/:id', async(req,res) =>{
-  const request = await data.requests.getRequest(req.params.id);
+  const request = await data.requests.getRequest(xss(req.params.id));
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   const requestPending = await data.requests.getAllExtensionRequestsByID(request.username);
-  let flag;
-  if(requestPending.length !== 0){
-    flag = false;
+  if(requestPending.length == 0){
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : true});
   }else{
-    flag = true;
-  }
-  res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : flag});
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : false});
+  } 
 })
 
 router.get('/allRequests/:id', async(req,res) =>{
-  const request = await data.requests.getRequest(req.params.id);
+  const request = await data.requests.getRequest(xss(req.params.id));
   const requestList = await data.requests.getAllPendingRequestsByID(request.username)
   for (i = 0; i < requestList.length; i++){
     const car = await data.cars.getCar(requestList[i].carId)
@@ -167,7 +165,7 @@ router.get('/allRequests/:id', async(req,res) =>{
 })
 
 router.get('/allRequests/extension/:id', async(req,res) =>{
-  const request = await data.requests.getRequest(req.params.id);
+  const request = await data.requests.getRequest(xss(req.params.id));
   const requestList = await data.requests.getAllExtensionRequestsByID(request.username)
   for (i = 0; i < requestList.length; i++){
     const car = await data.cars.getCar(requestList[i].carId)
@@ -177,14 +175,14 @@ router.get('/allRequests/extension/:id', async(req,res) =>{
 })
 
 router.post('/register', async (req, res) => {
-  let firstName = req.body.firstName;
-  let lastName = req.body.lastName;
-  let address = req.body.address;
-  let email = req.body.email;
-  let phoneNum = req.body.phoneNum;
-  let licenseNum = req.body.licenseNum;
-  let username = req.body.username;
-  let password = req.body.password;
+  let firstName = xss(req.body.firstName);
+  let lastName = xss(req.body.lastName);
+  let address = xss(req.body.address);
+  let email = xss(req.body.email);
+  let phoneNum = xss(req.body.phoneNum);
+  let licenseNum = xss(req.body.licenseNum);
+  let username = xss(req.body.username);
+  let password = xss(req.body.password);
   try {
     if (!firstName || !lastName || !address || !email || !phoneNum || !licenseNum || !username || !password) {
       throw "All fields have to be non-empty"
@@ -231,21 +229,21 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/bookCar/:id', async(req,res) =>{
-  const car = await data.cars.getCar(req.params.id);
+  const car = await data.cars.getCar(xss(eq.params.id));
   res.status(400).render('user/carDetails', { details: car, role: true,hasErrors: true, error: "<p>None of the fields should be empty.</p>" })
 })
 
 router.post('/bookCar/:id', async (req, res) => {
-  const car = await data.cars.getCar(req.params.id);
-  if (!req.body.fromDate || !req.body.toDate || !req.body.count || !req.body.timePeriod) {
+  const car = await data.cars.getCar(xss(req.params.id));
+  if (!xss(req.body.fromDate) || !xss(req.body.toDate) || !xss(req.body.count) || !xss(req.body.timePeriod)) {
     res.status(400).redirect(`/bookCar/${req.params.id}`)
     return;
   }
-  let fromDate = req.body.fromDate;
-  let toDate = req.body.toDate;
-  let timePeriod = req.body.count + ' ' + req.body.timePeriod;
+  let fromDate = xss(req.body.fromDate);
+  let toDate = xss(req.body.toDate);
+  let timePeriod = xss(req.body.count) + ' ' + xss(req.body.timePeriod);
   try {
-    const result = await data.requests.createRequest(req.session.user, req.params.id, fromDate, toDate, timePeriod, req.body.total);
+    const result = await data.requests.createRequest(req.session.user, xss(req.params.id), fromDate, toDate, timePeriod, xss(req.body.total));
     if (result.requestInserted) {
       res.redirect('/userDashboard');
     }
@@ -264,19 +262,19 @@ router.post('/review/:id', async (req, res) => {
   const request = await data.requests.getRequest(req.params.id);
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
-  if (!req.body.review || !req.body.rating) {
+  if (!xss(req.body.review) || !xss(req.body.rating)) {
     res.status(400).render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true, hasErrors: true, error:"<p>None of the feilds should be empty.</p>"})
     return;
   }
-  let review = req.body.review;
-  let rate = req.body.rating;
+  let review = xss(req.body.review);
+  let rate = xss(req.body.rating);
   try {
-    const result = await data.reviews.createReview(req.session.user, req.params.id,review,rate);
+    const result = await data.reviews.createReview(req.session.user, xss(req.params.id),review,rate);
     if(result.reviewInserted){
-      res.redirect(res.redirect(`/request/review/${req.params.id}`));
+      res.redirect(res.redirect(`/request/review/${xss(req.params.id)}`));
     }
   } catch (e) {
-    res.status(400).render(`/request/extension/${req.params.id}`, {
+    res.status(400).render(`/request/extension/${xss(req.params.id)}`, {
       error: "Error : " + e,
       hasErrors : true,
       req: request,car : cardetails, user: userdetails,review : true
@@ -286,7 +284,7 @@ router.post('/review/:id', async (req, res) => {
 });
 
 router.post('/extension/:id', async (req, res) => {
-  const request = await data.requests.getRequest(req.params.id);
+  const request = await data.requests.getRequest(xss(req.params.id));
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   if (!req.body.count || !req.body.timePeriod) {
@@ -296,7 +294,7 @@ router.post('/extension/:id', async (req, res) => {
   let count = req.body.count;
   let timePeriod = req.body.timePeriod;
   try {
-    const result = await data.requests.createRequestExtension(req.params.id,count,timePeriod);
+    const result = await data.requests.createRequestExtension(xss(req.params.id),count,timePeriod);
     if(result.requestInserted){
       res.redirect('/userHistory');
     }

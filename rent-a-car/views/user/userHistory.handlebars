@@ -1,12 +1,14 @@
 <div class="wrapper">
     <div class="header">
+           <div class="logo-action">
             <i class="logo fas fa-arrow-circle-left" onclick="window.location='/userDashboard'"></i>
             <h1><i class="logo fas fa-car"></i>ezCars</h1>
+        </div>
     </div>
     <div class="content">
+        <div class="scroll-container"> 
+        {{#if currentRequest.length}}
         <h1>Currently Renting ({{currentRequest.length}})</h1>
-        <div class="scroll-container">
-            {{#if currentRequest.length}}
             <ul class="carlist-ul">
                 {{#each currentRequest}}
                 <li class="cars">
@@ -20,17 +22,13 @@
                 {{/each}}
             </ul>
             {{/if}}
-        </div>
-    </div>
-    <div class="content">
         <h1>Past History ({{body.length}})</h1>
-        <div class="scroll-container">
             {{#if body.length}}
             <ul class="carlist-ul">
                 {{#each body}}
                 <li class="cars">
                     Date : {{fromDate}} to {{toDate}}<br />
-                    Time span : {{timePeriod}}</br>
+                    Time span : {{timePeriod}}<br/>
                     <span class="carlist-action-btns">
                         <button onclick="window.location='/request/review/{{this._id}}'">View Request/ <br/>
                         Provide Feedback</button>
@@ -41,4 +39,9 @@
             {{/if}}
         </div>
     </div>
+    <footer>
+        <p id="time"  class="formating">1:43</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="public/js/time.js"></script>
 </div>
