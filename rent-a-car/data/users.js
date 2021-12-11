@@ -59,12 +59,6 @@ module.exports = {
         if (!username.trim() || !password.trim()) {
           throw "Username and password cannot be empty"
         }
-        if (username.indexOf(' ') >= 0) {
-          throw "Username cannot contain spaces"
-        }
-        if (password.indexOf(' ') >= 0) {
-          throw "Password cannot contain spaces"
-        }
         const usersCollection = await users();
         const res = await usersCollection.findOne({ username: username.toLowerCase() });
         if (res === null) throw "Either the username or password is invalid";
@@ -77,15 +71,6 @@ module.exports = {
       },
 
       async getUserDetails(username){
-        if (!username) {
-          throw 'All fields need to have valid values';
-        }
-        if (!username.trim() ) {
-          throw "Username cannot be empty"
-        }
-        if (username.indexOf(' ') >= 0) {
-          throw "Username cannot contain spaces"
-        }
         const usersCollection = await users()
         const user = await usersCollection.findOne({ username: username.toLowerCase() });
         if (user === null) {throw "No user with that name"}
