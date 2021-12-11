@@ -44,6 +44,7 @@
 
     <div class="content">
         <h1>User Extension Requests ({{extensionRequest.length}})</h1>
+        <div class="scroll-container">
         {{#if extensionRequest.length}}
         <ul class="carlist-ul">
             {{#each extensionRequest}}
@@ -70,6 +71,11 @@
             {{/each}}
         </ul>
         {{/if}}
+        </div>
+         <footer>
+        <p id="time"  class="formating">1:43</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="../../public/js/time.js"></script>
     </div>
-
 </div>

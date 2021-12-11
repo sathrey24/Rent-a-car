@@ -13,6 +13,23 @@ html, body, p, h1, h2, h3, a{
 	border: 0px;
 	margin: 0px
 }
+footer {
+    position: fixed;
+    height: 40px;
+    background-color:white;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+.formating{
+	border: 8px;
+	margin: 10px;
+	text-align: right;
+	color:  black;
+	font-weight: bold;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	font-size: 25px;
+}
 .logo{
 	font-size: 30px;
 }

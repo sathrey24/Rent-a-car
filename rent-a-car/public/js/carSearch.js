@@ -8,7 +8,7 @@ function search_car() {
     input=input.toLowerCase();
     let x = document.getElementsByClassName('cars');
     for (i = 0; i < x.length; i++) { 
-        if(filterValue != 'None' && input && filterValue != 'All'){
+        if(filterValue != 'None' && input && filterValue != 'All' && filterValue != 'Model'){
             if (!x[i].innerHTML.toLowerCase().includes(filterValue.toLowerCase() + " : " +input)) {
                 x[i].style.display="none";
             }

@@ -27,6 +27,7 @@
         <hr />
     </div>
     <div class="content">
+        <div class="scroll-container">
         {{#if review}}
         <form action="/review/{{req._id}}" method="post" id="review-form" class="booking-form">
             <div style="margin-left: 10px;">
@@ -37,7 +38,6 @@
             <b>Client said: </b><i>"{{this.reviewText}}"</i><br /><br />
             {{/each}}
             {{/if}}
-        <form action="/review/{{req._id}}" method="post" id="review-form">
                 <span>
                     <label>Review :
                         <input name="review" type="text" id="reviewId" style="margin: 5px 0px;" />
@@ -59,7 +59,9 @@
         </form>
         {{/if}}
     </div>
+    </div>
     <div class="content">
+        <div class="scroll-container">
         {{#if extension}}
         <form action="/extension/{{req._id}}" method="post" id="extension-form" class="booking-form">
             <div style="margin-left: 10px;">
@@ -86,4 +88,10 @@
         </form>
         {{/if}}
     </div>
+    </div>
+    <footer>
+        <p id="time"  class="formating">1:43</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="../../public/js/time.js"></script>
 </div>
