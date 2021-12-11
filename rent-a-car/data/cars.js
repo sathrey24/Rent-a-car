@@ -4,6 +4,9 @@ let { ObjectId } = require('mongodb');
 
 module.exports = {
     async createCar(model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
+      if (!model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
+        throw "All fields must be present";
+      }
         let newCar = {
             model: model.toUpperCase(),
             type: type.toUpperCase(),
@@ -69,6 +72,9 @@ module.exports = {
     },
 
     async update(id,model, type, color, numberDoors, seatingCapacity, hourlyRate, availability, engineType){
+      if (!model || !type || !color || !numberDoors || !seatingCapacity || !hourlyRate || !availability || !engineType) {
+        throw "All fields must be present";
+      }
       id = ObjectId(id);
       let newCar = {
           model: model.toUpperCase(),
