@@ -9,6 +9,9 @@ module.exports = {
 
     async createRequest(username, carId, fromDate, toDate, timePeriod, totalCost) {
         if (arguments.length !== 6) { throw "Expected userId and carId as arguments" }
+        if (!username || !carId || !fromDate || !toDate || !timePeriod || !totalCost) {
+            throw "None of the feilds should be empty.";
+          }
         let newRequest = {
             username: username,
             carId: carId,
