@@ -8,6 +8,72 @@ const data = require('./cars');
 module.exports = {
 
     async createRequest(username, carId, fromDate, toDate, timePeriod, totalCost) {
+        if (!username || !carId || !fromDate || !toDate || !timePeriod || !totalCost) {
+            throw "All fields must be present";
+        }
+
+        if (!username.trim() ) {
+            throw "Username cannot be empty"
+          }
+          if (username.indexOf(' ') >= 0) {
+            throw "Username cannot contain spaces"
+          }
+        
+        if (!timePeriod[0].match("[0-9]+")) {
+            throw "Timeperiod's first part must be a number"
+        }
+        let timePeriod2 = timePeriod;
+        if (!parseInt(timePeriod2[0])>0) {
+            throw "Timeperiod number must be greater than 0";
+        }
+        if (!timePeriod.includes("Hour")) {
+            if(!timePeriod.includes("Day")) {
+                throw "Timperiod missing descriptor Hour or Day";
+            }
+        }
+
+        let totalCost2 = totalCost;
+        totalCost2.split("$");
+        if (!totalCost2.match("[0-9]+")) {
+            throw "TotalCost must be a number";
+        }
+
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(fromDate)) {
+            throw "fromDate must be in YYYY-MM-DD format";
+        }
+        var parts = fromDate.split("-");
+        var day = parseInt(parts[2], 10);
+        var month = parseInt(parts[1], 10);
+        var year = parseInt(parts[0], 10);
+        if(year < 1000 || year > 3000 || month == 0 || month > 12) {
+            throw "fromDate year & month must be within valid ranges"
+        }
+        var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+        if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
+            monthLength[1] = 29;
+        }
+        if (!day > 0 && !day <= monthLength[month - 1]) {
+            throw "fromDate day must be within valid range";
+        }
+
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(toDate)) {
+            throw "toDate must be in YYYY-MM-DD format";
+        }
+        var parts1 = toDate.split("-");
+        var day1 = parseInt(parts1[2], 10);
+        var month1 = parseInt(parts1[1], 10);
+        var year1 = parseInt(parts1[0], 10);
+        if(year1 < 1000 || year1 > 3000 || month1 == 0 || month1 > 12) {
+            throw "toDate year & month must be within valid ranges"
+        }
+        var monthLength1 = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+        if(year1 % 400 == 0 || (year1 % 100 != 0 && year1 % 4 == 0)) {
+            monthLength1[1] = 29;
+        }
+        if (!day1 > 0 && !day1 <= monthLength1[month1 - 1]) {
+            throw "toDate day must be within valid range";
+        }
+
         if (arguments.length !== 6) { throw "Expected userId and carId as arguments" }
         if (!username || !carId || !fromDate || !toDate || !timePeriod || !totalCost) {
             throw "None of the feilds should be empty.";
@@ -51,6 +117,15 @@ module.exports = {
     },
 
     async getAllPendingRequestsByID(username) {
+        if (!username) {
+            throw "Username field must be present";
+        }
+        if (!username.trim() ) {
+            throw "Username cannot be empty"
+          }
+          if (username.indexOf(' ') >= 0) {
+            throw "Username cannot contain spaces"
+          }
         const requestCollection = await requests()
         const requestsList = await requestCollection.find({ username: username }).toArray();
         let pendingRequest = []
@@ -63,6 +138,15 @@ module.exports = {
     },
 
     async getAllExtensionRequestsByID(username) {
+        if (!username) {
+            throw "Username field must be present";
+        }
+        if (!username.trim() ) {
+            throw "Username cannot be empty"
+          }
+          if (username.indexOf(' ') >= 0) {
+            throw "Username cannot contain spaces"
+          }
         const requestCollection = await requests()
         const requestsList = await requestCollection.find({ username: username }).toArray();
         let pendingRequest = []
@@ -75,6 +159,9 @@ module.exports = {
     },
 
     async getRequest(id) {
+        if (!id) {
+            throw "Id field must be present";
+        }
         const requestCollection = await requests();
         let parsedId;
         if (id) {
@@ -86,6 +173,9 @@ module.exports = {
     },
 
     async approveRequest(id, flag) {
+        if (!id) {
+            throw "All fields must be present";
+        }
         id = ObjectId(id);
         let updateRequest = {
             approved: flag
@@ -111,6 +201,9 @@ module.exports = {
     },
 
     async rejectRequest(id, flag) {
+        if (!id) {
+            throw "Id fields must be present";
+        }
         id = ObjectId(id);
         let updateRequest = {
             approved: flag
@@ -123,6 +216,12 @@ module.exports = {
     },
 
     async approveExtensionRequest(id, flag) {
+        if (!id || !flag) {
+            throw "All fields must be present";
+        }
+        if (typeof flag != "boolean") {
+            throw "Flag must be type boolean";
+        }
         const requestCollection = await requests();
         let req = await this.getRequest(id);
         let newtoDate;
@@ -151,6 +250,9 @@ module.exports = {
     },
 
     async rejectExtensionRequest(id, flag) {
+        if (!id) {
+            throw "Id fields must be present";
+        }
         id = ObjectId(id);
         let updateRequest = {
             extensionRequest: flag
@@ -178,6 +280,15 @@ module.exports = {
     },
 
     async getUserCurrentlyRentedCars(username) {
+        if (!username) {
+            throw "Username field must be present";
+        }
+        if (!username.trim() ) {
+            throw "Username cannot be empty"
+          }
+          if (username.indexOf(' ') >= 0) {
+            throw "Username cannot contain spaces"
+          }
         const requestCollection = await requests()
         const requestList = await requestCollection.find({ username: username }).toArray();
         let rentedCars = []
@@ -194,6 +305,15 @@ module.exports = {
     },
 
     async getPastHistoryByID(username) {
+        if (!username) {
+            throw "Username field must be present";
+        }
+        if (!username.trim() ) {
+            throw "Username cannot be empty"
+          }
+          if (username.indexOf(' ') >= 0) {
+            throw "Username cannot contain spaces"
+          }
         const requestCollection = await requests()
         const requestsList = await requestCollection.find({ username: username }).toArray();
         let rentedCars = []
@@ -210,6 +330,18 @@ module.exports = {
     },
 
     async createRequestExtension(id,count,timeSpan) {
+        if (!id || !count || !timeSpan) {
+            throw "All fields must be present";
+        }
+        let count2 = count;
+        if (!count2.match("[0-9]+")) {
+            throw "Count must be a number";
+        }
+        if (timeSpan != "Hour") {
+            if (timeSpan != "Day") {
+                throw "timeSpan must be in terms of Hour or Day";
+            }
+        }
         let req = await this.getRequest(id);
         const car = await data.getCar(req.carId);
         let parsedId;
@@ -241,6 +373,28 @@ module.exports = {
 }
 
 function checkDate(oDate) {
+    if (!oDate) {
+        throw "Date must be provided";
+    }
+    if (!oDate instanceof Date) {
+        throw "oDate must be a valid Date";
+    }
+    let newoDate;
+    var month = oDate.getUTCMonth() + 1;
+    var day = oDate.getUTCDate() - 1;
+    var year = oDate.getUTCFullYear();
+    newoDate = year + "-" + month + "-" + day;
+
+     if(year < 1000 || year > 3000 || month == 0 || month > 12) {
+        throw "Date must be within valid ranges"
+    }
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
+        monthLength[1] = 29;
+    }
+    if (!day > 0 && !day <= monthLength[month - 1]) {
+        throw "Day must be within valid range";
+    } 
     let currentDate = new Date();
     if (currentDate.getDate() <= oDate.getDate() && currentDate.getMonth() <= oDate.getMonth() && currentDate.getFullYear() <= oDate.getFullYear()) {
         return true;
@@ -250,6 +404,28 @@ function checkDate(oDate) {
 }
 
 function checkPastDate(oDate) {
+    if (!oDate) {
+        throw "Date must be provided";
+    }
+    if (!oDate instanceof Date) {
+        throw "oDate must be a valid Date";
+    }
+    let newoDate;
+    var month = oDate.getUTCMonth() + 1;
+    var day = oDate.getUTCDate() - 1;
+    var year = oDate.getUTCFullYear();
+    newoDate = year + "-" + month + "-" + day;
+ 
+    if(year < 1000 || year > 3000 || month == 0 || month > 12) {
+        throw "Date must be within valid ranges"
+    }
+    var monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+    if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) {
+        monthLength[1] = 29;
+    }
+    if (!day > 0 && !day <= monthLength[month - 1]) {
+        throw "Day must be within valid range";
+    } 
     let currentDate = new Date();
     if (currentDate.getDate() > oDate.getDate() || currentDate.getMonth() > oDate.getMonth() || currentDate.getFullYear() > oDate.getFullYear()) {
         return true;
