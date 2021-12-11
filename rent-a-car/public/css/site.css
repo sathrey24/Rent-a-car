@@ -297,7 +297,7 @@ i{
 .flgrid{
 	display: flex;
 	flex-direction: column;
-	align-items: left;
+	align-items:flex-start;
 	justify-content: center;
 	width: 40%;
 	height: 150px;
@@ -307,7 +307,7 @@ i{
 .frgrid{
 	display: flex;
 	flex-direction: column;
-	align-items: left;
+	align-items:flex-start;
 	justify-content: center;
 	width: 40%;
 	height: 150px;
@@ -331,7 +331,7 @@ i{
 	text-align: center;
 	height: 600px;
 	display: flex;
-	align-items: center;
+	align-items:center;
 	justify-content: center;
 }
 
@@ -407,7 +407,7 @@ i{
 .mob-grp{
 	margin: 0px 40px;
 	display: flex;
-	align-items: right;
+	align-items:flex-end;
 	justify-content: right;
 }
 
