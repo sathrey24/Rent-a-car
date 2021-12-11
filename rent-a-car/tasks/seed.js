@@ -53,7 +53,9 @@ async function main(){
 
    await data.cars.createCar("2014 HYUNDAI ELANTRA", "Sedan", "Black", "3", "6", "20$/hr", "Yes", "Diesel")
 
-   await data.cars.createCar("2013 KIA SOUL", "Wagon", "Red", "2", "2", "20$/hr", "Yes", "Diesel")
+   const c13=await data.cars.createCar("2013 KIA SOUL", "Wagon", "Red", "2", "2", "20$/hr", "Yes", "Diesel")
+   const r13=await data.requests.createRequest(anjali.username, c13.carId,"2021-12-25","2021-12-27","2 Day","960$")
+    await data.requests.approveRequest(r13.requestId,true);
 
    await data.cars.createCar("2017 HONDA FIT", "Hatchback", "Yellow", "4", "4", "20$/hr", "Yes", "Electric")
 
