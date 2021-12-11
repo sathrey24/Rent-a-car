@@ -21,7 +21,7 @@ module.exports = {
         throw "Email must be valid"
       }
       let phoneRegex = /^\d{3}-\d{3}-\d{4}$/
-      if (!phoneRegex.test(phoneNum)) {
+      if (!phoneRegex.test(phoneNumber)) {
         throw "Phone number must be of format XXX-XXX-XXXX"
       }
       const hashPasswd = await bcrypt.hash(password, saltRounds);

@@ -333,8 +333,8 @@ module.exports = {
         if (!id || !count || !timeSpan) {
             throw "All fields must be present";
         }
-        let count2 = count;
-        if (!count2.match("[0-9]+")) {
+        var num = /^\d+$/;
+        if (!num.test(count)) {
             throw "Count must be a number";
         }
         if (timeSpan != "Hour") {
