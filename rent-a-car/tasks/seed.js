@@ -66,7 +66,9 @@ async function main(){
 
   await data.cars.createCar("2019 Subaru Ascent", "Subaru", "Black", "3", "5", "10$/hr", "Yes", "Petrol")
 
-  await data.cars.createCar("2018 Mercedes-Benz C-Class C 300 4MATIC", "Mercedes", "Red", "3", "4", "35$/hr", "No", "Electric")
+  const c11=await data.cars.createCar("2018 Mercedes-Benz C-Class C 300 4MATIC", "Mercedes", "Red", "3", "4", "35$/hr", "No", "Electric")
+  const r11=await data.requests.createRequest(sanjay.username, c11.carId,"2021-12-17","2021-12-26","10 Day","8400$")
+  await data.requests.approveRequest(r11.requestId,true);
 
   await data.cars.createCar("2021 Mazda CX-5 Grand Touring", "Mazda", "Black", "3", "5", "10$/hr", "Yes", "Petrol")
 
@@ -79,7 +81,9 @@ async function main(){
   await data.requests.approveRequest(r8.requestId,true);
   await data.reviews.createReview(anjali.username, r8.requestId, "This car was outstanding!", 5)
 
-  await data.cars.createCar("2020 Tesla Model Y Performance", "Tesla", "Black", "3", "5", "20$/hr", "Yes", "Gas")
+  const c12=await data.cars.createCar("2020 Tesla Model Y Performance", "Tesla", "Black", "3", "5", "20$/hr", "Yes", "Gas")
+  const r12=await data.requests.createRequest(priyanka.username, c12.carId,"2021-12-21","2021-12-21","11 Hour","220$")
+  await data.requests.approveRequest(r12.requestId,true);
 
   await data.cars.createCar("2018 Volvo XC90 T5 Momentum", "Volvo", "Grey", "3", "3", "20$/hr", "Yes", "Diesel")
 
