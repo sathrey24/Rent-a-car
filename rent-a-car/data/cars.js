@@ -104,4 +104,5 @@ module.exports = {
           return {carInserted: true}
       }
   }
+}
 };
