@@ -23,12 +23,6 @@ app.use(
   })
 );
 
-app.use(async (req, res, next) => {
-  let auth = xss(req.session.user) ? "(Authenticated User)" : "(Non-Authenticated User)"
-  console.log(new Date().toUTCString() + ": " + xss(req.method) + " " + " " + xss(req.originalUrl) + " " + auth);
-  next();
-});
-
 app.use('/userDashboard', (req, res, next) => {
   if (!xss(req.session.user) && xss(req.session.role) !== "user") {
     return res.status(403).render('user/error', {error: "You must be logged in to view your dashboard.Click below link to login :",link: "http://localhost:3000"})
