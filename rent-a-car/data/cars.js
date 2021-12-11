@@ -45,6 +45,9 @@ module.exports = {
   },
     
     async getCar(id){
+      if (!id) {
+        throw "Id field must be present";
+      }
       const carCollection = await cars()
       let parsedId = ObjectId(id);
       const car = await carCollection.findOne({_id: parsedId})
@@ -53,6 +56,9 @@ module.exports = {
     },
 
     async remove(id) {
+      if (!id) {
+        throw "Id field must be present";
+      }
       var id = ObjectId(id);
       const carCollection = await cars()
       const deletionInfo = await carCollection.deleteOne({ _id: id });
