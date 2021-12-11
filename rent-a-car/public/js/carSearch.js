@@ -3,21 +3,13 @@ function onFilterChange(){
 }
 
 function search_car() {
-    let errorDiv = document.getElementById('id_error');
     let input = document.getElementById('searchbar').value;
     let filterValue = document.getElementById('filter').value;
     input=input.toLowerCase();
     let x = document.getElementsByClassName('cars');
-    if(input.trim().length == 0){
-        errorDiv.hidden = false;
-        errorDiv.innerHTML = "You must enter valid text!";
-        document.getElementById('searchbar').focus();
-    }else{
-        errorDiv.hidden = true;
-    }
     for (i = 0; i < x.length; i++) { 
-        if(x[i].innerHTML.toLowerCase().includes(filterValue.toLowerCase())){
-            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+        if(filterValue != 'None' && input && filterValue != 'All'){
+            if (!x[i].innerHTML.toLowerCase().includes(filterValue.toLowerCase() + " : " +input)) {
                 x[i].style.display="none";
             }
             else {

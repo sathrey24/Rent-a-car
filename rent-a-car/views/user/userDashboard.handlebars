@@ -51,10 +51,7 @@
                     Engine Type : {{this.engineType}} <br />
                     Rating : {{this.overallRating}} <br />
                     <span class="carlist-action-btns">
-                        <i class="tooltip action-logo fas fa-eye" onclick="window.location='/cars/{{this._id}}'"
-                            style="color: blue;">
-                            <span class="tooltiptext">View Details and Book</span>
-                        </i>
+                        <button onclick="window.location='/cars/{{this._id}}'">View Details/ <br/> Book Car</button>
                     </span>
                 </li>
                 {{/each}}
