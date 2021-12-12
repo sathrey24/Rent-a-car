@@ -168,7 +168,16 @@ router.get('/request/extension/:id', async(req,res) =>{
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   const requestPending = await data.requests.getAllExtensionRequestsByID(request.username);
-  if(requestPending.length == 0){
+  let already_Requested = false;
+  for (i= 0; i < requestPending.length; i++){
+    if (requestPending[i]._id.toString()== req.params.id && requestPending[i].hasOwnProperty('extension')){
+      already_Requested = true;
+    }
+    if (requestPending[i]._id.toString() == req.params.id && !requestPending[i].hasOwnProperty('extension')){
+      already_Requested = false;
+    }
+  }
+  if(!already_Requested){
     res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : true});
   }else{
     res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,extension : false});
@@ -180,7 +189,16 @@ router.get('/request/cancel/:id', async(req,res) =>{
   const userdetails = await data.users.getUserDetails(request.username);
   const cardetails = await data.cars.getCar(request.carId);
   const requestPending = await data.requests.getAllCancelRequestsByID(request.username);
-  if(requestPending.length == 0){
+  let already_Canceled = false;
+  for (i= 0; i < requestPending.length; i++){
+    if (requestPending[i]._id.toString()== req.params.id && requestPending[i].hasOwnProperty('cancel')){
+      already_Canceled = true;
+    }
+    if (requestPending[i]._id.toString() == req.params.id && !requestPending[i].hasOwnProperty('cancel')){
+      already_Canceled = false;
+    }
+  }
+  if(!already_Canceled){
     res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,cancel : true});
   }else{
     res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,cancel : false});
