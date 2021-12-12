@@ -46,7 +46,7 @@ async function main(){
    await data.cars.createCar("2017 HYUNDAI SANTA FE SPORT", "Sport Utility 4D", "Grey", "3", "5", "20$/hr", "Yes", "Electric")
 
    const c6 = await data.cars.createCar("2017 FORD TAURUS", "Sedan", "Blue", "3", "5", "20$/hr", "Yes", "Petrol")
-   const r6=await data.requests.createRequest(sanjay.username, c6.carId,"2021-11-07","2021-11-12","1 Hour","2400$")
+   const r6=await data.requests.createRequest(sanjay.username, c6.carId,"2021-11-07","2021-11-12","6 Day","2880$")
     await data.requests.approveRequest(r6.requestId,true);
     await data.reviews.createReview(sanjay.username, r6.requestId, "This car was good!", 3)
 
