@@ -294,7 +294,7 @@ router.get('/bookCar/:id', async(req,res) =>{
 
 router.post('/bookCar/:id', async (req, res) => {
   const car = await data.cars.getCar(xss(req.params.id));
-  if (!xss(req.body.fromDate) || !xss(req.body.toDate) || !xss(req.body.count) || !xss(req.body.timePeriod)) {
+  if (!xss(req.body.fromDate) || !xss(req.body.toDate) || !xss(req.body.count) || !xss(req.body.timePeriod) || !xss(req.body.total)) {
     res.status(400).redirect(`/bookCar/${req.params.id}`)
     return;
   }
