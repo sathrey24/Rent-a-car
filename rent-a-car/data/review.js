@@ -40,7 +40,8 @@ module.exports = {
         let sum = 0;
         let avg = 0;
         for (i = 0; i < reviewArray.length; i++){
-            sum += reviewArray[i].rating
+            let x = parseInt(reviewArray[i].rating);
+            sum += x;
         }
         avg = sum / reviewArray.length
         avg = Math.round(avg * 100) / 100
