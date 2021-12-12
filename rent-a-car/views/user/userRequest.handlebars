@@ -37,6 +37,7 @@
             <b>Client said: </b><i>"{{this.reviewText}}"</i><br /><br />
             {{/each}}
             {{/if}}
+                {{#unless submitted}}
                 <span>
                     <label>Review :
                         <input name="review" type="text" id="reviewId" style="margin: 5px 0px;" />
@@ -49,6 +50,7 @@
                     <br />
                     <input type="submit" value="Submit Review" class="btn btn-dark savebtn" style="margin: 5px 0px;" />
                 </span>
+                {{/unless }}
             </div>
             {{#if hasErrors}}
             <div id="noresponseError" class="err-strip">
