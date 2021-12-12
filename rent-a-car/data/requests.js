@@ -400,7 +400,7 @@ module.exports = {
                     rentedCars.push(requestsList[i]);
                     const carCollection = await cars();
                     let req = await this.getRequest(requestsList[i]._id)
-                    console.log(req);
+                    //console.log(req);
                     let carId = req.carId;
                     //id = ObjectId(id);
                     carId = ObjectId(carId);
