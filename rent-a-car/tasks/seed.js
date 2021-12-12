@@ -40,7 +40,7 @@ async function main(){
    const c5=await data.cars.createCar("2019 HONDA HR-V", "SUV", "Red", "3", "5", "35$/hr", "Yes", "Petrol")
    const r5=await data.requests.createRequest(sanjay.username, c5.carId,"2021-12-07","2021-12-07","1 Hour","35$")
     await data.requests.approveRequest(r5.requestId,true);
-    await data.reviews.createReview(sanjay.username, r5.requestId, "This car was outstanding!", 4)
+    // await data.reviews.createReview(sanjay.username, r5.requestId, "This car was outstanding!", 4)
 
     await data.cars.createCar("2019 CHEVROLET EQUINOX", "LT Sport Utility 4D", "White", "2", "6", "40$/hr", "No", "Gas")
 
@@ -62,7 +62,7 @@ async function main(){
   const c1 = await data.cars.createCar("2016 NISSAN ALTIMA", "Sedan", "White", "4", "6", "15$/hr", "Yes", "Gas")
   const r1=await data.requests.createRequest(anjali.username, c1.carId,"2021-12-07","2021-12-08","1 Day","3600$")
   await data.requests.approveRequest(r1.requestId,true);
-  await data.reviews.createReview(anjali.username, r1.requestId, "This car was outstanding!", 5)
+  // await data.reviews.createReview(anjali.username, r1.requestId, "This car was outstanding!", 5)
 
   await data.cars.createCar("2018 MITSUBISHI MIRAGE G4", "Sedan", "Black", "3", "5", "10$/hr", "Yes", "Gas")
 
