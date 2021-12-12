@@ -43,6 +43,22 @@
         {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
         <hr />
         {{/if}}
+
+        {{#if cancel}}
+        <h1>Cancel Requests ({{body.length}})</h1>
+        {{#if body.length}}
+        {{#each body}}
+        <div class="main-grid">
+            <div class="lgrid">
+                <p class="dtext"><b>Username: </b>{{this.username}}</p>
+                <p class="dtext"><b>Car: </b>{{this.model}}</p>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{#unless body.length}}<h3 style="margin-top: 10px;">No Data Found...</h3>{{/unless}}
+        <hr />
+        {{/if}}
         </div>
         <footer>
         <p id="time"  class="formating">1:43</p>

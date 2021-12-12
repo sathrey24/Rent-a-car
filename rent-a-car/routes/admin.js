@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
 router.get('/adminDashboard', async(req, res) => {
    const request = await data.requests.getAllRequests();
    const extensionRequest = await data.requests.getAllExtensionRequests();
-    res.render('user/adminDashboard',{body: request,extensionRequest:extensionRequest});
+   const cancelRequest = await data.requests.getAllCancelRequests();
+    res.render('user/adminDashboard',{body: request,extensionRequest:extensionRequest, cancelRequest:cancelRequest});
   });
 
 router.post('/adminLogin', async (req, res) => {
@@ -165,11 +166,28 @@ router.post('/adminLogin', async (req, res) => {
      res.redirect('/admin/adminDashboard');
   });
 
+  router.get('/approveCancelRequest/:id', async(req, res) => {
+    await data.requests.approveCancelRequest(xss(req.params.id),true);
+     res.redirect('/admin/adminDashboard');
+  });
+
+  router.get('/rejectCancelRequest/:id', async(req, res) => {
+    await data.requests.rejectCancelRequest(xss(req.params.id),false);
+     res.redirect('/admin/adminDashboard');
+  });
+
   router.get('/request/ext/:id', async(req,res) =>{
     const request = await data.requests.getRequest(xss(req.params.id));
     const userdetails = await data.users.getUserDetails(request.username);
     const cardetails = await data.cars.getCar(request.carId);
     res.render('user/request', {req: request,car : cardetails, user: userdetails,extension:true});
+  })
+
+  router.get('/request/can/:id', async(req,res) =>{
+    const request = await data.requests.getRequest(xss(req.params.id));
+    const userdetails = await data.users.getUserDetails(request.username);
+    const cardetails = await data.cars.getCar(request.carId);
+    res.render('user/request', {req: request,car : cardetails, user: userdetails,cancel:true});
   })
 
 module.exports = router;

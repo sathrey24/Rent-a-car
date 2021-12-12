@@ -73,7 +73,15 @@ router.get('/userDashboard', async function (req, res) {
   } else {
     extenreqs = [];
   }
-  res.render('user/userDashboard', { body: carList, request: reqs ,extension :extensionrequest,extenreqs:extenreqs});
+
+  const cancelrequest = await data.requests.getAllCancelRequestsByID(req.session.user);
+  let cancelreqs;
+  if (cancelrequest.length > 0) {
+    cancelreqs = cancelrequest[0]._id.toString();
+  } else {
+    cancelreqs = [];
+  }
+  res.render('user/userDashboard', { body: carList, request: reqs ,extension :extensionrequest,extenreqs:extenreqs, cancel: cancelrequest, cancelreqs:cancelreqs});
 });
 
 router.post('/login', async (req, res) => {
@@ -167,6 +175,18 @@ router.get('/request/extension/:id', async(req,res) =>{
   } 
 })
 
+router.get('/request/cancel/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(xss(req.params.id));
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  const requestPending = await data.requests.getAllCancelRequestsByID(request.username);
+  if(requestPending.length == 0){
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,cancel : true});
+  }else{
+    res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,cancel : false});
+  } 
+})
+
 router.get('/allRequests/:id', async(req,res) =>{
   const request = await data.requests.getRequest(xss(req.params.id));
   const requestList = await data.requests.getAllPendingRequestsByID(request.username)
@@ -185,6 +205,16 @@ router.get('/allRequests/extension/:id', async(req,res) =>{
     requestList[i].model = car.model
   }
   res.render('user/allRequests', {body: requestList,extension:true});
+})
+
+router.get('/allRequests/cancel/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(xss(req.params.id));
+  const requestList = await data.requests.getAllCancelRequestsByID(request.username)
+  for (i = 0; i < requestList.length; i++){
+    const car = await data.cars.getCar(requestList[i].carId)
+    requestList[i].model = car.model
+  }
+  res.render('user/allRequests', {body: requestList,cancel:true});
 })
 
 router.post('/register', async (req, res) => {
@@ -316,6 +346,25 @@ router.post('/extension/:id', async (req, res) => {
       error: "Error : " + e,
       hasErrors : true,
       req: request,car : cardetails, user: userdetails,extension : true
+    });
+    return;
+  }
+});
+
+router.post('/cancel/:id', async (req, res) => {
+  const request = await data.requests.getRequest(xss(req.params.id));
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  try {
+    const result = await data.requests.createRequestCancel(xss(req.params.id));
+    if(result.requestInserted){
+      res.redirect('/userHistory');
+    }
+  } catch (e) {
+    res.status(400).render('user/userRequest', {
+      error: "Error : " + e,
+      hasErrors : true,
+      req: request,car : cardetails, user: userdetails,cancel : true
     });
     return;
   }

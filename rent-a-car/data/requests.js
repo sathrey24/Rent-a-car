@@ -116,6 +116,18 @@ module.exports = {
         return pendingRequestList;
     },
 
+    async getAllCancelRequests() {
+        let pendingRequestList = [];
+        const requestCollection = await requests();
+        const requestList = await requestCollection.find({}).toArray();
+        for (let i = 0; i < requestList.length; i++) {
+            if (!requestList[i].hasOwnProperty('cancelRequest') && requestList[i].cancel) {
+                pendingRequestList.push(requestList[i]);
+            }
+        }
+        return pendingRequestList;
+    },
+
     async getAllPendingRequestsByID(username) {
         if (!username) {
             throw "Username field must be present";
@@ -152,6 +164,27 @@ module.exports = {
         let pendingRequest = []
         for (i = 0; i < requestsList.length; i++) {
             if (!requestsList[i].hasOwnProperty('extensionRequest') && requestsList[i].extension) {
+                pendingRequest.push(requestsList[i]);
+            }
+        }
+        return pendingRequest;
+    },
+
+    async getAllCancelRequestsByID(username) {
+        if (!username) {
+            throw "Username field must be present";
+        }
+        if (!username.trim() ) {
+            throw "Username cannot be empty"
+          }
+          if (username.indexOf(' ') >= 0) {
+            throw "Username cannot contain spaces"
+          }
+        const requestCollection = await requests()
+        const requestsList = await requestCollection.find({ username: username }).toArray();
+        let pendingRequest = []
+        for (i = 0; i < requestsList.length; i++) {
+            if (!requestsList[i].hasOwnProperty('cancelRequest') && requestsList[i].cancel) {
                 pendingRequest.push(requestsList[i]);
             }
         }
@@ -216,11 +249,8 @@ module.exports = {
     },
 
     async approveExtensionRequest(id, flag) {
-        if (!id || !flag) {
+        if (!id) {
             throw "All fields must be present";
-        }
-        if (typeof flag != "boolean") {
-            throw "Flag must be type boolean";
         }
         const requestCollection = await requests();
         let req = await this.getRequest(id);
@@ -249,6 +279,36 @@ module.exports = {
         }
     },
 
+    async approveCancelRequest(id, flag) {
+        if (!id) {
+            throw "All fields must be present";
+        }
+        const requestCollection = await requests();
+        const carCollection = await cars();
+
+        let req = await this.getRequest(id)
+        let carId = req.carId;
+
+        id = ObjectId(id);
+        carId = ObjectId(carId);
+        let updateRequest = {
+            cancelRequest: flag,
+            availability: "YES",
+            cancel: false
+        }
+
+        let updateRequest2 = {
+            availability: "YES"
+        }
+        try{
+        const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
+        const updateInfo2 = await carCollection.updateOne({ _id: carId }, { $set: updateRequest2 });
+        }
+        catch(e){
+            throw e
+        }
+    },
+
     async rejectExtensionRequest(id, flag) {
         if (!id) {
             throw "Id fields must be present";
@@ -264,12 +324,27 @@ module.exports = {
         }
     },
 
+    async rejectCancelRequest(id, flag) {
+        if (!id) {
+            throw "Id fields must be present";
+        }
+        id = ObjectId(id);
+        let updateRequest = {
+            cancelRequest: flag
+        }
+        const requestCollection = await requests();
+        const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
+        if (updateInfo.modifiedCount === 0) {
+            throw "Internal Server Error"
+        }
+    },
+
     async getRentedCars() {
         const requestCollection = await requests()
         const requestList = await requestCollection.find({}).toArray();
         let rentedCars = []
         for (i = 0; i < requestList.length; i++) {
-            if (requestList[i].hasOwnProperty('approved')) {
+            if (requestList[i].hasOwnProperty('approved') && !requestList[i].cancelRequest) {
                 let toDate = checkDate(new Date(new Date(requestList[i].toDate).getTime() + 86400000));
                 if (requestList[i].approved && toDate) {
                     rentedCars.push(requestList[i]);
@@ -293,7 +368,7 @@ module.exports = {
         const requestList = await requestCollection.find({ username: username }).toArray();
         let rentedCars = []
         for (i = 0; i < requestList.length; i++) {
-            if (requestList[i].hasOwnProperty('approved')) {
+            if (requestList[i].hasOwnProperty('approved') && !requestList[i].cancelRequest) {
                 let fromDate = checkDate(new Date(new Date(requestList[i].fromDate).getTime() + 86400000));
                 let toDate = checkDate(new Date(new Date(requestList[i].toDate).getTime() + 86400000));
                 if (requestList[i].approved && (fromDate || toDate)) {
@@ -323,6 +398,21 @@ module.exports = {
                 let toDate = checkPastDate(new Date(new Date(requestsList[i].toDate).getTime() + 86400000));
                 if (requestsList[i].approved && fromDate && toDate) {
                     rentedCars.push(requestsList[i]);
+                    const carCollection = await cars();
+                    let req = await this.getRequest(requestsList[i]._id)
+                    console.log(req);
+                    let carId = req.carId;
+                    //id = ObjectId(id);
+                    carId = ObjectId(carId);
+                    let updateRequest2 = {
+                        availability: "YES"
+                    }
+                    try {
+                        const updateInfo2 = await carCollection.updateOne({ _id: carId }, { $set: updateRequest2 });
+                    }
+                    catch(e){
+                        throw e
+                    }
                 }
             }
         }
@@ -344,10 +434,12 @@ module.exports = {
         }
         let req = await this.getRequest(id);
         const car = await data.getCar(req.carId);
+        
         let parsedId;
         if (id) {
             parsedId = ObjectId(id);
         }
+        
         let newTotal;
         if(timeSpan === "Hour"){
             newTotal = parseInt(count)*parseInt(car.hourlyRate) + parseInt(req.totalCost) +'$'
@@ -361,6 +453,31 @@ module.exports = {
             newTotal: newTotal,
             extension : true
         };
+        const insertInfo = await requestCollection.updateOne({ _id: parsedId },
+            { $set: newRequest });
+            if (insertInfo.insertedCount === 0){
+                throw "Internal Server Error"
+            } else {
+                return { requestInserted: true, requestId: id }
+            }
+    },
+
+    async createRequestCancel(id) {
+        if (!id) {
+            throw "All fields must be present";
+        }
+        
+        let parsedId;
+        if (id) {
+            parsedId = ObjectId(id);
+        }
+
+        let req = await this.getRequest(parsedId);
+        const car = await data.getCar(req.carId);
+        
+        let newRequest = {
+            cancel: true
+        };
         const requestCollection = await requests();
         const insertInfo = await requestCollection.updateOne({ _id: parsedId },
             { $set: newRequest });
@@ -370,6 +487,7 @@ module.exports = {
                 return { requestInserted: true, requestId: id }
             }
     },
+
 }
 
 function checkDate(oDate) {
