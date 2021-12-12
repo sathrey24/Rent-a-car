@@ -269,8 +269,7 @@ module.exports = {
         id = ObjectId(id);
         let updateRequest = {
             extensionRequest: flag,
-            toDate:newtoDate,
-            timePeriod:extensionPeriod
+            toDate:newtoDate
         }
         try{
         const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
