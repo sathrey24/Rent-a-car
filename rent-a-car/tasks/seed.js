@@ -24,7 +24,7 @@ async function main(){
     await data.reviews.createReview(anjali.username, request2.requestId, "This car was amazing!", 4)
 
     const nissan = await data.cars.createCar("2019 Nissan Altima", "Coupe", "Blue", "2", "4", "40$/hr", "Yes", "Gas")
-    const review3=await data.requests.createRequest(sanjay.username, nissan.carId,"2021-12-14","2021-12-15","1 Day","960$")
+    const review3=await data.requests.createRequest(sanjay.username, nissan.carId,"2021-12-14","2021-12-14","1 Day","960$")
 
     const tesla = await data.cars.createCar("2021 Tesla Model S", "Sedan", "Red", "4", "5", "10$/hr", "Yes", "Electric")
     await data.reviews.createReview(priyanka.username, review3.requestId, "This car was ok!", 3)
@@ -33,7 +33,7 @@ async function main(){
     await data.reviews.createReview(priyanka.username, review4.requestId, "This car was outstanding!", 5)
     
     const ranualt = await data.cars.createCar("2021 Ranualt Triber", "Sedan", "White", "3", "5", "20$/hr", "Yes", "Electric")
-    await data.requests.createRequest(sanjay.username, ranualt.carId,"2021-12-13","2021-12-15","2 Day","960$")
+    await data.requests.createRequest(sanjay.username, ranualt.carId,"2021-12-13","2021-12-14","2 Day","960$")
 
    await data.cars.createCar("2015 MAZDA MAZDA3", "Sedan", "White", "3", "4", "25$/hr", "No", "Electric")
 
@@ -53,13 +53,13 @@ async function main(){
    await data.cars.createCar("2014 HYUNDAI ELANTRA", "Sedan", "Black", "3", "6", "20$/hr", "Yes", "Diesel")
 
    const c13=await data.cars.createCar("2013 KIA SOUL", "Wagon", "Red", "2", "2", "20$/hr", "Yes", "Diesel")
-   const r13=await data.requests.createRequest(anjali.username, c13.carId,"2021-12-25","2021-12-27","2 Day","960$")
+   const r13=await data.requests.createRequest(anjali.username, c13.carId,"2021-12-25","2021-12-26","2 Day","960$")
     await data.requests.approveRequest(r13.requestId,true);
 
    await data.cars.createCar("2017 HONDA FIT", "Hatchback", "Yellow", "4", "4", "20$/hr", "Yes", "Electric")
 
   const c1 = await data.cars.createCar("2016 NISSAN ALTIMA", "Sedan", "White", "4", "6", "15$/hr", "Yes", "Gas")
-  const r1=await data.requests.createRequest(anjali.username, c1.carId,"2021-12-07","2021-12-08","1 Day","3600$")
+  const r1=await data.requests.createRequest(anjali.username, c1.carId,"2021-12-07","2021-12-07","1 Day","3600$")
   await data.requests.approveRequest(r1.requestId,true);
 
   await data.cars.createCar("2018 MITSUBISHI MIRAGE G4", "Sedan", "Black", "3", "5", "10$/hr", "Yes", "Gas")
@@ -92,12 +92,12 @@ async function main(){
   await data.cars.createCar("2020 BMW 530 i xDrive", "BMW", "Red", "3", "5", "10$/hr", "Yes", "Electric")
 
   const c3=await data.cars.createCar("2018 BMW X5 M Base", "BMW", "Black", "3", "6", "20$/hr", "Yes", "Gas")
-  const r2=await data.requests.createRequest(anjali.username, c3.carId,"2021-12-05","2021-12-08","3 Day","1440$")
+  const r2=await data.requests.createRequest(anjali.username, c3.carId,"2021-12-05","2021-12-07","3 Day","1440$")
   await data.requests.approveRequest(r2.requestId,true);
   await data.reviews.createReview(anjali.username, r2.requestId, "Bad experience!", 1)
 
   const c4=await data.cars.createCar("2021 Honda Civic EX", "Honda", "White", "3", "5", "40$/hr", "Yes", "Electric")
-  const r3=await data.requests.createRequest(anjali.username, c4.carId,"2021-12-13","2021-12-17","4 Day","3840$")
+  const r3=await data.requests.createRequest(anjali.username, c4.carId,"2021-12-13","2021-12-16","4 Day","3840$")
   await data.requests.approveRequest(r3.requestId,true);
   await data.requests.createRequestExtension(r3.requestId,1,'Day');
 
