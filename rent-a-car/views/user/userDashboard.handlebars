@@ -44,6 +44,15 @@
             </li>
         </ul>
         {{/if}}
+        {{#if cancel.length}}
+        <ul class="info-strip">
+             <li>
+            <a href="/allRequests/cancel/{{cancelreqs}}" class="powerlinks">
+                Pending Cancel Request(s). Click for details.
+            </a>
+            </li>
+        </ul>
+        {{/if}}
         <div class="scroll-container">
             {{#if body.length}}
             <ul class="carlist-ul">

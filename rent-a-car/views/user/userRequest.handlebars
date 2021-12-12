@@ -87,6 +87,24 @@
         </form>
         {{/if}}
     </div>
+        <div class="content">
+        {{#if cancel}}
+        <form action="/cancel/{{req._id}}" method="post" id="cancel-form" class="booking-form">
+            <div style="margin-left: 10px;">
+                <span>
+                    <br />
+                    <input type="submit" value="Request Cancel" class="btn btn-dark savebtn"
+                        style="margin: 5px 0px;" />
+                </span>
+            </div>
+            {{#if hasErrors}}
+            <div id="noresponseError" class="err-strip">
+                <p>{{{error}}}</p>
+            </div>
+            {{/if}}
+        </form>
+        {{/if}}
+    </div>
     <footer>
         <p id="time"  class="formating">1:43</p>
     </footer>
