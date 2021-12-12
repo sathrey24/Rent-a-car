@@ -251,7 +251,7 @@ router.post('/register', async (req, res) => {
     }
     const result = await data.users.createUser(firstName, lastName, address, email, phoneNum, licenseNum, username, password);
     if (result.userInserted) {
-      res.render('user/login');
+      res.redirect('/login');
     }
   }
   catch (e) {
