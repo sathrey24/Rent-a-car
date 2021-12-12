@@ -453,6 +453,7 @@ module.exports = {
             newTotal: newTotal,
             extension : true
         };
+        const requestCollection = await requests();
         const insertInfo = await requestCollection.updateOne({ _id: parsedId },
             { $set: newRequest });
             if (insertInfo.insertedCount === 0){
