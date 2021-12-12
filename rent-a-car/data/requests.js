@@ -254,7 +254,7 @@ module.exports = {
         }
         const requestCollection = await requests();
         let req = await this.getRequest(id);
-        let newtoDate;
+        let newtoDate,newTimeSpan;
         if(req.extensionPeriod.includes('Hour')){
             newtoDate = req.toDate;
         }else{
@@ -266,10 +266,22 @@ module.exports = {
             var year = expectedDate.getUTCFullYear();
             newtoDate = year + "-" + month + "-" + day;
         }
+
+        if(req.timePeriod.includes('Hour') && req.extensionPeriod.includes('Hour')){
+            newTimeSpan = parseInt(req.timePeriod) + parseInt(req.extensionPeriod) + ' Hour';
+        }
+        else if(req.timePeriod.includes('Day') && req.extensionPeriod.includes('Day')){
+            newTimeSpan = parseInt(req.timePeriod) + parseInt(req.extensionPeriod) + ' Day';
+        }
+        else{
+            newTimeSpan = req.timePeriod + " "+req.extensionPeriod;
+        }
+
         id = ObjectId(id);
         let updateRequest = {
             extensionRequest: flag,
-            toDate:newtoDate
+            toDate:newtoDate,
+            timePeriod:newTimeSpan
         }
         try{
         const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
