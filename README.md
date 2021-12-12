@@ -47,9 +47,9 @@ npm start
 
 1. **Mobile Responsiveness**: This application was designed to be mobile responsive
 
-2. **User rent extension request**: A user can request to extend any of their current rentals
+2. **User rental extension request**: A user can request to extend any of their current rentals
 
-2. **User cancel rent request**: A user can request to cancel any of their current rentals
+2. **User cancel rental request**: A user can request to cancel any of their current rentals
 
 
 
