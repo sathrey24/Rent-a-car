@@ -269,7 +269,8 @@ module.exports = {
         id = ObjectId(id);
         let updateRequest = {
             extensionRequest: flag,
-            toDate:newtoDate
+            toDate:newtoDate,
+            timePeriod:extensionPeriod
         }
         try{
         const updateInfo = await requestCollection.updateOne({ _id: id }, { $set: updateRequest });
@@ -399,10 +400,8 @@ module.exports = {
                 if (requestsList[i].approved && fromDate && toDate) {
                     rentedCars.push(requestsList[i]);
                     const carCollection = await cars();
-                    let req = await this.getRequest(requestsList[i]._id)
-                    //console.log(req);
+                    let req = await this.getRequest(requestsList[i]._id);
                     let carId = req.carId;
-                    //id = ObjectId(id);
                     carId = ObjectId(carId);
                     let updateRequest2 = {
                         availability: "YES"
