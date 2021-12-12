@@ -142,6 +142,19 @@ router.get('/request/review/:id', async(req,res) =>{
   res.render('user/userRequest', {req: request,car : cardetails, user: userdetails,review : true, rev : car_reviews});
 })
 
+router.get('/request/reviewsubmitted/:id', async(req,res) =>{
+  const request = await data.requests.getRequest(xss(req.params.id));
+  const userdetails = await data.users.getUserDetails(request.username);
+  const cardetails = await data.cars.getCar(request.carId);
+  const reviewsCollection = await reviews();
+        let reviewArray = await reviewsCollection.find({carId: request.carId}).toArray()
+        var car_reviews = []
+        for (i = 0; i < reviewArray.length; i++){
+            car_reviews.push({reviewText: reviewArray[i].reviewText, rating: reviewArray[i].rating})
+        }
+  res.render('user/userRequest', {submitted: true, req: request,car : cardetails, user: userdetails,review : true, rev : car_reviews});
+})
+
 router.get('/request/extension/:id', async(req,res) =>{
   const request = await data.requests.getRequest(xss(req.params.id));
   const userdetails = await data.users.getUserDetails(request.username);
@@ -271,7 +284,7 @@ router.post('/review/:id', async (req, res) => {
   try {
     const result = await data.reviews.createReview(req.session.user, xss(req.params.id),review,rate);
     if(result.reviewInserted){
-      res.redirect(res.redirect(`/request/review/${xss(req.params.id)}`));
+      res.redirect(`/request/reviewsubmitted/${xss(req.params.id)}`);
     }
   } catch (e) {
     res.status(400).render(`/request/extension/${xss(req.params.id)}`, {
