@@ -24,7 +24,25 @@ npm run seed
 ```
 npm start
 ```
+# Sample Login Credentials
 
+## Administrator Account
+```
+ Username: phill@stevens.edu
+ Password: password4
+```
+
+## User Accounts
+```
+ 1. Username: sathrey@stevens.edu
+    Password: password1
+
+ 2. Username: pchauras@stevens.edu
+    Password: password2
+    
+ 3. Username: apaliwa1@stevens.edu
+    Password: password3
+```
 # Extra Features
 
 1. **Mobile Responsiveness**: This application was designed to be mobile responsive
