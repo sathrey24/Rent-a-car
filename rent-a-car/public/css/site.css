@@ -13,17 +13,16 @@ html, body, p, h1, h2, h3, a{
 	border: 0px;
 	margin: 0px
 }
-footer {
-    position: fixed;
-    height: 40px;
-    background-color:white;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+
+.footer-adjust{
+	margin: 0px 40px;
+	background-color: white;
+	padding-bottom: 20px;
 }
+
 .formating{
-	border: 8px;
-	margin: 10px;
+	border: 10px;
+	margin: 0px 10px;
 	text-align: right;
 	color:  black;
 	font-weight: bold;
